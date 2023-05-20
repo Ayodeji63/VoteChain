@@ -5,34 +5,36 @@ pragma solidity ^0.8.0;
 import "./Interfaces/IVotingStorage.sol";
 
 contract VotingStorage is IVotingStorage {
-    mapping(uint => Candidates) public candidates;
-    mapping(uint => Voters) public voters;
+    mapping(uint => Candidate) public candidates;
+    mapping(uint => Voter) public voters;
+
+    uint candidatesCount;
 
     function _registerVoter(uint _voterId) internal {
-        require(
-            !voters[_voterId].hasVoted,
-            "Voter has already cast their votes."
-        );
-        voters[_voterId] = Voters(_voterId, false, msg.sender);
+        voters[_voterId] = Voter(_voterId, false, msg.sender);
     }
 
     function _initializeCandidates(
-        uint id,
-        string memory name,
-        uint voteCount,
-        string memory image,
-        string memory party,
-        string memory position
-    ) internal returns (Candidates memory) {
-        candidates[id] = Candidates(
-            id,
-            name,
-            image,
-            party,
-            position,
-            voteCount
-        );
-        return candidates[id];
+        uint[] memory id,
+        string[] memory name,
+        uint[] memory voteCount,
+        string[] memory image,
+        string[] memory party,
+        string[] memory position
+    ) internal returns (uint) {
+        for (uint i = 0; i < name.length; i++) {
+            candidates[id[i]] = Candidate(
+                id[i],
+                name[i],
+                image[i],
+                party[i],
+                position[i],
+                voteCount[i]
+            );
+            candidatesCount++;
+        }
+
+        return candidatesCount;
     }
 
     function _getCandidateVoteCount(

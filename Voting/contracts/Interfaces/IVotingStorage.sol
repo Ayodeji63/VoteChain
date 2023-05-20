@@ -2,13 +2,13 @@
 pragma solidity ^0.8.5;
 
 interface IVotingStorage {
-    struct Voters {
+    struct Voter {
         uint id;
         bool hasVoted;
         address delegate;
     }
 
-    struct Candidates {
+    struct Candidate {
         uint id;
         string name;
         string image;

@@ -7,14 +7,18 @@ import "./IVotingStorage.sol";
 interface IVotingElect is IVotingStorage {
     function castVote(uint _candidateId, uint _voterId) external;
 
-    function initializeCandidate(
-        uint id,
-        string memory name,
-        uint voteCount,
-        string memory image,
-        string memory party,
-        string memory position
-    ) external;
+    function initializeCandidates(
+        uint[] memory id,
+        string[] memory name,
+        uint[] memory voteCount,
+        string[] memory image,
+        string[] memory party,
+        string[] memory position,
+        uint votingStartTime,
+        uint votingEndTime
+    ) external returns (uint);
 
     function winnigCandidate() external;
+
+    function votingDuration() external;
 }
