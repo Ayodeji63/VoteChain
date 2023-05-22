@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import HeroPage from "./Components/HeroPage/HeroPage";
+import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<>
             <HeroPage/>
+            <SubHeroPage/>
           </>}/>
           <Route exact path="/login" element={<Login/>} />
         </Routes>
