@@ -6,6 +6,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import HeroPage from "./Components/HeroPage/HeroPage";
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <Router>
       <Navbar />
         <Routes>
-          <Route exact path="/" />
+          <Route exact path="/" element={<>
+            <HeroPage/>
+          </>}/>
           <Route exact path="/login" element={<Login/>} />
         </Routes>
       </Router>
