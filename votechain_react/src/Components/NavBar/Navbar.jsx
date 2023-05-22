@@ -7,7 +7,7 @@ const Navbar = () => {
     <header>
       <div className="navbar-container">
         <img src={voteLogo} alt="Vote Logo" />
-        <ul>
+        <ul className="nav-list">
           <li>
             <a href="/">Mission</a>
           </li>
