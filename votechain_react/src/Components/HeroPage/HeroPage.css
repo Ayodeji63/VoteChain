@@ -10,17 +10,17 @@
     align-items: center;
 }
 
-.heropage-texts>h3 {
+.heropage-texts .main-text>h3 {
     font-size: 40px;
     margin-left: 80px;
 }
 
-.heropage-texts>h3>span {
+.heropage-texts .main-text>h3>span {
     color: #009444;
 }
 
 @media (max-width: 1200px) {
-    .heropage-texts>h3 {
+    .heropage-texts .main-text>h3 {
         margin-left: 0px;
     }
     .heropage-container {
