@@ -1,0 +1,32 @@
+.heropage-container {
+    padding: 50px;
+}
+
+.heropage-texts {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.heropage-texts .main-text>h3 {
+    font-size: 40px;
+    margin-left: 80px;
+}
+
+.heropage-texts .main-text>h3>span {
+    color: #009444;
+}
+
+@media (max-width: 1200px) {
+    .heropage-texts .main-text>h3 {
+        margin-left: 0px;
+    }
+    .heropage-container {
+        padding: 20px;
+    }
+    .heropage-texts>p {
+        margin-top: 30px;
+    }
+}
