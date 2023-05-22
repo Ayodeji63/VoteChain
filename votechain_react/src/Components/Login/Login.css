@@ -4,8 +4,29 @@
 
 .login-form {
     margin-top: 100px;
+    width: 600px;
+    margin: 100px auto auto auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.login-form>h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.login-form>p {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+    .login-form {
+        width: 100%;
+    }
 }
