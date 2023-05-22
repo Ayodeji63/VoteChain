@@ -11,6 +11,7 @@ const HeroPage = () => {
             <br />
             Vote <span>Wisely</span>
           </h3>
+          <button className="hero-page-btn">Get Started</button>
         </div>
         <div className="sub-text">
           <p>
