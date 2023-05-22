@@ -4,5 +4,12 @@
 
 .heropage-texts {
     display: flex;
+    margin-top: 30px;
     justify-content: space-between;
+    align-items: center;
+}
+
+.heropage-texts>h3 {
+    font-size: 40px;
+    margin-left: 50px;
 }
