@@ -1,0 +1,8 @@
+.heropage-container {
+    padding: 50px;
+}
+
+.heropage-texts {
+    display: flex;
+    justify-content: space-between;
+}
