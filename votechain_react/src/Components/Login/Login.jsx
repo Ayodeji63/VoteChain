@@ -13,8 +13,9 @@ const Login = () => {
         <input type="text" placeholder="Enter your VIN/NIN" />
         <input type="password" placeholder="Enter your Password" />
         <button>Login</button>
-        <span>Don't have an account? </span>
-        <a href="/register">Register</a>
+        <span>
+          Don't have an account? <a href="/register">Register</a>
+        </span>
       </div>
     </div>
   );

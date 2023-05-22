@@ -50,6 +50,10 @@
     margin-bottom: 30px;
 }
 
+.login-form>button:hover {
+    cursor: pointer;
+}
+
 @media (max-width: 1200px) {
     .login-form {
         width: 100%;
