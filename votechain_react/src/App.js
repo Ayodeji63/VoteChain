@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./Components/NavBar/Navbar";
+import Login from "./Components/Login/Login";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,8 +11,10 @@ function App() {
   return (
     <>
       <Router>
+      <Navbar />
         <Routes>
-          <Route exact path="/" element={<Navbar />} />
+          <Route exact path="/" />
+          <Route exact path="/login" element={<Login/>} />
         </Routes>
       </Router>
     </>
