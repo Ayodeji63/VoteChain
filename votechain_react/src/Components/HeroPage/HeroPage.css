@@ -38,4 +38,10 @@
     .heropage-texts>p {
         margin-top: 30px;
     }
+    .sub-text>p {
+        margin-top: 30px;
+    }
+    .hero-page-btn {
+        margin-left: 0px;
+    }
 }
