@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import HeroPage from "./Components/HeroPage/HeroPage";
 import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
+import Features from "./Components/Features/Features";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/" element={<>
             <HeroPage/>
             <SubHeroPage/>
+            <Features/>
           </>}/>
           <Route exact path="/login" element={<Login/>} />
         </Routes>
