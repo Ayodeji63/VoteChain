@@ -4,6 +4,7 @@
 
 .mission-details {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
 }
@@ -12,4 +13,22 @@
     margin-top: 90px;
     margin-bottom: 30px;
     font-size: 30px;
+}
+
+.highlight-missions {
+    display: flex;
+    gap: 14px;
+    padding: 20px 0px 15px 0px;
+}
+
+@media (max-width: 1200px) {
+    .mission-image>img {
+        width: 350px;
+    }
+    .mission-details {
+        gap: 10px;
+    }
+    .mission-text>h5 {
+        margin-top: 30px;
+    }
 }
