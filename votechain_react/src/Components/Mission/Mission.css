@@ -1,0 +1,15 @@
+.mission-container {
+    padding: 50px;
+}
+
+.mission-details {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.mission-text>h5 {
+    margin-top: 90px;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
