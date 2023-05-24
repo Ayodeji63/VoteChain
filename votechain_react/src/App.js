@@ -9,6 +9,7 @@ import Mission from "./Components/Mission/Mission";
 import HowToVote from "./Components/HowToVote/HowToVote";
 import Faq from "./Components/Faq/Faq";
 import Newsletter from "./Components/Newsletter/Newsletter";
+import Welcome from "./Components/Welcome/Welcome";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             }
           />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/welcome" element={<Welcome/>} />
         </Routes>
       </Router>
     </>
