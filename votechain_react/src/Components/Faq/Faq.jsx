@@ -57,11 +57,11 @@ const Faq = () => {
           <Panel
             className="collapse"
             header="Can other info be added to an invoice?"
-            key="3"
+            key="4"
           >
             {text}
           </Panel>
-          <Panel className="collapse" header="How does billing work?" key="3">
+          <Panel className="collapse" header="How does billing work?" key="5">
             {text}
           </Panel>
         </Collapse>
