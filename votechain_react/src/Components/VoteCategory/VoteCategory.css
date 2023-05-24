@@ -1,0 +1,8 @@
+.vote-category-container {
+  padding: 50px;
+}
+
+.vote-details > h5 {
+  font-size: 25px;
+  font-weight: 500;
+}

@@ -10,6 +10,7 @@ import HowToVote from "./Components/HowToVote/HowToVote";
 import Faq from "./Components/Faq/Faq";
 import Newsletter from "./Components/Newsletter/Newsletter";
 import Welcome from "./Components/Welcome/Welcome";
+import VoteCategory from "./Components/VoteCategory/VoteCategory";
 
 function App() {
   return (
@@ -33,7 +34,10 @@ function App() {
             }
           />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/welcome" element={<Welcome/>} />
+          <Route exact path="/welcome" element={<>
+            <Welcome/>
+            <VoteCategory/>
+            </>} />
         </Routes>
       </Router>
     </>
