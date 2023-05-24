@@ -53,3 +53,13 @@
   font-size: 25px;
   font-weight: 500;
 }
+
+@media (max-width: 1200px) {
+  .election-details {
+    align-items: center;
+    flex-direction: column;
+  }
+  .election-time {
+    margin-bottom: 30px;
+  }
+}
