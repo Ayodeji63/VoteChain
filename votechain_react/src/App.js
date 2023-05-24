@@ -6,6 +6,9 @@ import HeroPage from "./Components/HeroPage/HeroPage";
 import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
 import Features from "./Components/Features/Features";
 import Mission from "./Components/Mission/Mission";
+import HowToVote from "./Components/HowToVote/HowToVote";
+import Faq from "./Components/Faq/Faq";
+import Newsletter from "./Components/Newsletter/Newsletter";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
                 <SubHeroPage />
                 <Features />
                 <Mission />
+                <HowToVote/>
+                <Faq/>
+                <Newsletter/>
               </>
             }
           />
