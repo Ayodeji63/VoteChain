@@ -11,6 +11,7 @@ import Faq from "./Components/Faq/Faq";
 import Newsletter from "./Components/Newsletter/Newsletter";
 import Welcome from "./Components/Welcome/Welcome";
 import VoteCategory from "./Components/VoteCategory/VoteCategory";
+import LiveResults from "./Components/LiveResults/LiveResults";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/welcome" element={<>
             <Welcome/>
             <VoteCategory/>
+            <LiveResults/>
             </>} />
         </Routes>
       </Router>
