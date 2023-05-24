@@ -8,6 +8,7 @@ import Features from "./Components/Features/Features";
 import Mission from "./Components/Mission/Mission";
 import HowToVote from "./Components/HowToVote/HowToVote";
 import Faq from "./Components/Faq/Faq";
+import Newsletter from "./Components/Newsletter/Newsletter";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                 <Mission />
                 <HowToVote/>
                 <Faq/>
+                <Newsletter/>
               </>
             }
           />
