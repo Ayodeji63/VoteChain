@@ -1,0 +1,16 @@
+.welcome-container {
+  padding: 50px;
+}
+
+.welcome-user-details > h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.user-pooling-details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
