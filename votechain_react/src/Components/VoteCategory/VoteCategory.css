@@ -1,0 +1,46 @@
+.vote-category-container {
+  padding: 50px;
+}
+
+.vote-details > h5 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.vote-category-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 150px;
+  margin-top: 30px;
+}
+
+.vote-category-card {
+  width: 300px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
+    0px 1px 2px rgba(16, 24, 40, 0.06);
+  border-radius: 8px;
+}
+
+.vote-category-card:hover {
+  cursor: pointer;
+}
+
+.vote-category-card > h5 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.vote-category-card .vote-icon {
+  float: right;
+}
+
+@media (max-width: 1200px) {
+  .vote-category-cards {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
