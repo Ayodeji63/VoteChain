@@ -6,6 +6,7 @@ import HeroPage from "./Components/HeroPage/HeroPage";
 import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
 import Features from "./Components/Features/Features";
 import Mission from "./Components/Mission/Mission";
+import HowToVote from "./Components/HowToVote/HowToVote";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <SubHeroPage />
                 <Features />
                 <Mission />
+                <HowToVote/>
               </>
             }
           />
