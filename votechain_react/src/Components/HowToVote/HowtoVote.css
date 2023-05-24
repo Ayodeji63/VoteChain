@@ -1,0 +1,19 @@
+.how-to-vote-container {
+  padding: 50px;
+}
+
+.how-to-vote-details {
+  width: 100%;
+  background: #79ca9e;
+  border-radius: 30px;
+}
+
+.how-to-vote-details > h4 {
+  text-align: center;
+}
+
+.how-to-vote-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
