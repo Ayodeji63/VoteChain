@@ -7,6 +7,7 @@ import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
 import Features from "./Components/Features/Features";
 import Mission from "./Components/Mission/Mission";
 import HowToVote from "./Components/HowToVote/HowToVote";
+import Faq from "./Components/Faq/Faq";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 <Features />
                 <Mission />
                 <HowToVote/>
+                <Faq/>
               </>
             }
           />
