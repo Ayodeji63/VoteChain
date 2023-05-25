@@ -9,7 +9,7 @@
 }
 
 .live-results-card {
-  width: 320px;
+  width: 400px;
   padding: 20px;
   background: #ffffff;
   border: 1px solid #eaecf0;
@@ -19,7 +19,7 @@
 }
 
 .live-results-card .live-result-type {
-  font-size: 23px;
+  font-size: 20px;
   margin-bottom: 10px;
   font-weight: 400;
 }
@@ -41,4 +41,15 @@
   justify-content: center;
   align-items: center;
   gap: 60px;
+}
+
+.live-results-text-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.live-results-text-type > p {
+  font-size: 14px;
 }
