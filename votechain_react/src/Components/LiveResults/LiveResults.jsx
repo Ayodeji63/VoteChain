@@ -9,7 +9,7 @@ const LiveResults = () => {
         <h5>Live Results</h5>
         <div className="live-results-cards">
           <div className="live-results-card">
-            <h5>Presidential elections</h5>
+            <h5 className="live-result-type">Presidential elections</h5>
             <span>Counted Votes</span>
             <h5>12,420,567</h5>
             <p>
