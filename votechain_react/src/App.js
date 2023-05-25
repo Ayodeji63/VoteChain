@@ -12,6 +12,7 @@ import Newsletter from "./Components/Newsletter/Newsletter";
 import Welcome from "./Components/Welcome/Welcome";
 import VoteCategory from "./Components/VoteCategory/VoteCategory";
 import LiveResults from "./Components/LiveResults/LiveResults";
+import FinalResults from "./Components/FinalResults/FinalResults";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Welcome/>
             <VoteCategory/>
             <LiveResults/>
+            <FinalResults/>
             </>} />
         </Routes>
       </Router>
