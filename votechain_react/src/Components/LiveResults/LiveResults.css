@@ -53,3 +53,9 @@
 .live-results-text-type > p {
   font-size: 14px;
 }
+
+@media (max-width: 1200px) {
+  .live-results-cards {
+    flex-wrap: wrap;
+  }
+}

@@ -1,7 +1,12 @@
 import React from "react";
 import "./HeroPage.css";
+import { useNavigate } from "react-router-dom";
 
 const HeroPage = () => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/login");
+  };
   return (
     <div className="heropage-container">
       <div className="heropage-texts">
@@ -11,7 +16,9 @@ const HeroPage = () => {
             <br />
             Vote <span>Wisely</span>
           </h3>
-          <button className="hero-page-btn">Get Started</button>
+          <button className="hero-page-btn" onClick={handleNavigate}>
+            Get Started
+          </button>
         </div>
         <div className="sub-text">
           <p>
