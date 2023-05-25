@@ -36,11 +36,11 @@ function App() {
             }
           />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/finalresults" element={<FinalResults/>} />
           <Route exact path="/welcome" element={<>
             <Welcome/>
             <VoteCategory/>
             <LiveResults/>
-            <FinalResults/>
             </>} />
         </Routes>
       </Router>
