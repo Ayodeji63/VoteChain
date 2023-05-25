@@ -1,0 +1,8 @@
+.live-result-container {
+  padding: 50px;
+}
+
+.live-result-details > h5 {
+  font-size: 25px;
+  font-weight: 500;
+}
