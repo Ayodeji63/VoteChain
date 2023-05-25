@@ -1,8 +1,14 @@
 import React from "react";
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
 import voteLogo from "../../images/demo-logo.png";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/login");
+  };
   return (
     <header>
       <div className="navbar-container">
@@ -18,7 +24,7 @@ const Navbar = () => {
             <a href="/">FAQs</a>
           </li>
         </ul>
-        <button>Get Started</button>
+        <button onClick={handleNavigate}>Get Started</button>
       </div>
     </header>
   );
