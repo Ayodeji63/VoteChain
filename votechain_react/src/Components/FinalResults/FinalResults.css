@@ -33,6 +33,11 @@
   font-size: 20px;
 }
 
+.aspirants {
+  font-weight: 600;
+  margin-top: 30px;
+}
+
 @media (max-width: 1200px) {
   .final-results-text-search {
     flex-wrap: wrap;

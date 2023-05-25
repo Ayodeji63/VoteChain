@@ -16,6 +16,7 @@ const FinalResults = () => {
           />
         </div>
       </div>
+      <p className="aspirants">21 Aspirants</p>
     </div>
   );
 };
