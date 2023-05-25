@@ -13,7 +13,29 @@ const LiveResults = () => {
             <span>Counted Votes</span>
             <h5>12,420,567</h5>
             <p>
-              <span>
+              <span className="live-result-icon">
+                <AiOutlineArrowUp /> 60%{" "}
+              </span>
+              Labour Party
+            </p>
+          </div>
+          <div className="live-results-card">
+            <h5 className="live-result-type">Presidential elections</h5>
+            <span>Counted Votes</span>
+            <h5>12,420,567</h5>
+            <p>
+              <span className="live-result-icon">
+                <AiOutlineArrowUp /> 60%{" "}
+              </span>
+              Labour Party
+            </p>
+          </div>
+          <div className="live-results-card">
+            <h5 className="live-result-type">Presidential elections</h5>
+            <span>Counted Votes</span>
+            <h5>12,420,567</h5>
+            <p>
+              <span className="live-result-icon">
                 <AiOutlineArrowUp /> 60%{" "}
               </span>
               Labour Party
