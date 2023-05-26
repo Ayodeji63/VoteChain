@@ -1,4 +1,5 @@
 import React from "react";
+import { Table } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./FinalResults.css";
 
