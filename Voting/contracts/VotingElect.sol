@@ -13,11 +13,13 @@ contract VotingElect is VotingStorage, IVotingElect {
     }
 
     event VoterRegistered(uint id);
+    event CandidatesRegistered(uint count);
+    event VoteCasted(uint voterId, uint candidateId);
     uint _votingStartTime;
     uint _votingEndTime;
 
     function registerVoter(uint voterId) public {
-        require(!containsVoter(voterId), "Voter already registered");
+        require(!containsVoter(), "Voter already registered");
         _registerVoter(voterId);
         emit VoterRegistered(voterId);
     }
@@ -45,6 +47,7 @@ contract VotingElect is VotingStorage, IVotingElect {
             party,
             position
         );
+        emit CandidatesRegistered(count);
         return count;
     }
 
@@ -52,13 +55,17 @@ contract VotingElect is VotingStorage, IVotingElect {
         return candidates[id].id != 0;
     }
 
-    function containsVoter(uint id) public view returns (bool) {
-        return voters[id].id != 0;
+    function containsVoter() public view returns (bool) {
+        return voters[msg.sender].id != 0;
     }
 
     function winnigCandidate() external override {}
 
     function votingDuration() external override {}
 
-    function castVote(uint _candidateId, uint _voterId) public override {}
+    function castVote(uint _candidateId, uint _voterId) public {
+        require(containsVoter(), "Voter Not Registered");
+
+        emit VoteCasted(_voterId, _candidateId);
+    }
 }

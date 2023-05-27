@@ -6,12 +6,12 @@ import "./Interfaces/IVotingStorage.sol";
 
 contract VotingStorage is IVotingStorage {
     mapping(uint => Candidate) public candidates;
-    mapping(uint => Voter) public voters;
+    mapping(address => Voter) public voters;
 
-    uint candidatesCount;
+    uint public candidatesCount;
 
     function _registerVoter(uint _voterId) internal {
-        voters[_voterId] = Voter(_voterId, false, msg.sender);
+        voters[msg.sender] = Voter(_voterId, false, msg.sender);
     }
 
     function _initializeCandidates(
