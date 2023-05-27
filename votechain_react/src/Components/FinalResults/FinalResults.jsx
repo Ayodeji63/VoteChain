@@ -28,7 +28,7 @@ const FinalResults = () => {
     {
       title: "ACTION",
       key: "action",
-      render: () => <Tag color="green">Vote</Tag>,
+      render: () => <button className="vote-btn">Vote</button>,
     },
   ];
 
