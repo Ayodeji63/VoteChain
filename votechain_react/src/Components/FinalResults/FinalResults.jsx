@@ -25,8 +25,8 @@ const FinalResults = () => {
     },
     {
       title: "TOTAL VOTES",
-      dataIndex: "total votes",
-      key: "address",
+      dataIndex: "totalVotes",
+      key: "totalVotes",
     },
     {
       title: "ACTION",
