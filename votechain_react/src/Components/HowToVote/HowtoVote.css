@@ -1,0 +1,52 @@
+.how-to-vote-container {
+  padding: 50px;
+}
+
+.how-to-vote-details {
+  width: 90%;
+  padding: 30px;
+  background: #79ca9e;
+  margin: auto;
+  border-radius: 30px;
+}
+
+.how-to-vote-details > h4 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.how-to-vote-cards {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
+
+.how-to-vote-card {
+  width: 450px;
+  text-align: center;
+}
+
+.how-to-vote-card > img {
+  width: 50px;
+  margin-bottom: 20px;
+}
+
+.how-to-vote-card > h5 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.how-to-vote-card > p {
+  font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+  .how-to-vote-cards {
+    flex-direction: column;
+  }
+}

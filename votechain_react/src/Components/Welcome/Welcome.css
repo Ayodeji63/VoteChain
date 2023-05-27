@@ -1,0 +1,65 @@
+.welcome-container {
+  padding: 50px;
+}
+
+.welcome-user-details > h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.user-pooling-details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.election-details {
+  width: 100%;
+  background: #002c14;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.election-text {
+  padding: 20px;
+}
+
+.election-text > h4 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.election-text > span {
+  color: #667085;
+}
+
+.election-time {
+  margin-top: 60px;
+  margin-right: 20px;
+  color: #fff;
+}
+
+.election-time > p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.election-time > h5 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+@media (max-width: 1200px) {
+  .election-details {
+    align-items: center;
+    flex-direction: column;
+  }
+  .election-time {
+    margin-bottom: 30px;
+  }
+}
