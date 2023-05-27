@@ -5,23 +5,36 @@ pragma solidity ^0.8.0;
 import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 
-contract VotingElect is VotingStorage, IVotingElect {
-    address public chairperson;
+error VoteChain_voterRegistered();
+error VoteChain_registrationElapsed();
 
-    constructor() {
-        chairperson = msg.sender;
+contract VoteChain is VotingStorage, IVotingElect {
+    address public immutable i_chairperson;
+    uint public immutable i_registrationDuration;
+    uint public s_votersCount;
+
+    constructor(uint registrationDuration) {
+        i_chairperson = msg.sender;
+        i_registrationDuration = registrationDuration;
     }
 
-    event VoterRegistered(uint id);
+    event VoterRegistered(uint indexed id, address indexed votersAddress);
     event CandidatesRegistered(uint count);
     event VoteCasted(uint voterId, uint candidateId);
     uint _votingStartTime;
     uint _votingEndTime;
 
-    function registerVoter(uint voterId) public {
-        require(!containsVoter(), "Voter already registered");
-        _registerVoter(voterId);
-        emit VoterRegistered(voterId);
+    function registerVoter() public {
+        if (containsVoter()) {
+            revert VoteChain_voterRegistered();
+        }
+        if (i_registrationDuration <= block.timestamp) {
+            revert VoteChain_registrationElapsed();
+        }
+
+        _registerVoter(s_votersCount);
+        emit VoterRegistered(s_votersCount, msg.sender);
+        s_votersCount++;
     }
 
     function initializeCandidates(
@@ -56,7 +69,7 @@ contract VotingElect is VotingStorage, IVotingElect {
     }
 
     function containsVoter() public view returns (bool) {
-        return voters[msg.sender].id != 0;
+        return voters[msg.sender].delegate != address(0);
     }
 
     function winnigCandidate() external override {}

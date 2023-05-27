@@ -3,100 +3,65 @@ const {
     loadFixture,
 } = require("@nomicfoundation/hardhat-network-helpers")
 const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs")
-const { expect } = require("chai")
+const { expect, assert } = require("chai")
+const { network } = require("hardhat")
 
-describe("VotingElect", function () {
-    const auctionStartDate = Math.floor(Date.now() / 1000) + 10
-    const auctionEndDate = Math.floor(auctionStartDate + 300)
+describe("voteChain", function () {
+    const registrationDuration = Math.floor(Date.now() / 1000) + 300
+    // const registrationEnd = Math.floor(registrationStart + 300)
     const id = [0, 1, 2]
     const names = ["Buhari", "Atiku", "Peter"]
     const voteCount = [0, 0, 0]
     const images = ["", "", ""]
     const parties = ["APC", "PDP", "Labour"]
     const position = ["President", "President", "President"]
-    async function deployVotingElect() {
-        // Contracts are deployed using the first signer/account by default
-        const [owner, addr1, add2, add3, add4] = await ethers.getSigners()
+    let owner, addr1, addr2, addr3, addr4, VoteChain, voteChain, registerVoter
 
-        const VotingElect = await ethers.getContractFactory("VotingElect")
-        const votingElect = await VotingElect.deploy()
-
-        return { votingElect, owner, addr1, add2, add3, add4 }
-    }
+    beforeEach(async () => {
+        ;[owner, addr1, addr2, addr3, addr4] = await ethers.getSigners()
+        VoteChain = await ethers.getContractFactory("VoteChain")
+        voteChain = await VoteChain.deploy(registrationDuration)
+    })
 
     describe("Deployment", function () {
-        it("Should set the right unlockTime", async function () {
-            const { votingElect, owner } = await loadFixture(deployVotingElect)
-
-            expect(await votingElect.chairperson()).to.equal(owner.address)
+        it("Initializes the VoteChain constructor Correctly ", async function () {
+            // const { voteChain, owner } = await loadFixture(deployVoteChain)
+            const chairperson = await voteChain.i_chairperson()
+            const voteDuration = await voteChain.i_registrationDuration()
+            assert.equal(chairperson, owner.address)
+            assert.equal(voteDuration, registrationDuration)
         })
+    })
 
-        it("Should Register Voters", async function () {
-            const { votingElect, owner, addr1, add2, add3 } = await loadFixture(
-                deployVotingElect
-            )
-            let registerVoter = await votingElect
-                .connect(addr1)
-                .registerVoter(1)
+    describe("Register Voters", () => {
+        it("should register a voter", async () => {
+            registerVoter = await voteChain.connect(addr1).registerVoter()
+
             expect(await registerVoter)
-                .to.emit(votingElect, "VoterRegistered")
-                .withArgs(1)
-            registerVoter = await votingElect.connect(add2).registerVoter(2)
-            expect(await registerVoter)
-                .to.emit(votingElect, "VoterRegistered")
-                .withArgs(2)
-            registerVoter = await votingElect.connect(add3).registerVoter(3)
-            expect(await registerVoter)
-                .to.emit(votingElect, "VoterRegistered")
-                .withArgs(3)
+                .to.emit(voteChain, "VoteChain_voterRegistered")
+                .withArgs(0, addr1.address)
         })
-
-        it("Should not register, registered voters", async () => {
-            const { votingElect, owner, addr1, add2, add3 } = await loadFixture(
-                deployVotingElect
-            )
-            let registerVoter = await votingElect
-                .connect(addr1)
-                .registerVoter(1)
-            expect(await registerVoter).to.be.revertedWith(
-                "Voter already registered"
-            )
-
-            registerVoter = await votingElect.connect(add2).registerVoter(2)
-
-            expect(await registerVoter).to.be.revertedWith(
-                "Voter already registered"
-            )
-        })
-
-        it("Should register Candidates", async () => {
-            const { votingElect, owner } = await loadFixture(deployVotingElect)
-
-            let registerCandidates = await votingElect
-                .connect(owner)
-                .initializeCandidates(
-                    id,
-                    names,
-                    voteCount,
-                    images,
-                    parties,
-                    position,
-                    auctionStartDate,
-                    auctionEndDate
+        it("should revert when registering a voter again", async function () {
+            try {
+                registerVoter = await voteChain.connect(addr1).registerVoter()
+            } catch (e) {
+                expect(registerVoter).to.be.revertedWith(
+                    "VoteChain_voterRegistereds"
                 )
-            expect(await votingElect.candidatesCount()).to.equal(3)
-            expect(await registerCandidates)
-                .to.emit(votingElect, "CandidatesRegistered")
-                .withArgs(3)
+            }
         })
-        it("Should Cast Vote", async () => {
-            const { votingElect, owner, addr1, add4 } = await loadFixture(
-                deployVotingElect
-            )
+        it("should revert when registration duration has been elapsed", async () => {
+            await network.provider.send("evm_increaseTime", [
+                registrationDuration + 2,
+            ])
 
-            let castVote = votingElect.connect(addr1).castVote(1, 1)
-
-            expect(await castVote).to.emit(votingElect, "VoteCasted")
+            try {
+                registerVoter = await voteChain.connect(addr2).registerVoter()
+            } catch (e) {
+                expect(registerVoter).to.be.revertedWith(
+                    "VoteChain_registrationElapsed"
+                )
+            }
         })
     })
 })
