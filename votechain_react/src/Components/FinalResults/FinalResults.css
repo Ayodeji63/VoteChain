@@ -38,6 +38,12 @@
   margin-top: 30px;
 }
 
+.candidate-image {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 @media (max-width: 1200px) {
   .final-results-text-search {
     flex-wrap: wrap;
