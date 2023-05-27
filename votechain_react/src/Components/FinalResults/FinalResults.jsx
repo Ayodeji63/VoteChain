@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import firstCandidates from "../../images/candidates.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./FinalResults.css";
@@ -10,10 +10,12 @@ const FinalResults = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <div className="candidate-image">
-      <img src={firstCandidates} alt="First Candidate"/> 
-      <a href="##">{text}</a>
-      </div>,
+      render: (text) => (
+        <div className="candidate-image">
+          <img src={firstCandidates} alt="First Candidate" />
+          <a href="##">{text}</a>
+        </div>
+      ),
     },
     {
       title: "PARTY",
@@ -35,7 +37,7 @@ const FinalResults = () => {
   const data = [
     {
       key: "1",
-      name:" Imumolen Christopher",
+      name: " Imumolen Christopher",
       party: "Accord Party (AP)",
       totalVotes: 12,
     },
