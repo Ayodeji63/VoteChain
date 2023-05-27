@@ -38,6 +38,24 @@
   margin-top: 30px;
 }
 
+.candidate-image {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.vote-btn {
+  background: #009444;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+}
+
+.vote-btn:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 1200px) {
   .final-results-text-search {
     flex-wrap: wrap;
