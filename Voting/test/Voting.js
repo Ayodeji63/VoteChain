@@ -8,9 +8,11 @@ const { network } = require("hardhat")
 
 describe("voteChain", function () {
     const registrationDuration = Math.floor(Date.now() / 1000) + 300
-    // const registrationEnd = Math.floor(registrationStart + 300)
+    const votingStartTime = Math.floor(Date.now() / 1000) + 300
+    const votingEndTime = Math.floor(votingStartTime + 300)
     const id = [0, 1, 2]
     const names = ["Buhari", "Atiku", "Peter"]
+    const vice = ["Shettima", "igboman", "Prof"]
     const voteCount = [0, 0, 0]
     const images = ["", "", ""]
     const parties = ["APC", "PDP", "Labour"]
@@ -40,6 +42,13 @@ describe("voteChain", function () {
             expect(await registerVoter)
                 .to.emit(voteChain, "VoteChain_voterRegistered")
                 .withArgs(0, addr1.address)
+
+            let votersCount = await voteChain.s_votersCount()
+            assert.equal(votersCount.toString(), 1)
+
+            let voter = await voteChain.connect(addr2).getVoter(addr1.address)
+            let voterInfo = "0,false,0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+            assert.equal(voter.toString(), voterInfo)
         })
         it("should revert when registering a voter again", async function () {
             try {
@@ -60,6 +69,53 @@ describe("voteChain", function () {
             } catch (e) {
                 expect(registerVoter).to.be.revertedWith(
                     "VoteChain_registrationElapsed"
+                )
+            }
+        })
+    })
+
+    describe("Initialize Candidates", () => {
+        it("should initialize candidates properly", async () => {
+            const initialize = voteChain
+                .connect(owner)
+                .initializeCandidates(
+                    id,
+                    names,
+                    vice,
+                    voteCount,
+                    images,
+                    parties,
+                    position,
+                    votingStartTime,
+                    votingEndTime
+                )
+
+            expect(await initialize)
+                .to.emit(voteChain, "CandidatesRegistered")
+                .withArgs(3)
+
+            const candidate = await voteChain.connect(addr2).getCandidate(0)
+            const thisCandidate = "0,Buhari,Shettima,,APC,President,0"
+            assert.equal(candidate, thisCandidate)
+        })
+        it("should revert if caller isn't chairperson", async () => {
+            try {
+                const initialize = voteChain
+                    .connect(addr1)
+                    .initializeCandidates(
+                        id,
+                        names,
+                        vice,
+                        voteCount,
+                        images,
+                        parties,
+                        position,
+                        votingStartTime,
+                        votingEndTime
+                    )
+            } catch (e) {
+                expect(await initialize).to.be.revertedWith(
+                    "VoteChain_onlyChairperson"
                 )
             }
         })

@@ -11,6 +11,7 @@ interface IVotingStorage {
     struct Candidate {
         uint id;
         string name;
+        string vice;
         string image;
         string party;
         string position;

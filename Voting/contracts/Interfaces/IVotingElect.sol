@@ -10,6 +10,7 @@ interface IVotingElect is IVotingStorage {
     function initializeCandidates(
         uint[] memory id,
         string[] memory name,
+        string[] memory vice,
         uint[] memory voteCount,
         string[] memory image,
         string[] memory party,

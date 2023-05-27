@@ -7,22 +7,23 @@ import "./VotingStorage.sol";
 
 error VoteChain_voterRegistered();
 error VoteChain_registrationElapsed();
+error VoteChain_onlyChairperson();
 
 contract VoteChain is VotingStorage, IVotingElect {
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
     uint public s_votersCount;
+    uint public s_votingStartTime;
+    uint public s_votingEndTime;
+
+    event VoterRegistered(uint indexed id, address indexed votersAddress);
+    event CandidatesRegistered(uint indexed count);
+    event VoteCasted(uint voterId, uint candidateId);
 
     constructor(uint registrationDuration) {
         i_chairperson = msg.sender;
         i_registrationDuration = registrationDuration;
     }
-
-    event VoterRegistered(uint indexed id, address indexed votersAddress);
-    event CandidatesRegistered(uint count);
-    event VoteCasted(uint voterId, uint candidateId);
-    uint _votingStartTime;
-    uint _votingEndTime;
 
     function registerVoter() public {
         if (containsVoter()) {
@@ -40,6 +41,7 @@ contract VoteChain is VotingStorage, IVotingElect {
     function initializeCandidates(
         uint[] memory id,
         string[] memory name,
+        string[] memory vice,
         uint[] memory voteCount,
         string[] memory image,
         string[] memory party,
@@ -47,14 +49,16 @@ contract VoteChain is VotingStorage, IVotingElect {
         uint votingStartTime,
         uint votingEndTime
     ) public returns (uint) {
+        onlyOwner();
         for (uint i = 0; i < name.length; i++) {
             require(!containsCandidate(id[i]), "Candidates ID already exists.");
         }
-        _votingStartTime = votingStartTime;
-        _votingEndTime = votingEndTime;
+        s_votingStartTime = votingStartTime;
+        s_votingEndTime = votingEndTime;
         uint count = _initializeCandidates(
             id,
             name,
+            vice,
             voteCount,
             image,
             party,
@@ -62,6 +66,12 @@ contract VoteChain is VotingStorage, IVotingElect {
         );
         emit CandidatesRegistered(count);
         return count;
+    }
+
+    function castVote(uint _candidateId, uint _voterId) public {
+        require(containsVoter(), "Voter Not Registered");
+
+        emit VoteCasted(_voterId, _candidateId);
     }
 
     function containsCandidate(uint id) public view returns (bool) {
@@ -76,9 +86,20 @@ contract VoteChain is VotingStorage, IVotingElect {
 
     function votingDuration() external override {}
 
-    function castVote(uint _candidateId, uint _voterId) public {
-        require(containsVoter(), "Voter Not Registered");
+    /** View/Pure Functions */
+    function onlyOwner() internal view {
+        if (msg.sender != i_chairperson) {
+            revert VoteChain_onlyChairperson();
+        }
+    }
 
-        emit VoteCasted(_voterId, _candidateId);
+    function getCandidate(
+        uint candidateId
+    ) public view returns (Candidate memory) {
+        return candidates[candidateId];
+    }
+
+    function getVoter(address voterAddress) public view returns (Voter memory) {
+        return voters[voterAddress];
     }
 }
