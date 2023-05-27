@@ -10,7 +10,10 @@ const FinalResults = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a href="##">{text}</a>
+      render: (text) => <div className="candidate-image">
+      <img src={firstCandidates} alt="First Candidate"/> 
+      <a href="##">{text}</a>
+      </div>,
     },
     {
       title: "PARTY",
@@ -25,18 +28,14 @@ const FinalResults = () => {
     {
       title: "ACTION",
       key: "action",
-      render: () => (
-        <Tag color="green">Vote</Tag>
-      ),
+      render: () => <Tag color="green">Vote</Tag>,
     },
   ];
 
   const data = [
     {
       key: "1",
-      name:
-        <img src={firstCandidates} alt="firs-candidate" /> +
-        "Imumolen Christopher",
+      name:" Imumolen Christopher",
       party: "Accord Party (AP)",
       totalVotes: 12,
     },
