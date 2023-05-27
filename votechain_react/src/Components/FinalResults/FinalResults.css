@@ -52,6 +52,10 @@
   border-radius: 20px;
 }
 
+.vote-btn:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 1200px) {
   .final-results-text-search {
     flex-wrap: wrap;

@@ -3,6 +3,7 @@ import { Table } from "antd";
 import firstCandidates from "../../images/candidates.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./FinalResults.css";
+import { data } from "./data";
 
 const FinalResults = () => {
   const columns = [
@@ -31,21 +32,6 @@ const FinalResults = () => {
       title: "ACTION",
       key: "action",
       render: () => <button className="vote-btn">Vote</button>,
-    },
-  ];
-
-  const data = [
-    {
-      key: "1",
-      name: " Imumolen Christopher",
-      party: "Accord Party (AP)",
-      totalVotes: 12,
-    },
-    {
-      key: "2",
-      name: "Imumolen Christopher",
-      party: "Accord Party (AP)",
-      totalVotes: 12,
     },
   ];
   return (
