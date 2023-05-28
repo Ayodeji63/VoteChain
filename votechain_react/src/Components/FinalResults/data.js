@@ -5,6 +5,7 @@ export const data = [
     name: "Imumolen Christopher",
     party: "Accord Party (AP)",
     totalVotes: 12,
+    candidateImage: firstCandidates,
   },
   {
     key: "2",
