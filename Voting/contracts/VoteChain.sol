@@ -4,10 +4,14 @@ pragma solidity ^0.8.0;
 
 import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
+import "hardhat/console.sol";
 
 error VoteChain_voterRegistered();
 error VoteChain_registrationElapsed();
 error VoteChain_onlyChairperson();
+error VoteChain_BallotNotOpen();
+error VoteChain_BallotClosed();
+error VoteChain_AlreadyVoted();
 
 contract VoteChain is VotingStorage, IVotingElect {
     address public immutable i_chairperson;
@@ -18,7 +22,7 @@ contract VoteChain is VotingStorage, IVotingElect {
 
     event VoterRegistered(uint indexed id, address indexed votersAddress);
     event CandidatesRegistered(uint indexed count);
-    event VoteCasted(uint voterId, uint candidateId);
+    event VoteCasted(address voterAddress, uint candidateId);
 
     constructor(uint registrationDuration) {
         i_chairperson = msg.sender;
@@ -68,10 +72,27 @@ contract VoteChain is VotingStorage, IVotingElect {
         return count;
     }
 
-    function castVote(uint _candidateId, uint _voterId) public {
-        require(containsVoter(), "Voter Not Registered");
+    function castVote(uint _candidateId, address _voterAddress) public {
+        console.log(block.timestamp);
+        if (block.timestamp < s_votingStartTime) {
+            revert VoteChain_BallotNotOpen();
+        }
+        if (block.timestamp >= s_votingEndTime) {
+            revert VoteChain_BallotClosed();
+        }
 
-        emit VoteCasted(_voterId, _candidateId);
+        Voter storage sender = voters[msg.sender];
+        if (containsVoter()) {
+            revert VoteChain_voterRegistered();
+        }
+        if (sender.hasVoted) {
+            revert VoteChain_AlreadyVoted();
+        }
+        sender.hasVoted = true;
+        sender.votedCandidate = _candidateId;
+        candidates[_candidateId].voteCount++;
+
+        emit VoteCasted(_voterAddress, _candidateId);
     }
 
     function containsCandidate(uint id) public view returns (bool) {

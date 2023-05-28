@@ -13,7 +13,7 @@ contract VotingStorage is IVotingStorage {
     uint public candidatesCount;
 
     function _registerVoter(uint _voterId) internal {
-        voters[msg.sender] = Voter(_voterId, false, msg.sender);
+        voters[msg.sender] = Voter(_voterId, false, msg.sender, 0);
     }
 
     function _initializeCandidates(

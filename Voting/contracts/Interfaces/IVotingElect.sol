@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "./IVotingStorage.sol";
 
 interface IVotingElect is IVotingStorage {
-    function castVote(uint _candidateId, uint _voterId) external;
+    function castVote(uint _candidateId, address voterAddress) external;
 
     function initializeCandidates(
         uint[] memory id,

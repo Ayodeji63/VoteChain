@@ -6,6 +6,7 @@ interface IVotingStorage {
         uint id;
         bool hasVoted;
         address delegate;
+        uint votedCandidate;
     }
 
     struct Candidate {
