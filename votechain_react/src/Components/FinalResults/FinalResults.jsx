@@ -9,12 +9,12 @@ const FinalResults = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: ["name", "candidateImage"],
       key: "name",
-      render: (text) => (
+      render: (text, record) => (
         <div className="candidate-image">
-          <img src={firstCandidates} alt="First Candidate" />
-          <a href="##">{text}</a>
+          <img src={record.candidateImage} alt="First Candidate" />
+          <a href="##">{record.name}</a>
         </div>
       ),
     },
