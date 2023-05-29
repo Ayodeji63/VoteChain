@@ -18,8 +18,4 @@ interface IVotingElect is IVotingStorage {
         uint votingStartTime,
         uint votingEndTime
     ) external returns (uint);
-
-    function winnigCandidate() external;
-
-    function votingDuration() external;
 }

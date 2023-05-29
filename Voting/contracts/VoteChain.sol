@@ -5,20 +5,26 @@ pragma solidity ^0.8.0;
 import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 import "hardhat/console.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
-error VoteChain_voterRegistered();
+error VoteChain_voterNotRegistered();
 error VoteChain_registrationElapsed();
 error VoteChain_onlyChairperson();
 error VoteChain_BallotNotOpen();
 error VoteChain_BallotClosed();
 error VoteChain_AlreadyVoted();
 
-contract VoteChain is VotingStorage, IVotingElect {
+contract VoteChain is
+    VotingStorage,
+    IVotingElect,
+    AutomationCompatibleInterface
+{
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
     uint public s_votersCount;
     uint public s_votingStartTime;
     uint public s_votingEndTime;
+    uint public s_winningCandidate;
 
     event VoterRegistered(uint indexed id, address indexed votersAddress);
     event CandidatesRegistered(uint indexed count);
@@ -31,7 +37,7 @@ contract VoteChain is VotingStorage, IVotingElect {
 
     function registerVoter() public {
         if (containsVoter()) {
-            revert VoteChain_voterRegistered();
+            revert VoteChain_voterNotRegistered();
         }
         if (i_registrationDuration <= block.timestamp) {
             revert VoteChain_registrationElapsed();
@@ -73,7 +79,7 @@ contract VoteChain is VotingStorage, IVotingElect {
     }
 
     function castVote(uint _candidateId, address _voterAddress) public {
-        console.log(block.timestamp);
+        // console.log(block.timestamp);
         if (block.timestamp < s_votingStartTime) {
             revert VoteChain_BallotNotOpen();
         }
@@ -83,7 +89,7 @@ contract VoteChain is VotingStorage, IVotingElect {
 
         Voter storage sender = voters[msg.sender];
         if (containsVoter()) {
-            revert VoteChain_voterRegistered();
+            revert VoteChain_voterNotRegistered();
         }
         if (sender.hasVoted) {
             revert VoteChain_AlreadyVoted();
@@ -95,6 +101,26 @@ contract VoteChain is VotingStorage, IVotingElect {
         emit VoteCasted(_voterAddress, _candidateId);
     }
 
+    function checkUpkeep(
+        bytes calldata /*checkData*/
+    ) public view returns (bool upKeepNeeded, bytes memory /**performData */) {
+        bool timePassed = (block.timestamp > s_votingEndTime);
+        bool hasVoters = s_votersCount > 0;
+        bool hasCandidates = candidatesCount > 0;
+        upKeepNeeded = (timePassed && hasCandidates && hasVoters);
+    }
+
+    function performUpkeep(bytes memory /**performData */) external override {
+        uint winningVoteCount = 0;
+        for (uint i = 0; i < candidatesCount; i++) {
+            if (candidates[i].voteCount > winningVoteCount) {
+                winningVoteCount = candidates[i].voteCount;
+                s_winningCandidate = i;
+            }
+        }
+    }
+
+    /**Modifier Functions */
     function containsCandidate(uint id) public view returns (bool) {
         return candidates[id].id != 0;
     }
@@ -103,16 +129,13 @@ contract VoteChain is VotingStorage, IVotingElect {
         return voters[msg.sender].delegate != address(0);
     }
 
-    function winnigCandidate() external override {}
-
-    function votingDuration() external override {}
-
-    /** View/Pure Functions */
     function onlyOwner() internal view {
         if (msg.sender != i_chairperson) {
             revert VoteChain_onlyChairperson();
         }
     }
+
+    /** View/Pure Functions */
 
     function getCandidate(
         uint candidateId
@@ -122,5 +145,21 @@ contract VoteChain is VotingStorage, IVotingElect {
 
     function getVoter(address voterAddress) public view returns (Voter memory) {
         return voters[voterAddress];
+    }
+
+    function getVotingStartTime() public view returns (uint256) {
+        return s_votingStartTime;
+    }
+
+    function getVotingEndTime() public view returns (uint256) {
+        return s_votingEndTime;
+    }
+
+    function getRegistrationDuration() public view returns (uint) {
+        return i_registrationDuration;
+    }
+
+    function getWinnerName() public view returns (string memory winnerName) {
+        winnerName = candidates[s_winningCandidate].name;
     }
 }

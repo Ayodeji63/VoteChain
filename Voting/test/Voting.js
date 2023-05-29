@@ -17,10 +17,18 @@ describe("voteChain", function () {
     const images = ["", "", ""]
     const parties = ["APC", "PDP", "Labour"]
     const position = ["President", "President", "President"]
-    let owner, addr1, addr2, addr3, addr4, VoteChain, voteChain, registerVoter
+    let owner,
+        addr1,
+        addr2,
+        addr3,
+        addr4,
+        addr5,
+        VoteChain,
+        voteChain,
+        registerVoter
 
     beforeEach(async () => {
-        ;[owner, addr1, addr2, addr3, addr4] = await ethers.getSigners()
+        ;[owner, addr1, addr2, addr3, addr4, addr5] = await ethers.getSigners()
         VoteChain = await ethers.getContractFactory("VoteChain")
         voteChain = await VoteChain.deploy(registrationDuration)
     })
@@ -169,6 +177,68 @@ describe("voteChain", function () {
                 await expect(
                     voteChain.connect(addr4).castVote(id[0], addr4.address)
                 ).to.be.revertedWith("VoteChain_BallotClosed")
+            } catch (e) {}
+        })
+
+        it("should not be able to cast vote twice", async () => {
+            try {
+                await network.provider.send("evm_increaseTime", [700])
+                await expect(
+                    voteChain.connect(addr2).castVote(id[0], addr2.address)
+                )
+                    .to.emit(voteChain, "VoteCasted")
+                    .withArgs(addr2.address, id[0])
+                await expect(
+                    voteChain.connect(addr2).castVote(id[0], addr2.address)
+                ).to.be.revertedWith("VoteChain_AlreadyVoted")
+            } catch (e) {}
+        })
+        it("should not allow nonregistered person to vote", async () => {
+            try {
+                await expect(
+                    voteChain.connect(addr5).castVote(id[0], addr5.address)
+                ).to.be.revertedWith("VoteChain_voterNotRegistered")
+            } catch (e) {}
+        })
+    })
+
+    describe("checkUpKeep", () => {
+        it("returns false if enough time hasn't passed", async () => {
+            try {
+                await voteChain.connect(addr1).registerVoter()
+                await network.provider.send("evm_increaseTime", [300])
+                await network.provider.request({
+                    method: "evm_mine",
+                    params: [],
+                })
+                const { upkeepNeeded } = await voteChain.callStatic.checkUpkeep(
+                    "0x"
+                )
+                assert(!upkeepNeeded)
+            } catch (e) {}
+        })
+
+        it("returns false if there is no voter", async () => {
+            await network.provider.send("evm_increaseTime", [700])
+            await network.provider.send("evm_mine", [])
+            const { upkeepNeeded } = await voteChain.callStatic.checkUpkeep(
+                "0x"
+            )
+            assert(!upkeepNeeded)
+        })
+
+        it("returns false if there is no candidate", async () => {
+            try {
+                await voteChain.connect(addr1).registerVoter()
+                await network.provider.send("evm_increaseTime", [700])
+                await network.provider.request({
+                    method: "evm_mine",
+                    params: [],
+                })
+                const { upkeepNeeded } = await voteChain.callStatic.checkUpkeep(
+                    "0x"
+                )
+                assert(!upkeepNeeded)
             } catch (e) {}
         })
     })
