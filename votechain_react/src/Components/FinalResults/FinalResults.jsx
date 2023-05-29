@@ -1,6 +1,5 @@
 import React from "react";
 import { Table } from "antd";
-import firstCandidates from "../../images/candidates.png";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./FinalResults.css";
 import { data } from "./data";
