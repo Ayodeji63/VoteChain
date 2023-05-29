@@ -1,6 +1,7 @@
 import firstCandidates from "../../images/candidates.png";
 import secondCandidate from "../../images/secondCandidate.png";
 import thirdCandidate from "../../images/thirdcandidate.png";
+import fourthCandidate from "../../images/fourthcandidate.png";
 export const data = [
   {
     key: "1",
@@ -22,5 +23,12 @@ export const data = [
     party: "African Action Congress(AAC)",
     totalVotes: "145,000",
     candidateImage: thirdCandidate,
+  },
+  {
+    key: "4",
+    name: "Obi Peter Gregory",
+    party: "Labour Party(LP)",
+    totalVotes: "5,688,678",
+    candidateImage: fourthCandidate,
   },
 ];
