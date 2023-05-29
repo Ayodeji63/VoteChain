@@ -50,6 +50,34 @@
   gap: 20px;
 }
 
+.live-results-card {
+  position: relative;
+}
+
+.category-status {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.live-results-card .category-status.live {
+  background: #002c14;
+  width: 70px;
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.live-results-card .category-status.not-live {
+  background: red;
+  width: 70px;
+  font-size: 13px;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+}
+
 .live-results-text-type > p {
   font-size: 14px;
 }
