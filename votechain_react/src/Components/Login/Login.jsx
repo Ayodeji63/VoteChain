@@ -11,7 +11,7 @@ const Login = () => {
           Identification Number(NIN)
         </p>
         <input type="text" placeholder="Enter your VIN/NIN" />
-        <input type="password" placeholder="Enter your Password" />
+        <input type="email" placeholder="Enter your Email Address" />
         <button>Login</button>
         <span>
           Don't have an account? <a href="/register">Register</a>
