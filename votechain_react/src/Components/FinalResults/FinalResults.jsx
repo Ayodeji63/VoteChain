@@ -7,6 +7,9 @@ import { data } from "./data";
 
 const FinalResults = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
   const columns = [
     {
       title: "Name",
