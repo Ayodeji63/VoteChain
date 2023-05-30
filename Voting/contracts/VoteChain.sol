@@ -8,11 +8,13 @@ import "hardhat/console.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
 error VoteChain_voterNotRegistered();
+error VoteChain_voterRegistered();
 error VoteChain_registrationElapsed();
 error VoteChain_onlyChairperson();
 error VoteChain_BallotNotOpen();
 error VoteChain_BallotClosed();
 error VoteChain_AlreadyVoted();
+error VoteChain_UpkeepNotNeeded(uint voterCount, uint candidatesCount);
 
 contract VoteChain is
     VotingStorage,
@@ -29,6 +31,7 @@ contract VoteChain is
     event VoterRegistered(uint indexed id, address indexed votersAddress);
     event CandidatesRegistered(uint indexed count);
     event VoteCasted(address voterAddress, uint candidateId);
+    event WinningCandidate(uint candidateId);
 
     constructor(uint registrationDuration) {
         i_chairperson = msg.sender;
@@ -36,10 +39,10 @@ contract VoteChain is
     }
 
     function registerVoter() public {
-        if (containsVoter()) {
-            revert VoteChain_voterNotRegistered();
+        if (!containsVoter()) {
+            revert VoteChain_voterRegistered();
         }
-        if (i_registrationDuration <= block.timestamp) {
+        if (block.timestamp > i_registrationDuration) {
             revert VoteChain_registrationElapsed();
         }
 
@@ -102,15 +105,21 @@ contract VoteChain is
     }
 
     function checkUpkeep(
-        bytes calldata /*checkData*/
+        bytes memory /*checkData*/
     ) public view returns (bool upKeepNeeded, bytes memory /**performData */) {
         bool timePassed = (block.timestamp > s_votingEndTime);
+        console.log(s_votingEndTime);
+        console.log(block.timestamp);
         bool hasVoters = s_votersCount > 0;
         bool hasCandidates = candidatesCount > 0;
         upKeepNeeded = (timePassed && hasCandidates && hasVoters);
     }
 
     function performUpkeep(bytes memory /**performData */) external override {
+        (bool upKeepNeeded, ) = checkUpkeep("");
+        if (!upKeepNeeded) {
+            revert VoteChain_UpkeepNotNeeded(s_votersCount, candidatesCount);
+        }
         uint winningVoteCount = 0;
         for (uint i = 0; i < candidatesCount; i++) {
             if (candidates[i].voteCount > winningVoteCount) {
@@ -118,6 +127,8 @@ contract VoteChain is
                 s_winningCandidate = i;
             }
         }
+
+        emit WinningCandidate(s_winningCandidate);
     }
 
     /**Modifier Functions */
@@ -126,7 +137,7 @@ contract VoteChain is
     }
 
     function containsVoter() public view returns (bool) {
-        return voters[msg.sender].delegate != address(0);
+        return voters[msg.sender].delegate == address(0);
     }
 
     function onlyOwner() internal view {
@@ -161,5 +172,13 @@ contract VoteChain is
 
     function getWinnerName() public view returns (string memory winnerName) {
         winnerName = candidates[s_winningCandidate].name;
+    }
+
+    function getWinningCandidateId()
+        public
+        view
+        returns (uint winningCandidate)
+    {
+        winningCandidate = s_winningCandidate;
     }
 }

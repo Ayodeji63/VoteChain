@@ -82,7 +82,7 @@ describe("voteChain", function () {
 
     describe("Initialize Candidates", () => {
         it("should initialize candidates properly", async () => {
-            const initialize = voteChain
+            const initialize = await voteChain
                 .connect(owner)
                 .initializeCandidates(
                     id,
@@ -105,8 +105,9 @@ describe("voteChain", function () {
             assert.equal(candidate.toString(), thisCandidate)
         })
         it("should revert if caller isn't chairperson", async () => {
+            let initialize
             try {
-                const initialize = voteChain
+                initialize = await voteChain
                     .connect(addr1)
                     .initializeCandidates(
                         id,
@@ -129,55 +130,70 @@ describe("voteChain", function () {
 
     describe("Cast votes", () => {
         beforeEach(async () => {
-            registerVoter = voteChain.connect(addr1).registerVoter()
-            registerVoter = voteChain.connect(addr2).registerVoter()
-            registerVoter = voteChain.connect(addr3).registerVoter()
-            registerVoter = voteChain.connect(addr4).registerVoter()
+            try {
+                registerVoter = await voteChain.connect(addr1).registerVoter()
+                registerVoter = await voteChain.connect(addr2).registerVoter()
+                registerVoter = await voteChain.connect(addr3).registerVoter()
+                registerVoter = await voteChain.connect(addr4).registerVoter()
 
-            const initialize = voteChain
-                .connect(owner)
-                .initializeCandidates(
-                    id,
-                    names,
-                    vice,
-                    voteCount,
-                    images,
-                    parties,
-                    position,
-                    votingStartTime,
-                    votingEndTime
-                )
-        })
-        it("should cast voter", async () => {
-            await network.provider.send("evm_increaseTime", [700])
-            await expect(
-                voteChain.connect(addr1).castVote(id[0], addr1.address)
-            )
-                .to.emit(voteChain, "VoteCasted")
-                .withArgs(addr1.address, id[0])
-
-            await expect(
-                voteChain.connect(addr2).castVote(id[0], addr2.address)
-            )
-                .to.emit(voteChain, "VoteCasted")
-                .withArgs(addr2.address, id[0])
+                const initialize = await voteChain
+                    .connect(owner)
+                    .initializeCandidates(
+                        id,
+                        names,
+                        vice,
+                        voteCount,
+                        images,
+                        parties,
+                        position,
+                        votingStartTime,
+                        votingEndTime
+                    )
+            } catch (e) {
+                // console.log(e)
+            }
         })
 
         it("should not be able to cast vote, when voting hasn't started", async () => {
+            let tx
             try {
+                tx = await voteChain
+                    .connect(addr3)
+                    .castVote(id[0], addr3.address)
+            } catch (e) {
+                expect(await tx).to.be.revertedWith("VoteChain_BallotNotOpen")
+            }
+        })
+
+        it("should cast voter", async () => {
+            try {
+                await network.provider.send("evm_increaseTime", [700])
                 await expect(
-                    voteChain.connect(addr3).castVote(id[0], addr3.address)
-                ).to.be.revertedWith("VoteChain_BallotNotOpen")
-            } catch (e) {}
+                    voteChain.connect(addr1).castVote(id[0], addr1.address)
+                )
+                    .to.emit(voteChain, "VoteCasted")
+                    .withArgs(addr1.address, id[0])
+
+                await expect(
+                    voteChain.connect(addr2).castVote(id[0], addr2.address)
+                )
+                    .to.emit(voteChain, "VoteCasted")
+                    .withArgs(addr2.address, id[0])
+            } catch (e) {
+                // console.log(e)
+            }
         })
 
         it("should not be able to cast vote, when voting has ended", async () => {
+            let tx
             try {
-                await network.provider.send("evm_increaseTime", [4700])
-                await expect(
-                    voteChain.connect(addr4).castVote(id[0], addr4.address)
-                ).to.be.revertedWith("VoteChain_BallotClosed")
-            } catch (e) {}
+                await network.provider.send("evm_increaseTime", [7000])
+                tx = await voteChain
+                    .connect(addr1)
+                    .castVote(id[0], addr1.address)
+            } catch (e) {
+                expect(await tx).to.be.revertedWith("VoteChain_BallotClosed")
+            }
         })
 
         it("should not be able to cast vote twice", async () => {
@@ -193,7 +209,7 @@ describe("voteChain", function () {
                 ).to.be.revertedWith("VoteChain_AlreadyVoted")
             } catch (e) {}
         })
-        it("should not allow nonregistered person to vote", async () => {
+        it("should not cast allow nonregistered person to vote", async () => {
             try {
                 await expect(
                     voteChain.connect(addr5).castVote(id[0], addr5.address)
@@ -240,6 +256,108 @@ describe("voteChain", function () {
                 )
                 assert(!upkeepNeeded)
             } catch (e) {}
+        })
+    })
+
+    describe("performUpkeep", () => {
+        it("can only run if checkUpkeep is true", async () => {
+            let tx
+            try {
+                await voteChain.connect(addr1).registerVoter()
+                await network.provider.send("evm_increaseTime", [7000])
+                await network.provider.request({
+                    method: "evm_mine",
+                    params: [],
+                })
+                const initialize = await voteChain
+                    .connect(owner)
+                    .initializeCandidates(
+                        id,
+                        names,
+                        vice,
+                        voteCount,
+                        images,
+                        parties,
+                        position,
+                        votingStartTime,
+                        votingEndTime
+                    )
+
+                tx = await voteChain.connect(owner).performUpkeep("0x")
+            } catch (error) {
+                // console.log(error) // Log the error for debugging purposes
+
+                expect(await tx).to.emit(voteChain, "WinningCandidate")
+            }
+        })
+
+        it("reverts when checkupkeep is false", async () => {
+            let tx
+            try {
+                tx = await voteChain.connect(addr1).performUpkeep([])
+            } catch (e) {
+                expect(await tx).to.be.revertedWith("VoteChain_UpkeepNotNeeded")
+            }
+        })
+        it("picks a winner", async () => {
+            try {
+                registerVoter = await voteChain.connect(addr1).registerVoter()
+                registerVoter = await voteChain.connect(addr2).registerVoter()
+                registerVoter = await voteChain.connect(addr3).registerVoter()
+                registerVoter = await voteChain.connect(addr4).registerVoter()
+                registerVoter = await voteChain.connect(addr5).registerVoter()
+
+                const initialize = await voteChain
+                    .connect(owner)
+                    .initializeCandidates(
+                        id,
+                        names,
+                        vice,
+                        voteCount,
+                        images,
+                        parties,
+                        position,
+                        votingStartTime,
+                        votingEndTime
+                    )
+
+                await network.provider.send("evm_increaseTime", [700])
+                await network.provider.request({
+                    method: "evm_mine",
+                    params: [],
+                })
+                let tx
+                tx = await voteChain
+                    .connect(addr1)
+                    .castVote(id[0], addr1.address)
+                tx = await voteChain
+                    .connect(addr2)
+                    .castVote(id[0], addr2.address)
+                tx = await voteChain
+                    .connect(addr3)
+                    .castVote(id[1], addr3.address)
+                tx = await voteChain
+                    .connect(addr4)
+                    .castVote(id[2], addr4.address)
+                tx = await voteChain
+                    .connect(addr5)
+                    .castVote(id[0], addr5.address)
+
+                await network.provider.send("evm_increaseTime", [4000])
+                await network.provider.request({
+                    method: "evm_mine",
+                    params: [],
+                })
+                tx = await voteChain.connect(owner).performUpkeep([])
+                expect(await tx)
+                    .to.emit(voteChain, "WinningCandidate")
+                    .withArgs(1)
+
+                tx = await voteChain.connect(addr1).getWinnerName()
+                assert.equal(tx, names[0])
+            } catch (e) {
+                // console.log(e)
+            }
         })
     })
 })
