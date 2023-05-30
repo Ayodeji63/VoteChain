@@ -10,6 +10,7 @@ const FinalResults = () => {
   const [modalContent, setModalContent] = useState([]);
   const showModal = (record) => {
     setIsModalOpen(true);
+    setModalContent([record]);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -48,7 +49,9 @@ const FinalResults = () => {
             Vote
           </button>
           <Modal open={isModalOpen} onCancel={handleCancel}>
-            {}
+            {modalContent.map((newModal) => (
+              <p>{newModal.name}</p>
+            ))}
           </Modal>
         </div>
       ),
