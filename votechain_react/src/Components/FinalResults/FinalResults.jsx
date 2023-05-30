@@ -1,10 +1,12 @@
 import React from "react";
 import { Table, Modal } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useState } from "react";
 import "./FinalResults.css";
 import { data } from "./data";
 
 const FinalResults = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const columns = [
     {
       title: "Name",
