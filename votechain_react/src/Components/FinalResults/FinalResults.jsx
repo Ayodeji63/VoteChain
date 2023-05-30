@@ -1,23 +1,32 @@
 import React from "react";
 import { Table, Modal } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./FinalResults.css";
 import modalIcon from "../../images/modal-icon.png";
 import { data } from "./data";
 
 const FinalResults = () => {
+  const [modal, contextHolder] = Modal.useModal();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState([]);
+  const [isVoted, setIsVoted] = useState(false);
   const showModal = (record) => {
     setIsModalOpen(true);
     setModalContent([record]);
+  };
+  const handleSuccess = () => {
+    setIsVoted(true);
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 1000);
   };
   const handleOk = () => {
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsVoted(false);
   };
   const columns = [
     {
@@ -47,20 +56,24 @@ const FinalResults = () => {
       render: (text, record) => (
         <div>
           <button className="vote-btn" onClick={() => showModal(record)}>
-            Vote
+            {isVoted ? "Voted" : "Vote"}
           </button>
           <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
             {modalContent.map((newModal) => (
               <div className="modal-container">
                 <img src={modalIcon} alt="Modal Icon" />
                 <h4 className="modal-election-name">
-                  You are about to vote for {newModal.name}
+                  {isVoted
+                    ? "Your Vote was Successful"
+                    : `You are about to Vote for ${newModal.name}`}
                 </h4>
                 <p>
                   Lorem ipsum dolor sit amet consectetur. Sodales tempor <br />
                   montes ornare quam cum sociis quisque.
                 </p>
-                <button className="modal-election-btn">Vote</button>
+                <button className="modal-election-btn" onClick={handleSuccess}>
+                  {isVoted ? "Okay, Got it" : "Vote"}
+                </button>
               </div>
             ))}
           </Modal>
