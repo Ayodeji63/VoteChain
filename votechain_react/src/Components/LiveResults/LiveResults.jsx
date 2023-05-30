@@ -18,6 +18,9 @@ const LiveResults = () => {
               </span>
               Labour Party
             </p>
+            <div className="category-status live">
+              <span>Live</span>
+            </div>
           </div>
           <div className="live-results-card">
             <div className="live-results-text-type">
@@ -32,6 +35,9 @@ const LiveResults = () => {
               </span>
               APGA
             </p>
+            <div className="category-status not-live">
+              <span>Not Live</span>
+            </div>
           </div>
           <div className="live-results-card">
             <div className="live-results-text-type">
@@ -46,6 +52,9 @@ const LiveResults = () => {
               </span>
               Labour Party
             </p>
+            <div className="category-status not-live">
+              <span>Not Live</span>
+            </div>
           </div>
         </div>
       </div>
