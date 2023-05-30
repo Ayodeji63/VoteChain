@@ -53,6 +53,14 @@ const FinalResults = () => {
             {modalContent.map((newModal) => (
               <div className="modal-container">
                 <img src={modalIcon} alt="Modal Icon" />
+                <h4 className="modal-election-name">
+                  You are about to vote for {newModal.name}
+                </h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur. Sodales tempor <br />
+                  montes ornare quam cum sociis quisque.
+                </p>
+                <button className="modal-election-btn">Vote</button>
               </div>
             ))}
           </Modal>
