@@ -50,6 +50,30 @@
   object-fit: cover;
 }
 
+.modal-election-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.modal-election-btn {
+  width: 100%;
+  background: #009444;
+  color: #fff;
+  text-align: center;
+  border-radius: 20px;
+  border: none;
+  margin-top: 20px;
+  padding: 13px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-election-btn:hover {
+  cursor: pointer;
+}
+
 .vote-btn {
   background: #009444;
   color: #fff;
