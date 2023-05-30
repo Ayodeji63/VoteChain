@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "antd";
+import { Table, Modal } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./FinalResults.css";
 import { data } from "./data";
