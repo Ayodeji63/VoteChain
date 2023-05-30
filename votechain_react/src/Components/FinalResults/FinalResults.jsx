@@ -3,6 +3,7 @@ import { Table, Modal } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 import "./FinalResults.css";
+import modalIcon from "../../images/modal-icon.png";
 import { data } from "./data";
 
 const FinalResults = () => {
@@ -50,7 +51,9 @@ const FinalResults = () => {
           </button>
           <Modal open={isModalOpen} onCancel={handleCancel}>
             {modalContent.map((newModal) => (
-              <p>{newModal.name}</p>
+              <div className="modal-container">
+                <img src={modalIcon} alt="Modal Icon" />
+              </div>
             ))}
           </Modal>
         </div>
