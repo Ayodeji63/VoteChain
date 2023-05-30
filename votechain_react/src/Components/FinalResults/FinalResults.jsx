@@ -49,7 +49,7 @@ const FinalResults = () => {
           <button className="vote-btn" onClick={() => showModal(record)}>
             Vote
           </button>
-          <Modal open={isModalOpen} onCancel={handleCancel}>
+          <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
             {modalContent.map((newModal) => (
               <div className="modal-container">
                 <img src={modalIcon} alt="Modal Icon" />
