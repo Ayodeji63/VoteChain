@@ -66,6 +66,12 @@
   border: none;
   margin-top: 20px;
   padding: 13px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-election-btn:hover {
+  cursor: pointer;
 }
 
 .vote-btn {
