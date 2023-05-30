@@ -7,8 +7,15 @@ import { data } from "./data";
 
 const FinalResults = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
+  const [modalContent, setModalContent] = useState([]);
+  const showModal = (record) => {
     setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
   const columns = [
     {
@@ -35,7 +42,16 @@ const FinalResults = () => {
     {
       title: "ACTION",
       key: "action",
-      render: () => <button className="vote-btn">Vote</button>,
+      render: (text, record) => (
+        <div>
+          <button className="vote-btn" onClick={() => showModal(record)}>
+            Vote
+          </button>
+          <Modal open={isModalOpen} onCancel={handleCancel}>
+            {}
+          </Modal>
+        </div>
+      ),
     },
   ];
   return (
