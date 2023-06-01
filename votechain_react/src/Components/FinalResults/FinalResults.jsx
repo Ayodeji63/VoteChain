@@ -96,7 +96,9 @@ const FinalResults = () => {
       </div>
       <p className="aspirants">21 Aspirants</p>
 
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} scroll={{
+      x: 900,
+    }}/>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./Components/NavBar/Navbar";
-import Login from "./Components/Login/Login";
+import Register from "./Components/Register/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HeroPage from "./Components/HeroPage/HeroPage";
 import SubHeroPage from "./Components/SubHeroPage/SubHeroPage";
@@ -35,7 +35,7 @@ function App() {
               </>
             }
           />
-          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/register" element={<Register/>} />
           <Route exact path="/finalresults" element={<FinalResults/>} />
           <Route exact path="/welcome" element={<>
             <Welcome/>
