@@ -10,9 +10,6 @@ import { useAccount } from "wagmi"
 const Navbar = () => {
     const navigate = useNavigate()
     const { address } = useAccount()
-    useEffect(() => {
-        address ? navigate("/welcome") : navigate("/")
-    }, [address])
 
     return (
         <header>

@@ -19,18 +19,22 @@ import {
     bscTestnet,
     goerli,
     optimismGoerli,
+    polygonMumbai,
 } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { bloctoWallet } from "@blocto/rainbowkit-connector"
-const { chains, publicClient } = configureChains(
-    [bscTestnet, sepolia, goerli, optimismGoerli],
-    [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+export const { chains, publicClient } = configureChains(
+    [bscTestnet, sepolia, goerli, optimismGoerli, polygonMumbai],
+    [
+        alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
+        publicProvider(),
+    ]
 )
 
 const { wallets } = getDefaultWallets({
-    appName: "My RainbowKit App",
-    projectId: "YOUR_PROJECT_ID",
+    appName: "VoteChain",
+    projectId: "1694a591eac2ab285be5adbbfff34913",
     chains,
 })
 

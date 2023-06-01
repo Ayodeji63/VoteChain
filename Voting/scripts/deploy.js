@@ -5,14 +5,32 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat")
-
+async function verify(contractAddress, args) {
+    console.log("Verifying Contract....")
+    try {
+        await run("verify:verify", {
+            address: contractAddress,
+            constructorArguments: args,
+        })
+    } catch (e) {
+        if (e.message.toLowerCase().includes("already verified")) {
+            console.log("Already Verified")
+        } else {
+            console.log(e)
+        }
+    }
+}
 async function main() {
-    const VotingElect = await hre.ethers.getContractFactory("VotingElect")
-    const votingElect = await VotingElect.deploy()
+    const registrationDuration = Math.floor(Date.now() / 1000) + 3000
+    const VoteChain = await hre.ethers.getContractFactory("VoteChain")
+    const voteChain = await VoteChain.deploy(registrationDuration)
 
-    await votingElect.deployed()
+    await voteChain.deployed()
 
-    console.log(`VotingElect Deployed at`, votingElect.address)
+    console.log(`VoteChain Deployed at`, voteChain.address)
+    console.log(`Waiting for block txes`)
+    await voteChain.deployTransaction.wait(3)
+    await verify(voteChain.address, [registrationDuration])
 }
 
 // We recommend this pattern to be able to use async/await everywhere
