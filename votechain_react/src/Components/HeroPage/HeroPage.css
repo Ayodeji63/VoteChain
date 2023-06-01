@@ -19,14 +19,16 @@
 }
 
 .hero-page-btn {
-  background: #009444;
+  background: #009444 !important;
   padding: 12px 20px 12px 20px;
   border: none;
   color: #fff;
   border-radius: 20px;
-  margin-top: 30px;
-  margin-left: 80px;
-}
+  /* margin-top: 30px; */
+  /* margin-left: 80px; */
+} 
+
+
 
 .hero-page-btn:hover {
   cursor: pointer;

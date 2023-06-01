@@ -12,4 +12,18 @@ module.exports = {
             default: 1,
         },
     },
+    networks: {
+        polygon: {
+            url: P_RPC_URL,
+            accounts: [PRIVATE_KEY],
+            gas: 2100000,
+            gasPrice: 8000000000,
+        },
+        // goerli: {
+        //     url: RPC_URL,
+        //     accounts: [PRIVATE_KEY],
+        //     gas: 2100000,
+        //     gasPrice: 8000000000,
+        // },
+    },
 }

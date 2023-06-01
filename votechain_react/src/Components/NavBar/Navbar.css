@@ -23,7 +23,7 @@ header {
   color: #000;
 }
 
-.navbar-container button {
+/* .navbar-container button {
   padding: 12px 25px 12px 25px;
   background: #009444;
   border-radius: 20px;
@@ -33,7 +33,7 @@ header {
 
 .navbar-container button:hover {
   cursor: pointer;
-}
+} */
 
 @media (max-width: 1200px) {
   .nav-list {
