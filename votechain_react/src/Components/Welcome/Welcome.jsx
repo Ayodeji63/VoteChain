@@ -6,7 +6,7 @@ const Welcome = () => {
   const { address } = useAccount();
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate("/login");
+    navigate("/register");
   };
   return (
     <div className="welcome-container">
