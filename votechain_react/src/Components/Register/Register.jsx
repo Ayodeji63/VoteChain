@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import "./Register.css"
 import { Web3Button } from "@web3modal/react"
 import App from "../blocto_test/App"
 
