@@ -25,12 +25,8 @@ const Welcome = () => {
                     <p>
                         <strong>
                             Register To Vote:{" "}
-                            <span
-                                style={{
-                                    color: "blue",
-                                    fontWeight: "normal",
-                                    cursor: "pointer",
-                                }}
+                            <span className="register-text"
+                               
                                 onClick={handleNavigate}
                             >
                                 click here

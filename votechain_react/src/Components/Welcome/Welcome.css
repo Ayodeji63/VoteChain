@@ -38,6 +38,14 @@
   color: #667085;
 }
 
+.register-text {
+  color: #079145;
+  margin-left: 30px;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: "pointer";
+}
+
 .election-time {
   margin-top: 60px;
   margin-right: 20px;
