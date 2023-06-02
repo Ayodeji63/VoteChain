@@ -70,15 +70,27 @@
 .create-buttons {
   position: absolute;
   bottom: -100px;
-  right: -50px;
+  right: -20px;
 }
 
 .cancel-btn {
   margin-right: 30px;
+  font-weight: 600;
   background: #fff;
   color: #000;
   border: none;
-  width: 100px;
+  width: 110px;
+  border-radius: 5px;
+}
+
+.create-btn {
+  border: none;
+  font-size: 10px;
+  font-weight: 600;
+  background: #027a48;
+  color: #fff;
+  width: 110px;
+  border-radius: 5px;
 }
 
 @media (max-width: 1200px) {
