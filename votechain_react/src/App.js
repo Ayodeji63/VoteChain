@@ -15,6 +15,7 @@ import LiveResults from "./Components/LiveResults/LiveResults";
 import FinalResults from "./Components/FinalResults/FinalResults";
 import AdminWelcome from "./Components/Admin/AdminWelcome/AdminWelcome";
 import RecentPolls from "./Components/Admin/RecentPolls/RecentPolls";
+import CreatePoll from "./Components/Admin/CreatePoll/CreatePoll";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <LiveResults/>
             <RecentPolls/>
             </>} />
+            <Route exact path="/create-new-poll" element={<CreatePoll/>}/>
         </Routes>
       </Router>
     </>
