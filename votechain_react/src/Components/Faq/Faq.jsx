@@ -15,7 +15,7 @@ const text = (
 
 const Faq = () => {
   return (
-    <div className="faq-container">
+    <div className="faq-container" id="faqs">
       <div className="faq-text">
         <h4>Frequently asked questions</h4>
         <p>Everything you need to know about the product and billing.</p>

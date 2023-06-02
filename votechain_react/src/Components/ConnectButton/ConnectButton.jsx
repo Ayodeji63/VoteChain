@@ -1,5 +1,10 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useNavigate } from "react-router";
 export const SignIn = () => {
+  const navigate = useNavigate()
+  const handleLogout = () =>{
+    navigate("/")
+  }
   return (
     <ConnectButton.Custom>
       {({
