@@ -26,6 +26,10 @@ const CreatePoll = () => {
           <AiOutlinePlus className="add-icon" />
           <p>Add new candidate</p>
         </div>
+        <div className="create-buttons">
+          <button className="cancel-btn">Cancel</button>
+          <button className="create-btn">Create poll</button>
+        </div>
       </div>
     </div>
   );

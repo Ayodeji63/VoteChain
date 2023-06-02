@@ -27,6 +27,7 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  position: relative;
 }
 
 .presidential-input {
@@ -64,6 +65,20 @@
 .create-poll-form > h5 {
   font-weight: 400;
   margin-top: 30px;
+}
+
+.create-buttons {
+  position: absolute;
+  bottom: -100px;
+  right: -50px;
+}
+
+.cancel-btn {
+  margin-right: 30px;
+  background: #fff;
+  color: #000;
+  border: none;
+  width: 100px;
 }
 
 @media (max-width: 1200px) {
