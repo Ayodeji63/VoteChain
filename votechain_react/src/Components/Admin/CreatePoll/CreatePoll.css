@@ -44,3 +44,21 @@
   align-items: center;
   gap: 30px;
 }
+
+.add-icon {
+  font-size: 20px;
+}
+
+.create-poll-form > h5 {
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+@media (max-width: 1200px) {
+  .presidential-input {
+    width: 349px;
+  }
+  .create-poll-form {
+    width: 100%;
+  }
+}

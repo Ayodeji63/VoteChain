@@ -1,5 +1,6 @@
 import React from "react";
 import "./CreatePoll.css";
+import { AiOutlinePlus } from "react-icons/ai";
 import candidateAvatarUpload from "../../../images/candidate-avatar-upload.png";
 
 const CreatePoll = () => {
@@ -20,6 +21,10 @@ const CreatePoll = () => {
           <img src={candidateAvatarUpload} alt="" />
           <h5>Candice WU</h5>
           <p>APC</p>
+        </div>
+        <div className="add-new-candidate">
+          <AiOutlinePlus className="add-icon" />
+          <p>Add new candidate</p>
         </div>
       </div>
     </div>
