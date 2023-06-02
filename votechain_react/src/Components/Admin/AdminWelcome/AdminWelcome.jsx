@@ -1,7 +1,12 @@
 import React from "react";
 import "./AdminWelcome.css";
+import { useNavigate } from "react-router";
 
 const AdminWelcome = () => {
+    const navigate = useNavigate()
+    const handleNavigate = () =>{
+        navigate("/create-new-poll")
+    }
   return (
     <div className="admin-welcome-container">
       <div className="admin-welcome-text-button">
