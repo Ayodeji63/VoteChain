@@ -15,6 +15,7 @@ const CreatePoll = () => {
             className="presidential-input"
           />
         </form>
+        <h5>Add Candidate</h5>
         <div className="president-details">
           <img src={candidateAvatarUpload} alt="" />
           <h5>Candice WU</h5>
