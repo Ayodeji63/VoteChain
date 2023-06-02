@@ -82,6 +82,12 @@
   border-radius: 20px;
 }
 
+.newmodal-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
 .vote-btn:hover {
   cursor: pointer;
 }
