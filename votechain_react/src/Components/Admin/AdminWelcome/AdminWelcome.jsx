@@ -1,4 +1,5 @@
 import React from "react";
+import "./AdminWelcome.css";
 
 const AdminWelcome = () => {
   return (
@@ -8,7 +9,7 @@ const AdminWelcome = () => {
           <h3>Welcome back, Admin</h3>
         </div>
         <div className="admin-welcome-button">
-          <button>Create New Poll</button>
+          <button className="create-new-poll-btn">Create New Poll</button>
         </div>
       </div>
     </div>

@@ -1,3 +1,16 @@
 .admin-welcome-container {
   padding: 50px;
 }
+
+.admin-welcome-text-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-welcome-button > button {
+  background: #027a48;
+  color: #fff;
+  border: none;
+  width: 150px !important;
+}
