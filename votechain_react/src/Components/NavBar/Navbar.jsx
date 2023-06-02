@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
-import voteLogo from "../../images/demo-logo.png";
+import voteChainLogo from "../../images/VoteChainLogo.png"
 import { SignIn } from "../ConnectButton/ConnectButton";
 import { useState } from "react";
 import { HookContext } from "../../context/hook";
@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="navbar-container">
-        <img src={voteLogo} alt="Vote Logo" />
+        <img src={voteChainLogo} alt="Vote Logo" />
         <ul className="nav-list">
           <li>
             <a href="/#mission">Mission</a>
