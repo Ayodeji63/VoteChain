@@ -5,10 +5,14 @@ import { useRef, useState } from "react"
 import "./FinalResults.css"
 import modalIcon from "../../images/modal-icon.png"
 import { data } from "./data"
+import { useNavigate } from "react-router-dom"
 import {
     paginatedIndexesConfig,
     useContractInfiniteReads,
     useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
+    useAccount,
 } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
 
@@ -19,6 +23,78 @@ const FinalResults = () => {
     const [isVoted, setIsVoted] = useState(false)
     const [dataSet, setDataSet] = useState([])
     const [numCandidates, setNumCandidates] = useState(0)
+    const [candidateId, setCandidateId] = useState(0)
+    const { address } = useAccount()
+    const navigate = useNavigate()
+
+    const [startTime, setStartTime] = useState(null)
+    const [endTime, setEndTime] = useState(null)
+
+    const v_StartTime = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "s_votingStartTime",
+    })
+
+    const v_endTime = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "s_votingEndTime",
+    })
+
+    //   const getTime = () => {
+    //       const startTime = Number(v_StartTime.data)
+    //       const unixTimestamp = v_StartTime.data
+    //       const s_date = new Date(`${unixTimestamp}` * 1000).getTime()
+    //       const e_date = new Date(`${v_endTime.data}` * 1000).getTime()
+    //       const now = new Date().getTime()
+    //       const s_distance = s_date - now
+    //       const e_distance = e_date - now
+
+    //       const s_days = Math.floor(s_distance / (1000 * 60 * 60 * 24))
+    //       const s_hours = Math.floor(
+    //           (s_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    //       )
+    //       const s_mins = Math.floor(
+    //           (s_distance % (1000 * 60 * 60)) / (1000 * 60)
+    //       )
+    //       const s_secs = Math.floor((s_distance % (1000 * 60)) / 1000)
+
+    //       const e_days = Math.floor(e_distance / (1000 * 60 * 60 * 24))
+    //       const e_hours = Math.floor(
+    //           (e_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    //       )
+    //       const e_mins = Math.floor(
+    //           (e_distance % (1000 * 60 * 60)) / (1000 * 60)
+    //       )
+    //       const e_secs = Math.floor((e_distance % (1000 * 60)) / 1000)
+
+    //       if (s_distance < 0) {
+    //           setStartTime("00d : 00h : 00m : 00s")
+    //       } else {
+    //           setStartTime(
+    //               `${s_days < 10 ? `${"0" + s_days} d` : `${s_days} d`} : ${
+    //                   s_hours < 10 ? `${"0" + s_hours} h` : `${s_hours} h`
+    //               } : ${s_mins < 10 ? `${"0" + s_mins} m` : `${s_mins} m`} : ${
+    //                   s_secs < 10 ? `${"0" + s_secs} s` : `${s_secs} s`
+    //               }`
+    //           )
+    //       }
+
+    //       if (e_distance < 0) {
+    //           setEndTime(false)
+    //       } else {
+    //           setEndTime(
+
+    //           )
+    //       }
+    //   }
+
+    //   setInterval(() => {
+    //       if (address) {
+    //           getTime()
+    //       }
+    //   }, 1000)
 
     const readCandidateCount = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
@@ -57,6 +133,19 @@ const FinalResults = () => {
         },
         cacheTime: 2_000,
     })
+
+    const vote = usePrepareContractWrite({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "castVote",
+        args: [candidateId, address],
+        onError(error) {
+            // alert(error.message.Error)
+            // navigate("/welcome")
+        },
+    })
+
+    const { write, isLoading, isSuccess } = useContractWrite(vote.config)
 
     const showModal = (record) => {
         setIsModalOpen(true)
@@ -106,7 +195,10 @@ const FinalResults = () => {
                 <div>
                     <button
                         className="vote-btn"
-                        onClick={() => showModal(record)}
+                        onClick={() => {
+                            showModal(record)
+                            setCandidateId(record.result.id)
+                        }}
                     >
                         {isVoted ? "Voted" : "Vote"}
                     </button>
@@ -130,7 +222,7 @@ const FinalResults = () => {
                                 </p>
                                 <button
                                     className="modal-election-btn"
-                                    onClick={handleSuccess}
+                                    onClick={write}
                                 >
                                     {isVoted ? "Okay, Got it" : "Vote"}
                                 </button>

@@ -25,7 +25,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { bloctoWallet } from "@blocto/rainbowkit-connector"
 export const { chains, publicClient } = configureChains(
-    [bscTestnet, sepolia, goerli, optimismGoerli, polygonMumbai],
+    [sepolia, optimismGoerli],
     [
         alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
         publicProvider(),

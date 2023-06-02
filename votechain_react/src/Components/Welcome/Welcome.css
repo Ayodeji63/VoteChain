@@ -52,12 +52,12 @@
   color: #fff;
 }
 
-.election-time > p {
+.election-time  p {
   font-size: 14px;
   font-weight: 400;
 }
 
-.election-time > h5 {
+.election-time  h5 {
   font-size: 25px;
   font-weight: 500;
 }

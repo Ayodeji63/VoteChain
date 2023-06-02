@@ -25,7 +25,7 @@ const Login = () => {
             console.log(`Error`, error)
         },
     })
-    const { write, isLoading } = useContractWrite(config)
+    const { write, isLoading, isIdle, isSuccess } = useContractWrite(config)
 
     const contractRead = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
@@ -90,7 +90,13 @@ const Login = () => {
                 />
                 {/* <input type="email" placeholder="Enter your Email Address" /> */}
                 <button disabled={!write} onClick={write}>
-                    {isLoading ? "Loading..." : "Register"}
+                    {isLoading
+                        ? "Loading..."
+                        : isIdle
+                        ? "Register To Vote"
+                        : isSuccess
+                        ? "Registered"
+                        : "Register"}
                 </button>
                 <span>
                     {error == "VoteChain_voterRegistered()" &&
