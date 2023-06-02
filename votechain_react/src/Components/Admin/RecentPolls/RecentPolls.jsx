@@ -20,9 +20,32 @@ const RecentPolls = () => {
       key: "status",
     },
   ];
+  const data = [
+    {
+      key: "1",
+      nameofpoll: "Presidential elections",
+      candidates: 21,
+      status: "Active",
+    },
+    {
+      key: "2",
+      nameofpoll: "Senate elections",
+      candidates: 556,
+      status: "Inactive",
+    },
+    {
+      key: "3",
+      nameofpoll: "House of Representative",
+      candidates: 654,
+      status: "Inactive",
+    },
+  ];
   return (
     <div className="recent-polls-container">
-      <div className="recent-polls-table"></div>
+      <div className="recent-polls-table">
+        <h4>Recent Polls</h4>
+        <Table columns={columns} dataSource={data} />
+      </div>
     </div>
   );
 };
