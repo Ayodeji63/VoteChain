@@ -5,6 +5,7 @@ import candidateAvatarUpload from "../../../images/candidate-avatar-upload.png";
 const CreatePoll = () => {
   return (
     <div className="create-poll-container">
+      <h4 className="create-poll-text">Create New Poll</h4>
       <div className="create-poll-form">
         <label for="presidential-input" className="presidential-input-label">
           Name of Poll
