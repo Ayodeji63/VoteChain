@@ -7,8 +7,8 @@ const CreatePoll = () => {
     <div className="create-poll-container">
       <h4>Create New Poll</h4>
       <div className="create-poll-form">
-        <form>
-          <label htmlFor="president-input"></label>
+        <form className="president-form">
+          <label htmlFor="president-input">Name of poll</label>
           <input
             type="text"
             id="president-input"
