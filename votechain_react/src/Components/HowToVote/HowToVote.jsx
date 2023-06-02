@@ -6,7 +6,7 @@ import reportIcon from "../../images/report icon.png";
 
 const HowToVote = () => {
   return (
-    <div className="how-to-vote-container">
+    <div className="how-to-vote-container" id="howtovote">
       <div className="how-to-vote-details">
         <h4>How to Vote</h4>
         <div className="how-to-vote-cards">

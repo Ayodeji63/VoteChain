@@ -20,10 +20,10 @@ const Navbar = () => {
             <a href="/#mission">Mission</a>
           </li>
           <li>
-            <a href="/">How To Vote</a>
+            <a href="/#howtovote">How To Vote</a>
           </li>
           <li>
-            <a href="/">FAQs</a>
+            <a href="/#faqs">FAQs</a>
           </li>
         </ul>
 
