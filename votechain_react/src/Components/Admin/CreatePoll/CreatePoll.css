@@ -45,6 +45,18 @@
   gap: 30px;
 }
 
+.add-new-candidate {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.add-new-candidate > p {
+  color: #027a48;
+  font-size: 19px;
+}
+
 .add-icon {
   font-size: 20px;
 }
