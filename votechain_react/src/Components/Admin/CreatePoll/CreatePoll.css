@@ -1,3 +1,10 @@
 .create-poll-container {
   padding: 50px;
 }
+
+.create-poll-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
