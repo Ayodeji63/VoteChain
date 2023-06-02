@@ -237,7 +237,7 @@ const FinalResults = () => {
           <AiOutlineSearch className="search-icon" />
           <input
             type="text"
-            placeholder="Search For Doctors"
+            placeholder="Search For Candidates"
             className="search-input-tag"
           />
         </div>
