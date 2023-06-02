@@ -60,6 +60,9 @@ const Login = () => {
       );
     }
   };
+  const handleNavigate = () => {
+    navigate("/welcome");
+  };
 
   setInterval(() => {
     if (address) {
@@ -69,7 +72,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <AiOutlineArrowLeft className="arrow-left" />
+        <AiOutlineArrowLeft className="arrow-left" onClick={handleNavigate} />
         <h3>Register To Vote </h3>
         <p>
           Enter your Voters Identification Number (VIN) or National <br />
