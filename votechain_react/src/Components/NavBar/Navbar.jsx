@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
-import voteChainLogo from "../../images/VoteChainLogo.png"
+import voteChainLogo from "../../images/VoteChainLogo.png";
 import { SignIn } from "../ConnectButton/ConnectButton";
 import { useState } from "react";
 import { HookContext } from "../../context/hook";
