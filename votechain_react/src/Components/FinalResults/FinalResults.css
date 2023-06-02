@@ -91,6 +91,12 @@
   object-fit: cover;
 }
 
+.modal-election-name {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  font-weight: 500;
+}
+
 .vote-btn:hover {
   cursor: pointer;
 }

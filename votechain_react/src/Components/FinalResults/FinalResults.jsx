@@ -145,7 +145,9 @@ const FinalResults = () => {
     },
   });
 
-  const { write, isLoading, isSuccess } = useContractWrite(vote.config);
+  const { write, isLoading, isSuccess, isError } = useContractWrite(
+    vote.config
+  );
 
   const showModal = (record) => {
     setIsModalOpen(true);
@@ -205,7 +207,7 @@ const FinalResults = () => {
           <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
             {modalContent.map((newModal) => (
               <div className="modal-container">
-                <img src={modalIcon} alt="Modal Icon" className="modal-icon"/>
+                <img src={modalIcon} alt="Modal Icon" className="modal-icon" />
                 <h4 className="modal-election-name">
                   {isVoted
                     ? "Your Vote was Successful"
@@ -217,7 +219,7 @@ const FinalResults = () => {
                   className="newmodal-image"
                 />
                 <button className="modal-election-btn" onClick={write}>
-                  {isVoted ? "Okay, Got it" : "Vote"}
+                  {isSuccess ? "Okay, Got it" : "Vote"}
                 </button>
               </div>
             ))}
