@@ -25,19 +25,24 @@ const RecentPolls = () => {
       key: "1",
       nameofpoll: "Presidential elections",
       candidates: 21,
-      status: "Active",
+      status: (
+        <div className="circle-text">
+          <div className="circle"></div>
+          <span className="active">Active</span>
+        </div>
+      ),
     },
     {
       key: "2",
       nameofpoll: "Senate elections",
       candidates: 556,
-      status: "Inactive",
+      status: <span className="inactive">Inactive</span>,
     },
     {
       key: "3",
       nameofpoll: "House of Representative",
       candidates: 654,
-      status: "Inactive",
+      status: <span className="inactive">Inactive</span>,
     },
   ];
   return (
