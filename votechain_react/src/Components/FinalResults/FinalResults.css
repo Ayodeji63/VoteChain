@@ -91,6 +91,10 @@
   object-fit: cover;
 }
 
+.modal-icon {
+  display: block;
+}
+
 .vote-btn:hover {
   cursor: pointer;
 }
