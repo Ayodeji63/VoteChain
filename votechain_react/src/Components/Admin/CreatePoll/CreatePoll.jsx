@@ -5,20 +5,19 @@ import candidateAvatarUpload from "../../../images/candidate-avatar-upload.png";
 const CreatePoll = () => {
   return (
     <div className="create-poll-container">
-      <h4 className="create-poll-text">Create New Poll</h4>
+      <h4>Create New Poll</h4>
       <div className="create-poll-form">
-        <label for="presidential-input" className="presidential-input-label">
-          Name of Poll
-        </label>
-        <input
-          type="text"
-          placeholder="Presidential election"
-          id="presidential-input"
-        />
-        <p>Add Candidate</p>
-        <div>
-          <img src={candidateAvatarUpload} alt="Candidate Upload" />
-          <p>Candice Wu</p>
+        <form>
+          <label htmlFor="president-input"></label>
+          <input
+            type="text"
+            id="president-input"
+            className="presidential-input"
+          />
+        </form>
+        <div className="president-details">
+          <img src={candidateAvatarUpload} alt="" />
+          <h5>Candice WU</h5>
           <p>APC</p>
         </div>
       </div>
