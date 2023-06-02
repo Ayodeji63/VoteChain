@@ -1,3 +1,9 @@
 .recent-polls-container {
   padding: 50px;
 }
+
+.recent-polls-table > h4 {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
