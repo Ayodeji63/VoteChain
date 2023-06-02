@@ -45,6 +45,7 @@ function App() {
             </>} />
             <Route exact path="/admin" element={<>
             <AdminWelcome/>
+            <LiveResults/>
             </>} />
         </Routes>
       </Router>
