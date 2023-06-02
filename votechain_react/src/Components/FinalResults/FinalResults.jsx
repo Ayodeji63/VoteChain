@@ -205,7 +205,7 @@ const FinalResults = () => {
           <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
             {modalContent.map((newModal) => (
               <div className="modal-container">
-                <img src={modalIcon} alt="Modal Icon" />
+                <img src={modalIcon} alt="Modal Icon" className="modal-icon"/>
                 <h4 className="modal-election-name">
                   {isVoted
                     ? "Your Vote was Successful"
