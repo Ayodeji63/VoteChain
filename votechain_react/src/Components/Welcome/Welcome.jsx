@@ -76,7 +76,7 @@ const Welcome = () => {
     if (!address) {
       navigate("/");
     }
-  }, []);
+  }, [address]);
   setInterval(() => {
     if (address) {
       getTime();
