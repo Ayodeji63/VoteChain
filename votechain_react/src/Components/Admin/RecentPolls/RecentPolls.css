@@ -20,10 +20,27 @@
   border-radius: 18px;
 }
 
+.inactive {
+  background: #f2f4f7;
+  color: #344054;
+  padding: 8px 10px 8px 20px;
+  border-radius: 18px;
+}
+
 .circle {
   width: 7px;
   height: 7px;
   background: #027a48;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+}
+
+.circle-second {
+  width: 7px;
+  height: 7px;
+  background: #667085;
   border-radius: 50%;
   position: absolute;
   left: 10px;

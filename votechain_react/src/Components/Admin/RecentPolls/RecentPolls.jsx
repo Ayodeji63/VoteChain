@@ -36,13 +36,23 @@ const RecentPolls = () => {
       key: "2",
       nameofpoll: "Senate elections",
       candidates: 556,
-      status: <span className="inactive">Inactive</span>,
+      status: (
+        <div className="circle-text">
+          <div className="circle-second"></div>
+          <span className="inactive">Inactive</span>
+        </div>
+      ),
     },
     {
       key: "3",
       nameofpoll: "House of Representative",
       candidates: 654,
-      status: <span className="inactive">Inactive</span>,
+      status: (
+        <div className="circle-text">
+          <div className="circle-second"></div>
+          <span className="inactive">Inactive</span>
+        </div>
+      ),
     },
   ];
   return (
