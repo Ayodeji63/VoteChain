@@ -45,7 +45,7 @@ describe("voteChain", function () {
 
     describe("Register Voters", () => {
         it("should register a voter", async () => {
-            registerVoter = await voteChain.connect(addr1).registerVoter()
+            registerVoter = await voteChain.connect(addr1).registerVoter(1)
 
             expect(await registerVoter)
                 .to.emit(voteChain, "VoteChain_voterRegistered")
@@ -56,7 +56,7 @@ describe("voteChain", function () {
 
             let voter = await voteChain.connect(addr2).getVoter(addr1.address)
             let voterInfo =
-                "0,false,0x70997970C51812dc3A010C7d01b50e0d17dc79C8,0"
+                "1,false,0x70997970C51812dc3A010C7d01b50e0d17dc79C8,0"
             assert.equal(voter.toString(), voterInfo)
         })
         it("should revert when registering a voter again", async function () {

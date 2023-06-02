@@ -12,12 +12,16 @@
     flex-direction: column;
 }
 
-.login-form>h3 {
+.login-form>h3, .login-form>h4 {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 10px;
+    text-align: center;
 }
 
+.span {
+    color: #009444;
+}
 .login-form>p {
     text-align: center;
     font-size: 14px;

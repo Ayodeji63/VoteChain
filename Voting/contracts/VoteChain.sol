@@ -38,7 +38,7 @@ contract VoteChain is
         i_registrationDuration = registrationDuration;
     }
 
-    function registerVoter() public {
+    function registerVoter(uint voterId) public {
         if (!containsVoter()) {
             revert VoteChain_voterRegistered();
         }
@@ -46,7 +46,7 @@ contract VoteChain is
             revert VoteChain_registrationElapsed();
         }
 
-        _registerVoter(s_votersCount);
+        _registerVoter(voterId);
         emit VoterRegistered(s_votersCount, msg.sender);
         s_votersCount++;
     }
