@@ -14,6 +14,7 @@ import VoteCategory from "./Components/VoteCategory/VoteCategory";
 import LiveResults from "./Components/LiveResults/LiveResults";
 import FinalResults from "./Components/FinalResults/FinalResults";
 import AdminWelcome from "./Components/Admin/AdminWelcome/AdminWelcome";
+import RecentPolls from "./Components/Admin/RecentPolls/RecentPolls";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route exact path="/admin" element={<>
             <AdminWelcome/>
             <LiveResults/>
+            <RecentPolls/>
             </>} />
         </Routes>
       </Router>
