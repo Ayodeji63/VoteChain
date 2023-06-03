@@ -69,6 +69,17 @@
   margin-bottom: 30px;
 }
 
+.ant-upload-text {
+  font-size: 18px !important;
+  font-family: "Poppins", sans-serif;
+}
+
+.colored {
+  color: #009444;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
 .add-new-candidate:hover {
   cursor: pointer;
 }

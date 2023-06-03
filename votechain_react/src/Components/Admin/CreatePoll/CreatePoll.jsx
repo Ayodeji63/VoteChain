@@ -75,10 +75,11 @@ const CreatePoll = () => {
                 <p className="ant-upload-drag-icon">
                   <AiOutlineInbox />
                 </p>
-                <p className="ant-upload-text">
-                  Click or drag file to this area to upload
+                <p className="ant-upload-text">Upload Candidate Photo</p>
+                <p className="ant-upload-hint">
+                  <span className="colored">Click to Upload</span> or drag and
+                  drop
                 </p>
-                <p className="ant-upload-hint">Upload Candidate Images here</p>
               </Dragger>
             </form>
           </div>
