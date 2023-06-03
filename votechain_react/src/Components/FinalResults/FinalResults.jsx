@@ -7,14 +7,17 @@ import modalIcon from "../../images/modal-icon.png";
 import { data } from "./data";
 import { useNavigate } from "react-router-dom";
 import {
-  paginatedIndexesConfig,
-  useContractInfiniteReads,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useAccount,
-} from "wagmi";
-import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../..";
+
+    paginatedIndexesConfig,
+    useContractInfiniteReads,
+    useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
+    useAccount,
+} from "wagmi"
+import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
+import { watchContractEvent } from "@wagmi/core"
+
 
 const FinalResults = () => {
   const [modal, contextHolder] = Modal.useModal();
