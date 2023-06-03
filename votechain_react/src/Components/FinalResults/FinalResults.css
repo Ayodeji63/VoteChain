@@ -50,6 +50,15 @@
   object-fit: cover;
 }
 
+.arrow-left-final-results {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.arrow-left-final-results:hover {
+  cursor: pointer;
+}
+
 .modal-election-btn.disabled {
   background: #e8e8ef;
   color: #000;
