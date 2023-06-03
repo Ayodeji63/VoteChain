@@ -41,6 +41,16 @@ const CreatePoll = () => {
         <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
           <div>
             <h4>Enter candidate details</h4>
+            <form className="form-upload">
+              <label htmlFor="CandidateName">Name of Candidate</label>
+              <input
+                type="text"
+                placeholder="Candidate Name"
+                id="CandidateName"
+              />
+              <label htmlFor="PartyName">Name of Party</label>
+              <input type="text" placeholder="Party Name" id="PartyName" />
+            </form>
           </div>
         </Modal>
 
