@@ -21,9 +21,9 @@ async function verify(contractAddress, args) {
     }
 }
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 3000
-    const votingStartTime = registrationDuration + 300
-    const votingEndTime = Math.floor(votingStartTime + 3600)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 300
+    const votingStartTime = registrationDuration + 100
+    const votingEndTime = Math.floor(votingStartTime + 600)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
