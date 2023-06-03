@@ -81,6 +81,10 @@ const CreatePoll = () => {
                   drop
                 </p>
               </Dragger>
+              <div className="upload-poll-btn">
+                <button className="cancel-btn">Cancel</button>
+                <button className="create-btn">Create Poll</button>
+              </div>
             </form>
           </div>
         </Modal>

@@ -118,6 +118,10 @@
   border-radius: 5px;
 }
 
+.upload-poll-btn {
+  margin-top: 30px;
+}
+
 .create-btn {
   border: none;
   font-size: 10px;
