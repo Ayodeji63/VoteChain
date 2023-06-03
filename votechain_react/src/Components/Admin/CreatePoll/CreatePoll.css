@@ -69,6 +69,10 @@
   margin-bottom: 30px;
 }
 
+.candidate-upload-icon {
+  font-size: 30px;
+}
+
 .ant-upload-text {
   font-size: 18px !important;
   font-family: "Poppins", sans-serif;

@@ -10,7 +10,7 @@ const CreatePoll = () => {
   const props = {
     name: "file",
     multiple: true,
-    action: "https://",
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
     onchange(info) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -73,7 +73,7 @@ const CreatePoll = () => {
               <input type="text" placeholder="Party Name" id="PartyName" />
               <Dragger {...props} className="dragger-upload">
                 <p className="ant-upload-drag-icon">
-                  <AiOutlineInbox />
+                  <AiOutlineInbox className="candidate-upload-icon" />
                 </p>
                 <p className="ant-upload-text">Upload Candidate Photo</p>
                 <p className="ant-upload-hint">
