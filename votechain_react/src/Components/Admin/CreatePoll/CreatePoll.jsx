@@ -71,6 +71,15 @@ const CreatePoll = () => {
               />
               <label htmlFor="PartyName">Name of Party</label>
               <input type="text" placeholder="Party Name" id="PartyName" />
+              <Dragger {...props} className="dragger-upload">
+                <p className="ant-upload-drag-icon">
+                  <AiOutlineInbox />
+                </p>
+                <p className="ant-upload-text">
+                  Click or drag file to this area to upload
+                </p>
+                <p className="ant-upload-hint">Upload Candidate Images here</p>
+              </Dragger>
             </form>
           </div>
         </Modal>
