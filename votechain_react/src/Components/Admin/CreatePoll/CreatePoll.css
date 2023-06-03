@@ -53,6 +53,10 @@
   gap: 20px;
 }
 
+.add-new-candidate:hover {
+  cursor: pointer;
+}
+
 .add-new-candidate > p {
   color: #027a48;
   font-size: 19px;
