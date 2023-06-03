@@ -15,6 +15,7 @@ import {
     useAccount,
 } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
+import { watchContractEvent } from "@wagmi/core"
 
 const FinalResults = () => {
     const [modal, contextHolder] = Modal.useModal()
@@ -29,6 +30,15 @@ const FinalResults = () => {
 
     const [startTime, setStartTime] = useState(null)
     const [endTime, setEndTime] = useState(null)
+
+    const unwatch = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "WinningCandidate",
+        },
+        (log) => console.log(log)
+    )
 
     const v_StartTime = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
