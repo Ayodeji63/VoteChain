@@ -7,7 +7,6 @@ import modalIcon from "../../images/modal-icon.png";
 import { data } from "./data";
 import { useNavigate } from "react-router-dom";
 import {
-<<<<<<< HEAD
     paginatedIndexesConfig,
     useContractInfiniteReads,
     useContractRead,
@@ -17,16 +16,6 @@ import {
 } from "wagmi"
 import { watchContractEvent } from "@wagmi/core"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
-=======
-  paginatedIndexesConfig,
-  useContractInfiniteReads,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useAccount,
-} from "wagmi";
-import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../..";
->>>>>>> 73303278e7184ffccd77f5e593ccaafe91402a09
 
 const FinalResults = () => {
   const [modal, contextHolder] = Modal.useModal();
@@ -161,7 +150,6 @@ const FinalResults = () => {
     vote.config
   );
 
-<<<<<<< HEAD
     const unwatch = watchContractEvent(
         {
             address: VOTE_CHAIN_ADDRESS,
@@ -266,103 +254,6 @@ const FinalResults = () => {
             ),
         },
     ]
-
-    return (
-        <div className="final-results-container">
-            <div className="final-results-text-search">
-                <h4>Presidential Election 2023</h4>
-                <div className="search-input">
-                    <AiOutlineSearch className="search-icon" />
-                    <input
-                        type="text"
-                        placeholder="Search For Doctors"
-                        className="search-input-tag"
-                    />
-                </div>
-            </div>
-            <p className="aspirants">{numCandidates} Aspirants</p>
-=======
-  const showModal = (record) => {
-    setIsModalOpen(true);
-    setModalContent([record]);
-  };
-  const handleSuccess = () => {
-    setIsVoted(true);
-    setTimeout(() => {
-      setIsModalOpen(false);
-    }, 1000);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-    setIsVoted(false);
-  };
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: ["name", "candidateImage"],
-      key: "name",
-      render: (text, record) => (
-        <div className="candidate-image">
-          <img src={record.result.image} alt="First Candidate" />
-          <a href="##">{record.result.name}</a>
-        </div>
-      ),
-    },
-    {
-      title: "PARTY",
-      dataIndex: "party",
-      key: "party",
-      render: (text, record) => <p>{record.result.party} Party</p>,
-    },
-    {
-      title: "TOTAL VOTES",
-      dataIndex: "voteCount",
-      key: "voteCount",
-      render: (text, record) => <p>{Number(record.result.voteCount)}</p>,
-    },
-    {
-      title: "ACTION",
-      key: "action",
-      render: (text, record) => (
-        <div>
-          <button
-            className="vote-btn"
-            onClick={() => {
-              showModal(record);
-              setCandidateId(record.result.id);
-            }}
-          >
-            {isVoted ? "Voted" : "Vote"}
-          </button>
-          <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
-            {modalContent.map((newModal) => (
-              <div className="modal-container">
-                <img src={modalIcon} alt="Modal Icon" className="modal-icon" />
-                <h4 className="modal-election-name">
-                  {isVoted
-                    ? "Your Vote was Successful"
-                    : `You are about to Vote for ${newModal.result.name}`}
-                </h4>
-                <img
-                  src={newModal.result.image}
-                  alt="First Candidate"
-                  className="newmodal-image"
-                />
-                <button className="modal-election-btn" onClick={write}>
-                  {isSuccess ? "Okay, Got it" : "Vote"}
-                </button>
-              </div>
-            ))}
-          </Modal>
-        </div>
-      ),
-    },
-  ];
->>>>>>> 73303278e7184ffccd77f5e593ccaafe91402a09
-
   return (
     <div className="final-results-container">
       <div className="final-results-text-search">
