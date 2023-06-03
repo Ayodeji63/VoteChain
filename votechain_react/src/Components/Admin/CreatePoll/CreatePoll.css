@@ -66,7 +66,6 @@
   padding: 8px;
   width: 90%;
   height: 20px;
-  margin-bottom: 30px;
 }
 
 .candidate-upload-icon {
@@ -76,6 +75,10 @@
 .ant-upload-text {
   font-size: 18px !important;
   font-family: "Poppins", sans-serif;
+}
+
+.last-input {
+  margin-bottom: 30px;
 }
 
 .colored {
@@ -120,6 +123,14 @@
 
 .upload-poll-btn {
   margin-top: 30px;
+}
+
+.upload-poll-btn > .create-btn {
+  width: 44%;
+}
+
+.upload-poll-btn > .cancel-btn {
+  width: 44%;
 }
 
 .create-btn {

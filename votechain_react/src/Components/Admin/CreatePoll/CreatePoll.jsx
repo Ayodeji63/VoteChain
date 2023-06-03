@@ -70,7 +70,12 @@ const CreatePoll = () => {
                 id="CandidateName"
               />
               <label htmlFor="PartyName">Name of Party</label>
-              <input type="text" placeholder="Party Name" id="PartyName" />
+              <input
+                type="text"
+                placeholder="Party Name"
+                id="PartyName"
+                className="last-input"
+              />
               <Dragger {...props} className="dragger-upload">
                 <p className="ant-upload-drag-icon">
                   <AiOutlineInbox className="candidate-upload-icon" />
