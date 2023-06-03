@@ -14,6 +14,7 @@ import {
     usePrepareContractWrite,
     useAccount,
 } from "wagmi"
+import { watchContractEvent } from "@wagmi/core"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
 
 const FinalResults = () => {
@@ -146,6 +147,24 @@ const FinalResults = () => {
     })
 
     const { write, isLoading, isSuccess } = useContractWrite(vote.config)
+
+    const unwatch = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "VoteCasted",
+        },
+        (log) => console.log(log)
+    )
+    // WinningCandidate
+    const onwin = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "WinningCandidate",
+        },
+        (log) => console.log(log)
+    )
 
     const showModal = (record) => {
         setIsModalOpen(true)
