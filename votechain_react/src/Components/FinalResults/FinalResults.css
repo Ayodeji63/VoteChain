@@ -50,6 +50,15 @@
   object-fit: cover;
 }
 
+.modal-election-btn.disabled {
+  background: #e8e8ef;
+  color: #000;
+}
+
+.modal-election-btn.disabled:hover {
+  cursor: not-allowed;
+}
+
 .modal-election-name {
   font-size: 18px;
   font-weight: 600;

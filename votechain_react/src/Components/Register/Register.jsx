@@ -23,10 +23,23 @@ const Login = () => {
         functionName: "registerVoter",
         args: [ninNumber],
         onError(error) {
-            console.log(`Error`, error)
+            if (error.message.includes("revert")) {
+                // console.log();
+                const errorMessage = error.message.replace("revert ", "")
+                // console.error("Contract reverted with error:", errorMessage)
+                const errorObj = JSON.stringify(
+                    error.cause["metaMessages"][0],
+                    null,
+                    2
+                )
+                if (errorObj == "Error: VoteChain_voterRegistered()") {
+                    console.log("Already Registered")
+                    console.log(errorObj)
+                }
+            }
         },
     })
-    const { write, isLoading, isSuccess } = useContractWrite(config)
+    const { write, isLoading, isIdle, isSuccess } = useContractWrite(config)
 
     const contractRead = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
