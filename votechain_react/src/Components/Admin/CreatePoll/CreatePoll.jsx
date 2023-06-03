@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./CreatePoll.css";
-import { Modal } from "antd";
+import { Modal, Upload, Message } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 import candidateAvatarUpload from "../../../images/candidate-avatar-upload.png";
 
