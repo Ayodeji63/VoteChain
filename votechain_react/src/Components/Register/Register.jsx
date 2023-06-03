@@ -13,6 +13,35 @@ import {
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../..";
 
 const Login = () => {
+<<<<<<< HEAD
+    const navigate = useNavigate()
+    const { address } = useAccount()
+    const [ninNumber, setNinNumber] = useState(0)
+    const [timeLeft, setTimeLeft] = useState("")
+    const { config, error } = usePrepareContractWrite({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "registerVoter",
+        args: [ninNumber],
+        onError(error) {
+            if (error.message.includes("revert")) {
+                // console.log();
+                const errorMessage = error.message.replace("revert ", "")
+                // console.error("Contract reverted with error:", errorMessage)
+                const errorObj = JSON.stringify(
+                    error.cause["metaMessages"][0],
+                    null,
+                    2
+                )
+                if (errorObj == "Error: VoteChain_voterRegistered()") {
+                    console.log("Already Registered")
+                    console.log(errorObj)
+                }
+            }
+        },
+    })
+    const { write, isLoading, isIdle, isSuccess } = useContractWrite(config)
+=======
   const navigate = useNavigate();
   const { address } = useAccount();
   const [ninNumber, setNinNumber] = useState(0);
@@ -27,6 +56,7 @@ const Login = () => {
     },
   });
   const { write, isLoading, isSuccess } = useContractWrite(config);
+>>>>>>> 73303278e7184ffccd77f5e593ccaafe91402a09
 
   const contractRead = useContractRead({
     address: VOTE_CHAIN_ADDRESS,
