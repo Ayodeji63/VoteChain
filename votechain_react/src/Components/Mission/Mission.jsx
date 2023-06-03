@@ -5,7 +5,7 @@ import checkIcon from "../../images/Check icon.png";
 
 const Mission = () => {
   return (
-    <div className="mission-container">
+    <div className="mission-container" id="mission">
       <div className="mission-details">
         <div className="mission-image">
           <img src={missionImage} alt="Mission Illustration" />

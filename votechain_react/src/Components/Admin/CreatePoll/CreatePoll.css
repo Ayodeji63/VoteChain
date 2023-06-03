@@ -1,0 +1,103 @@
+.create-poll-container {
+  padding: 50px;
+}
+
+.create-poll-container > h4 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.president-form {
+  margin: auto;
+}
+
+.president-form > label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.create-poll-form {
+  margin-top: 100px;
+  width: 600px;
+  margin: 30px auto auto auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  position: relative;
+}
+
+.presidential-input {
+  width: 650px;
+  padding-left: 15px;
+  height: 34px;
+  border-radius: 7px;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+.president-details {
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+  gap: 30px;
+}
+
+.add-new-candidate {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.add-new-candidate > p {
+  color: #027a48;
+  font-size: 19px;
+}
+
+.add-icon {
+  font-size: 20px;
+}
+
+.create-poll-form > h5 {
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.create-buttons {
+  position: absolute;
+  bottom: -100px;
+  right: -20px;
+}
+
+.cancel-btn {
+  margin-right: 30px;
+  font-weight: 600;
+  background: #fff;
+  color: #000;
+  border: none;
+  width: 110px;
+  border-radius: 5px;
+}
+
+.create-btn {
+  border: none;
+  font-size: 10px;
+  font-weight: 600;
+  background: #027a48;
+  color: #fff;
+  width: 110px;
+  border-radius: 5px;
+}
+
+@media (max-width: 1200px) {
+  .presidential-input {
+    width: 349px;
+  }
+  .create-poll-form {
+    width: 100%;
+  }
+}
