@@ -41,60 +41,46 @@ const FinalResults = () => {
     abi: VOTE_CHAIN_ABI,
     functionName: "s_votingEndTime",
   });
+  const getTime = () => {
+    const startTime = Number(v_StartTime.data);
+    const unixTimestamp = v_StartTime.data;
+    const s_date = new Date(`${unixTimestamp}` * 1000).getTime();
+    const e_date = new Date(`${v_endTime.data}` * 1000).getTime();
+    const now = new Date().getTime();
+    const s_distance = s_date - now;
+    const e_distance = e_date - now;
 
-  //   const getTime = () => {
-  //       const startTime = Number(v_StartTime.data)
-  //       const unixTimestamp = v_StartTime.data
-  //       const s_date = new Date(`${unixTimestamp}` * 1000).getTime()
-  //       const e_date = new Date(`${v_endTime.data}` * 1000).getTime()
-  //       const now = new Date().getTime()
-  //       const s_distance = s_date - now
-  //       const e_distance = e_date - now
+    const s_days = Math.floor(s_distance / (1000 * 60 * 60 * 24));
+    const s_hours = Math.floor(
+      (s_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const s_mins = Math.floor((s_distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s_secs = Math.floor((s_distance % (1000 * 60)) / 1000);
 
-  //       const s_days = Math.floor(s_distance / (1000 * 60 * 60 * 24))
-  //       const s_hours = Math.floor(
-  //           (s_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  //       )
-  //       const s_mins = Math.floor(
-  //           (s_distance % (1000 * 60 * 60)) / (1000 * 60)
-  //       )
-  //       const s_secs = Math.floor((s_distance % (1000 * 60)) / 1000)
+    const e_days = Math.floor(e_distance / (1000 * 60 * 60 * 24));
+    const e_hours = Math.floor(
+      (e_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const e_mins = Math.floor((e_distance % (1000 * 60 * 60)) / (1000 * 60));
+    const e_secs = Math.floor((e_distance % (1000 * 60)) / 1000);
 
-  //       const e_days = Math.floor(e_distance / (1000 * 60 * 60 * 24))
-  //       const e_hours = Math.floor(
-  //           (e_distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  //       )
-  //       const e_mins = Math.floor(
-  //           (e_distance % (1000 * 60 * 60)) / (1000 * 60)
-  //       )
-  //       const e_secs = Math.floor((e_distance % (1000 * 60)) / 1000)
+    if (s_distance < 0) {
+      setStartTime(false);
+    } else {
+      setStartTime(true);
+    }
 
-  //       if (s_distance < 0) {
-  //           setStartTime("00d : 00h : 00m : 00s")
-  //       } else {
-  //           setStartTime(
-  //               `${s_days < 10 ? `${"0" + s_days} d` : `${s_days} d`} : ${
-  //                   s_hours < 10 ? `${"0" + s_hours} h` : `${s_hours} h`
-  //               } : ${s_mins < 10 ? `${"0" + s_mins} m` : `${s_mins} m`} : ${
-  //                   s_secs < 10 ? `${"0" + s_secs} s` : `${s_secs} s`
-  //               }`
-  //           )
-  //       }
-
-  //       if (e_distance < 0) {
-  //           setEndTime(false)
-  //       } else {
-  //           setEndTime(
-
-  //           )
-  //       }
-  //   }
-
-  //   setInterval(() => {
-  //       if (address) {
-  //           getTime()
-  //       }
-  //   }, 1000)
+    if (e_distance < 0) {
+      setEndTime(false);
+    } else {
+      setEndTime(true);
+    }
+  };
+  setInterval(() => {
+    if (address) {
+      getTime();
+    }
+  }, 1000);
 
   const readCandidateCount = useContractRead({
     address: VOTE_CHAIN_ADDRESS,
@@ -209,8 +195,10 @@ const FinalResults = () => {
               <div className="modal-container">
                 <img src={modalIcon} alt="Modal Icon" className="modal-icon" />
                 <h4 className="modal-election-name">
-                  {isVoted
+                  {isSuccess
                     ? "Your Vote was Successful"
+                    : isError
+                    ? "Something Went Wrong, you are unable to Vote"
                     : `You are about to Vote for ${newModal.result.name}`}
                 </h4>
                 <img
@@ -218,8 +206,22 @@ const FinalResults = () => {
                   alt="First Candidate"
                   className="newmodal-image"
                 />
-                <button className="modal-election-btn" onClick={write}>
-                  {isSuccess ? "Okay, Got it" : "Vote"}
+                <button
+                  className={
+                    !endTime || startTime
+                      ? "modal-election-btn disabled"
+                      : "modal-election-btn"
+                  }
+                  onClick={write}
+                  disabled={!endTime || startTime}
+                >
+                  {isSuccess
+                    ? "Okay, Got it"
+                    : !endTime
+                    ? "Voting Closed"
+                    : startTime
+                    ? "Voting Not Opened"
+                    : "Vote"}
                 </button>
               </div>
             ))}
