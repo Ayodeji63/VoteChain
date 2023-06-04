@@ -86,16 +86,18 @@ const CreatePoll = () => {
                   drop
                 </p>
               </Dragger>
-              <Dragger {...props} className="dragger-upload">
-                <p className="ant-upload-drag-icon">
-                  <AiOutlineInbox className="candidate-upload-icon" />
-                </p>
-                <p className="ant-upload-text">Upload Party Logo</p>
-                <p className="ant-upload-hint">
-                  <span className="colored">Click to Upload</span> or drag and
-                  drop
-                </p>
-              </Dragger>
+              <div className="second-dragger">
+                <Dragger {...props} className="dragger-upload">
+                  <p className="ant-upload-drag-icon">
+                    <AiOutlineInbox className="candidate-upload-icon" />
+                  </p>
+                  <p className="ant-upload-text">Upload Party Logo</p>
+                  <p className="ant-upload-hint">
+                    <span className="colored">Click to Upload</span> or drag and
+                    drop
+                  </p>
+                </Dragger>
+              </div>
               <div className="upload-poll-btn">
                 <button className="cancel-btn">Cancel</button>
                 <button className="create-btn">Create Poll</button>
