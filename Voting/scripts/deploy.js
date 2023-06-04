@@ -5,6 +5,22 @@ const {
 const { ethers } = require("hardhat")
 const { writeFileSync } = require("fs")
 
+async function verify(contractAddress, args) {
+    console.log("Verifying Contract....")
+    try {
+        await run("verify:verify", {
+            address: contractAddress,
+            constructorArguments: args,
+        })
+    } catch (e) {
+        if (e.message.toLowerCase().includes("already verified")) {
+            console.log("Already Verified")
+        } else {
+            console.log(e)
+        }
+    }
+}
+
 async function main() {
     const registrationDuration = Math.floor(Date.now() / 1000) + 300
     const votingStartTime = registrationDuration + 100
@@ -52,6 +68,25 @@ async function main() {
             2
         )
     )
+    console.log(`Waiting for block txes`)
+    await voteChain.deployTransaction.wait(3)
+    await verify(voteChain.address, [registrationDuration, forwarder.address])
+    const tx = await voteChain
+        .connect(relaySigner)
+        .initializeCandidates(
+            id,
+            names,
+            vice,
+            voteCount,
+            images,
+            parties,
+            position,
+            votingStartTime,
+            votingEndTime
+        )
+
+    await tx.wait(1)
+    console.log(await tx)
 
     console.log(
         `MinimalForwarder: ${forwarder.address}\n VoteChain: ${voteChain.address}`
