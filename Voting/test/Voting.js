@@ -6,6 +6,10 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs")
 const { expect, assert } = require("chai")
 const { network } = require("hardhat")
 
+async function deploy(name, ...params) {
+    const Contract = await ethers.getContractFactory(name)
+    return await Contract.deploy(...params).then((f) => f.deployed())
+}
 describe("voteChain", function () {
     const registrationDuration = Math.floor(Date.now() / 1000) + 300
     const votingStartTime = registrationDuration + 300
@@ -25,12 +29,17 @@ describe("voteChain", function () {
         addr5,
         VoteChain,
         voteChain,
-        registerVoter
+        registerVoter,
+        forwarder
 
     beforeEach(async () => {
         ;[owner, addr1, addr2, addr3, addr4, addr5] = await ethers.getSigners()
         VoteChain = await ethers.getContractFactory("VoteChain")
-        voteChain = await VoteChain.deploy(registrationDuration)
+        forwarder = await deploy("MinimalForwarder")
+        voteChain = await VoteChain.deploy(
+            registrationDuration,
+            forwarder.address
+        )
     })
 
     describe("Deployment", function () {

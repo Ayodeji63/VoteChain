@@ -6,6 +6,8 @@ import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 import "hardhat/console.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
+import "@openzeppelin/contracts/metatx/MinimalForwarder.sol";
 
 error VoteChain_voterNotRegistered();
 error VoteChain_voterRegistered();
@@ -19,7 +21,8 @@ error VoteChain_UpkeepNotNeeded(uint voterCount, uint candidatesCount);
 contract VoteChain is
     VotingStorage,
     IVotingElect,
-    AutomationCompatibleInterface
+    AutomationCompatibleInterface,
+    ERC2771Context
 {
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
@@ -33,7 +36,10 @@ contract VoteChain is
     event VoteCasted(address voterAddress, uint candidateId);
     event WinningCandidate(uint candidateId);
 
-    constructor(uint registrationDuration) {
+    constructor(
+        uint registrationDuration,
+        MinimalForwarder forwarder
+    ) ERC2771Context(address(forwarder)) {
         i_chairperson = msg.sender;
         i_registrationDuration = registrationDuration;
     }
@@ -46,8 +52,10 @@ contract VoteChain is
             revert VoteChain_registrationElapsed();
         }
 
+        address voter_address = _msgSender();
+
         _registerVoter(voterId);
-        emit VoterRegistered(s_votersCount, msg.sender);
+        emit VoterRegistered(s_votersCount, voter_address);
         s_votersCount++;
     }
 
@@ -90,7 +98,9 @@ contract VoteChain is
             revert VoteChain_BallotClosed();
         }
 
-        Voter storage sender = voters[msg.sender];
+        address voter_address = _msgSender();
+
+        Voter storage sender = voters[voter_address];
         if (containsVoter()) {
             revert VoteChain_voterNotRegistered();
         }

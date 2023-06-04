@@ -1,25 +1,10 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
-const hre = require("hardhat")
-async function verify(contractAddress, args) {
-    console.log("Verifying Contract....")
-    try {
-        await run("verify:verify", {
-            address: contractAddress,
-            constructorArguments: args,
-        })
-    } catch (e) {
-        if (e.message.toLowerCase().includes("already verified")) {
-            console.log("Already Verified")
-        } else {
-            console.log(e)
-        }
-    }
-}
+const {
+    DefenderRelayProvider,
+    DefenderRelaySigner,
+} = require("defender-relay-client/lib/ethers")
+const { ethers } = require("hardhat")
+const { writeFileSync } = require("fs")
+
 async function main() {
     const registrationDuration = Math.floor(Date.now() / 1000) + 300
     const votingStartTime = registrationDuration + 100
@@ -35,48 +20,49 @@ async function main() {
     ]
     const parties = ["Labour", "APC", "PDP"]
     const position = ["President", "President", "President"]
-    const VoteChain = await hre.ethers.getContractFactory("VoteChain")
-    const voteChain = await VoteChain.deploy(registrationDuration)
 
-    await voteChain.deployed()
+    require("dotenv").config()
+    const credentials = {
+        apiKey: process.env.RELAYER_API_KEY,
+        apiSecret: process.env.RELAYER_API_SECRET,
+    }
+    const provider = new DefenderRelayProvider(credentials)
+    const relaySigner = new DefenderRelaySigner(credentials, provider, {
+        speed: "fast",
+    })
 
-    console.log(`VoteChain Deployed at`, voteChain.address)
-    console.log(`Waiting for block txes`)
-    await voteChain.deployTransaction.wait(3)
-    await verify(voteChain.address, [registrationDuration])
+    const Forwarder = await ethers.getContractFactory("MinimalForwarder")
+    const forwarder = await Forwarder.connect(relaySigner)
+        .deploy()
+        .then((f) => f.deployed())
 
-    const tx = await voteChain.initializeCandidates(
-        id,
-        names,
-        vice,
-        voteCount,
-        images,
-        parties,
-        position,
-        votingStartTime,
-        votingEndTime
+    const VoteChain = await ethers.getContractFactory("VoteChain")
+    const voteChain = await VoteChain.connect(relaySigner)
+        .deploy(registrationDuration, forwarder.address)
+        .then((f) => f.deployed())
+
+    writeFileSync(
+        "deploy.json",
+        JSON.stringify(
+            {
+                MinimalForwarder: forwarder.address,
+                VoteChain: voteChain.address,
+            },
+            null,
+            2
+        )
     )
 
-    await tx.wait(1)
-    console.log(await tx)
+    console.log(
+        `MinimalForwarder: ${forwarder.address}\n VoteChain: ${voteChain.address}`
+    )
 }
 
-// labout party logo:: https://bafkreie2rpjvsqw37yxu2trwq2sbdyumcksbitmbjhfnsghdf32f3cic5q.ipfs.nftstorage.link/
-
-// Peter:: https://bafkreidqadt5ve2ukjgrgdjnpktoafkv5gspq7m37yelj3r2mrhgcdrivq.ipfs.nftstorage.link/
-
-// PDP logo:: https://bafkreics5n3oleswwvy25zkga473jfp5smpizb6ki5qupla3cdpnskjwku.ipfs.nftstorage.link/
-
-// ATIKU::
-//https://bafkreib22x2uicqktdt2pzdqx2teahfs6oz5w37ncel7kazzcpk7jkdvda.ipfs.nftstorage.link/
-
-// APC logo:: https://bafybeiaaqruff27yre5w2pxak2xmwkilraymlc3deubmhjtu6bz3du5nhq.ipfs.nftstorage.link/
-
-// BAT:: https://bafkreia3z6qwfnsetmsnbb4ighggwio3fyzmpeozgykm6yahaf2mwxk7se.ipfs.nftstorage.link/
-
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-    console.error(error)
-    process.exitCode = 1
-})
+if (require.main === module) {
+    main()
+        .then(() => process.exit(0))
+        .catch((error) => {
+            console.error(error)
+            process.exit(1)
+        })
+}
