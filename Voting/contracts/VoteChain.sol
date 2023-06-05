@@ -6,6 +6,7 @@ import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 import "hardhat/console.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import {ERC2771Context} from "@gelatonetwork/relay-context/contracts/vendor/ERC2771Context.sol";
 
 error VoteChain_voterNotRegistered();
 error VoteChain_voterRegistered();
@@ -19,7 +20,8 @@ error VoteChain_UpkeepNotNeeded(uint voterCount, uint candidatesCount);
 contract VoteChain is
     VotingStorage,
     IVotingElect,
-    AutomationCompatibleInterface
+    AutomationCompatibleInterface,
+    ERC2771Context
 {
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
@@ -33,8 +35,11 @@ contract VoteChain is
     event VoteCasted(address voterAddress, uint candidateId);
     event WinningCandidate(uint candidateId);
 
-    constructor(uint registrationDuration) {
-        i_chairperson = msg.sender;
+    constructor(
+        uint registrationDuration,
+        address trustedForwarder
+    ) ERC2771Context(trustedForwarder) {
+        i_chairperson = _msgSender();
         i_registrationDuration = registrationDuration;
     }
 
@@ -47,7 +52,7 @@ contract VoteChain is
         }
 
         _registerVoter(voterId);
-        emit VoterRegistered(s_votersCount, msg.sender);
+        emit VoterRegistered(s_votersCount, _msgSender());
         s_votersCount++;
     }
 
@@ -90,7 +95,7 @@ contract VoteChain is
             revert VoteChain_BallotClosed();
         }
 
-        Voter storage sender = voters[msg.sender];
+        Voter storage sender = voters[_msgSender()];
         if (containsVoter()) {
             revert VoteChain_voterNotRegistered();
         }
@@ -137,11 +142,11 @@ contract VoteChain is
     }
 
     function containsVoter() public view returns (bool) {
-        return voters[msg.sender].delegate == address(0);
+        return voters[_msgSender()].delegate == address(0);
     }
 
     function onlyOwner() internal view {
-        if (msg.sender != i_chairperson) {
+        if (_msgSender() != i_chairperson) {
             revert VoteChain_onlyChairperson();
         }
     }
