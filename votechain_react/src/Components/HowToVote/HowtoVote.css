@@ -49,4 +49,7 @@
   .how-to-vote-cards {
     flex-direction: column;
   }
+  .how-to-vote-container {
+    padding: 25px;
+  }
 }
