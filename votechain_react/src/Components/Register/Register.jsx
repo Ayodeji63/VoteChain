@@ -14,7 +14,7 @@ import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
 const Login = () => {
     const navigate = useNavigate()
     const { address } = useAccount()
-    const [ninNumber, setNinNumber] = useState(0)
+    const [ninNumber, setNinNumber] = useState("")
     const [timeLeft, setTimeLeft] = useState("")
 
     const { config, error } = usePrepareContractWrite({
