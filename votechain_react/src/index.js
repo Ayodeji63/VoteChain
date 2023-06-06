@@ -11,19 +11,9 @@ import {
     connectorsForWallets,
 } from "@rainbow-me/rainbowkit"
 import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
-import {
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    bscTestnet,
-    goerli,
-    optimismGoerli,
-    polygonMumbai,
-} from "wagmi/chains"
+import { goerli, optimismGoerli } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-import { bloctoWallet } from "@blocto/rainbowkit-connector"
 import { particleWallet } from "@particle-network/rainbowkit-ext"
 import { ParticleNetwork } from "@particle-network/auth"
 import {
@@ -63,7 +53,11 @@ const particle = new ParticleNetwork({
 const connectors = connectorsForWallets([
     {
         groupName: "Recommended",
-        wallets: [],
+        wallets: [
+            particleWallet({ chains, authType: "google" }),
+            particleWallet({ chains, authType: "facebook" }),
+            particleWallet({ chains, authType: "apple" }),
+        ],
     },
     ...wallets,
 ])
