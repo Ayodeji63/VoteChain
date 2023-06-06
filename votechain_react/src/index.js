@@ -68,8 +68,8 @@ const connectors = connectorsForWallets([
             particleWallet({ chains, authType: "facebook" }),
             particleWallet({ chains, authType: "apple" }),
         ],
-        ...wallets,
     },
+    ...wallets,
 ])
 const wagmiConfig = createConfig({
     autoConnect: true,
