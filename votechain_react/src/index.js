@@ -67,13 +67,8 @@ const connectors = connectorsForWallets([
             particleWallet({ chains, authType: "google" }),
             particleWallet({ chains, authType: "facebook" }),
             particleWallet({ chains, authType: "apple" }),
-            particleWallet({ chains }),
-            injectedWallet({ chains }),
-            rainbowWallet({ chains }),
-            coinbaseWallet({ appName: "RainbowKit demo", chains }),
-            metaMaskWallet({ chains }),
-            walletConnectWallet({ chains }),
         ],
+        ...wallets,
     },
 ])
 const wagmiConfig = createConfig({
