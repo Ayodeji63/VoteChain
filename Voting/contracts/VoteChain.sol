@@ -6,7 +6,6 @@ import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 import "hardhat/console.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
-import {ERC2771Context} from "@gelatonetwork/relay-context/contracts/vendor/ERC2771Context.sol";
 
 error VoteChain_voterNotRegistered();
 error VoteChain_voterRegistered();

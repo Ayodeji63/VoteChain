@@ -31,7 +31,7 @@ import {
 } from "@rainbow-me/rainbowkit/wallets"
 
 export const { chains, publicClient } = configureChains(
-    [goerli],
+    [sepolia],
     [
         alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
         publicProvider(),
