@@ -31,7 +31,7 @@ describe("voteChain", function () {
         ;[owner, addr1, addr2, addr3, addr4, addr5] = await ethers.getSigners()
         const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
         VoteChain = await ethers.getContractFactory("VoteChain")
-        voteChain = await VoteChain.deploy(registrationDuration, forwarder)
+        voteChain = await VoteChain.deploy(registrationDuration)
     })
 
     describe("Deployment", function () {

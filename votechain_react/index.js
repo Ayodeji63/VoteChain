@@ -1,4 +1,4 @@
-export const VOTE_CHAIN_ADDRESS = "0x96D851fd1C12Fadc5334eC711659a89b4011cbda"
+export const VOTE_CHAIN_ADDRESS = "0xb94aBD1b7a8F7DB2d7947d131E8F852Ac7C59dCa"
 
 export const VOTE_CHAIN_ABI = [
     {
@@ -7,11 +7,6 @@ export const VOTE_CHAIN_ABI = [
                 internalType: "uint256",
                 name: "registrationDuration",
                 type: "uint256",
-            },
-            {
-                internalType: "address",
-                name: "trustedForwarder",
-                type: "address",
             },
         ],
         stateMutability: "nonpayable",
@@ -551,25 +546,6 @@ export const VOTE_CHAIN_ABI = [
             },
         ],
         stateMutability: "nonpayable",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "address",
-                name: "forwarder",
-                type: "address",
-            },
-        ],
-        name: "isTrustedForwarder",
-        outputs: [
-            {
-                internalType: "bool",
-                name: "",
-                type: "bool",
-            },
-        ],
-        stateMutability: "view",
         type: "function",
     },
     {

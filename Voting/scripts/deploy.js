@@ -37,14 +37,14 @@ async function main() {
     const position = ["President", "President", "President"]
     const VoteChain = await hre.ethers.getContractFactory("VoteChain")
     const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
-    const voteChain = await VoteChain.deploy(registrationDuration, forwarder)
+    const voteChain = await VoteChain.deploy(registrationDuration)
 
     await voteChain.deployed()
 
     console.log(`VoteChain Deployed at`, voteChain.address)
     console.log(`Waiting for block txes`)
     await voteChain.deployTransaction.wait(3)
-    await verify(voteChain.address, [registrationDuration, forwarder])
+    await verify(voteChain.address, [registrationDuration])
 
     const tx = await voteChain.initializeCandidates(
         id,

@@ -20,8 +20,7 @@ error VoteChain_UpkeepNotNeeded(uint voterCount, uint candidatesCount);
 contract VoteChain is
     VotingStorage,
     IVotingElect,
-    AutomationCompatibleInterface,
-    ERC2771Context
+    AutomationCompatibleInterface
 {
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
@@ -35,11 +34,8 @@ contract VoteChain is
     event VoteCasted(address voterAddress, uint candidateId);
     event WinningCandidate(uint candidateId);
 
-    constructor(
-        uint registrationDuration,
-        address trustedForwarder
-    ) ERC2771Context(trustedForwarder) {
-        i_chairperson = _msgSender();
+    constructor(uint registrationDuration) {
+        i_chairperson = msg.sender;
         i_registrationDuration = registrationDuration;
     }
 
@@ -52,7 +48,7 @@ contract VoteChain is
         }
 
         _registerVoter(voterId);
-        emit VoterRegistered(s_votersCount, _msgSender());
+        emit VoterRegistered(s_votersCount, msg.sender);
         s_votersCount++;
     }
 
@@ -95,7 +91,7 @@ contract VoteChain is
             revert VoteChain_BallotClosed();
         }
 
-        Voter storage sender = voters[_msgSender()];
+        Voter storage sender = voters[msg.sender];
         if (containsVoter()) {
             revert VoteChain_voterNotRegistered();
         }
@@ -142,11 +138,11 @@ contract VoteChain is
     }
 
     function containsVoter() public view returns (bool) {
-        return voters[_msgSender()].delegate == address(0);
+        return voters[msg.sender].delegate == address(0);
     }
 
     function onlyOwner() internal view {
-        if (_msgSender() != i_chairperson) {
+        if (msg.sender != i_chairperson) {
             revert VoteChain_onlyChairperson();
         }
     }
