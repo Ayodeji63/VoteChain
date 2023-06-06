@@ -7,8 +7,8 @@ const { expect, assert } = require("chai")
 const { network } = require("hardhat")
 
 describe("voteChain", function () {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 300
-    const votingStartTime = registrationDuration + 300
+    const registrationDuration = Math.floor(Date.now() / 1000) + 30000
+    const votingStartTime = registrationDuration + 3000
     const votingEndTime = Math.floor(votingStartTime + 3600)
     const id = [1, 2, 3]
     const names = ["Buhari", "Atiku", "Peter"]
@@ -29,8 +29,9 @@ describe("voteChain", function () {
 
     beforeEach(async () => {
         ;[owner, addr1, addr2, addr3, addr4, addr5] = await ethers.getSigners()
+        const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
         VoteChain = await ethers.getContractFactory("VoteChain")
-        voteChain = await VoteChain.deploy(registrationDuration)
+        voteChain = await VoteChain.deploy(registrationDuration, forwarder)
     })
 
     describe("Deployment", function () {

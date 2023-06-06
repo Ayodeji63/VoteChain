@@ -21,9 +21,9 @@ async function verify(contractAddress, args) {
     }
 }
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 300
-    const votingStartTime = registrationDuration + 100
-    const votingEndTime = Math.floor(votingStartTime + 600)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 30000
+    const votingStartTime = registrationDuration + 10000
+    const votingEndTime = Math.floor(votingStartTime + 60000)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
@@ -36,14 +36,15 @@ async function main() {
     const parties = ["Labour", "APC", "PDP"]
     const position = ["President", "President", "President"]
     const VoteChain = await hre.ethers.getContractFactory("VoteChain")
-    const voteChain = await VoteChain.deploy(registrationDuration)
+    const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
+    const voteChain = await VoteChain.deploy(registrationDuration, forwarder)
 
     await voteChain.deployed()
 
     console.log(`VoteChain Deployed at`, voteChain.address)
     console.log(`Waiting for block txes`)
     await voteChain.deployTransaction.wait(3)
-    await verify(voteChain.address, [registrationDuration])
+    await verify(voteChain.address, [registrationDuration, forwarder])
 
     const tx = await voteChain.initializeCandidates(
         id,
@@ -58,7 +59,6 @@ async function main() {
     )
 
     await tx.wait(1)
-    console.log(await tx)
 }
 
 // labout party logo:: https://bafkreie2rpjvsqw37yxu2trwq2sbdyumcksbitmbjhfnsghdf32f3cic5q.ipfs.nftstorage.link/
