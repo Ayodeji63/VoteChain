@@ -12,7 +12,7 @@ const HowToVote = () => {
         <div className="how-to-vote-cards">
           <div className="how-to-vote-card">
             <img src={inboxIcon} alt="Inbox Icon" />
-            <h5>Share team inboxe</h5>
+            <h5>Share team inboxes</h5>
             <p>
               Whether you have a team of 2 or 200, our shared <br />
               team inboxes keep everyone on the same page
