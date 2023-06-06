@@ -63,11 +63,7 @@ const particle = new ParticleNetwork({
 const connectors = connectorsForWallets([
     {
         groupName: "Recommended",
-        wallets: [
-            particleWallet({ chains, authType: "google" }),
-            particleWallet({ chains, authType: "facebook" }),
-            particleWallet({ chains, authType: "apple" }),
-        ],
+        wallets: [],
     },
     ...wallets,
 ])
