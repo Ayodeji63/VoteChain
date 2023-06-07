@@ -12,8 +12,8 @@ import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
 import { goerli, optimismGoerli } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-import { particleWallet } from "@particle-network/rainbowkit-ext"
-import { ParticleNetwork } from "@particle-network/auth"
+// import { particleWallet } from "@particle-network/rainbowkit-ext"
+// import { ParticleNetwork } from "@particle-network/auth"
 import Navbar from "@/components/Navbar/Navbar"
 const inter = Inter({ subsets: ["latin"] })
 const poppins = Poppins({
@@ -35,21 +35,21 @@ const { wallets } = getDefaultWallets({
     chains,
 })
 
-const particle = new ParticleNetwork({
-    appId: "20ab8757-9a69-4b14-bd7c-9d06dd20d20e",
-    clientKey: "cQYVfEkOtm8ttmj9Rg3dCuD9kgi0M84BYo9eYqvc",
-    projectId: "b7d40265-7a93-4ff8-bc6e-bccb39228570",
-})
+// const particle = new ParticleNetwork({
+//     appId: "20ab8757-9a69-4b14-bd7c-9d06dd20d20e",
+//     clientKey: "cQYVfEkOtm8ttmj9Rg3dCuD9kgi0M84BYo9eYqvc",
+//     projectId: "b7d40265-7a93-4ff8-bc6e-bccb39228570",
+// })
 
 const connectors = connectorsForWallets([
     {
         groupName: "Recommended",
         wallets: [
-            particleWallet({ chains, authType: "google" }),
-            particleWallet({ chains, authType: "linkedin" }),
-            particleWallet({ chains, authType: "facebook" }),
-            particleWallet({ chains, authType: "apple" }),
-            particleWallet({ chains, authType: "twitter" }),
+            // particleWallet({ chains, authType: "google" }),
+            // particleWallet({ chains, authType: "linkedin" }),
+            // particleWallet({ chains, authType: "facebook" }),
+            // particleWallet({ chains, authType: "apple" }),
+            // particleWallet({ chains, authType: "twitter" }),
         ],
     },
     ...wallets,

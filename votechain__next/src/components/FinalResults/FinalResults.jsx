@@ -192,7 +192,10 @@ const FinalResults = () => {
                         footer={null}
                     >
                         {modalContent.map((newModal) => (
-                            <div className="modal-container">
+                            <div
+                                className="modal-container"
+                                key={newModal.result.image}
+                            >
                                 <Image
                                     src={"/images/modal-icon.png"}
                                     alt="Modal Icon"

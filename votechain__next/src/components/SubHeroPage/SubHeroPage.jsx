@@ -8,7 +8,7 @@ const SubHeroPage = () => {
             <div className="super-hero-images">
                 <div>
                     <Image
-                        src={"./images/sub-hero-image1.png"}
+                        src={"/images/sub-hero-image1.png"}
                         width={100}
                         height={100}
                         alt=""
@@ -16,7 +16,7 @@ const SubHeroPage = () => {
                 </div>
                 <div>
                     <Image
-                        src={"./images/sub-hero-image2.png"}
+                        src={"/images/sub-hero-image2.png"}
                         width={100}
                         height={100}
                         alt=""
