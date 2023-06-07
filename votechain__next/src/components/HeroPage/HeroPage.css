@@ -1,0 +1,53 @@
+.heropage-container {
+  padding: 50px;
+}
+
+.heropage-texts {
+  display: flex;
+  margin-top: 30px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.heropage-texts .main-text > h3 {
+  font-size: 40px;
+  margin-left: 80px;
+  font-weight: 600;
+
+}
+
+.heropage-texts .main-text > h3 > span {
+  color: #009444;
+}
+
+.hero-page-btn {
+  background: #009444;
+  padding: 12px 20px 12px 20px;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  /* margin-top: 30px; */
+  /* margin-left: 80px; */
+}
+
+.hero-page-btn:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .heropage-texts .main-text > h3 {
+    margin-left: 0px;
+  }
+  .heropage-container {
+    padding: 20px;
+  }
+  .heropage-texts > p {
+    margin-top: 30px;
+  }
+  .sub-text > p {
+    margin-top: 30px;
+  }
+  .hero-page-btn {
+    margin-left: 0px !important;
+  }
+}
