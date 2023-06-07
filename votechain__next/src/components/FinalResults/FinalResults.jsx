@@ -4,6 +4,7 @@ import { AiOutlineArrowLeft, AiOutlineSearch } from "react-icons/ai"
 import { useRef, useState } from "react"
 import "./FinalResults.css"
 // import { useNavigate } from "react-router-dom"
+import Image from "next/image"
 import {
     paginatedIndexesConfig,
     useContractInfiniteReads,
@@ -192,10 +193,12 @@ const FinalResults = () => {
                     >
                         {modalContent.map((newModal) => (
                             <div className="modal-container">
-                                <img
-                                    src={"./images/modal-icon.png"}
+                                <Image
+                                    src={"/images/modal-icon.png"}
                                     alt="Modal Icon"
                                     className="modal-icon"
+                                    width={100}
+                                    height={100}
                                 />
                                 <h4 className="modal-election-name">
                                     {isSuccess
@@ -204,10 +207,12 @@ const FinalResults = () => {
                                         ? "Something Went Wrong, you are unable to Vote"
                                         : `You are about to Vote for ${newModal.result.name}`}
                                 </h4>
-                                <img
+                                <Image
                                     src={newModal.result.image}
                                     alt="First Candidate"
                                     className="newmodal-image"
+                                    width={100}
+                                    height={100}
                                 />
                                 <button
                                     className={

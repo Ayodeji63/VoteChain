@@ -2,7 +2,7 @@ import React from "react"
 import "./HowtoVote.css"
 
 import inbocIcon from "../../../public/images/inbox icon.png"
-
+import Image from "next/image"
 const HowToVote = () => {
     return (
         <div className="how-to-vote-container" id="howtovote">
@@ -10,7 +10,12 @@ const HowToVote = () => {
                 <h4>How to Vote</h4>
                 <div className="how-to-vote-cards">
                     <div className="how-to-vote-card">
-                        <img src={"./images/inbox icon.png"} alt="Inbox Icon" />
+                        <Image
+                            src={"/images/inbox icon.png"}
+                            width={100}
+                            height={100}
+                            alt="Inbox Icon"
+                        />
                         <h5>Share team inboxes</h5>
                         <p>
                             Whether you have a team of 2 or 200, our shared{" "}
@@ -20,9 +25,11 @@ const HowToVote = () => {
                         </p>
                     </div>
                     <div className="how-to-vote-card">
-                        <img
-                            src={"./images/instant icon.png"}
+                        <Image
+                            src={"/images/instant icon.png"}
                             alt="Inbox Icon"
+                            width={100}
+                            height={100}
                         />
                         <h5>Deliver instant answers</h5>
                         <p>
@@ -34,9 +41,11 @@ const HowToVote = () => {
                     </div>
 
                     <div className="how-to-vote-card">
-                        <img
-                            src={"./images/report icon.png"}
+                        <Image
+                            src={"/images/report icon.png"}
                             alt="Inbox Icon"
+                            width={100}
+                            height={100}
                         />
                         <h5>Manage your team with reports</h5>
                         <p>

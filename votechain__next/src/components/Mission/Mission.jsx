@@ -1,14 +1,17 @@
 import React from "react"
 import "./Mission.css"
+import Image from "next/image"
 
 const Mission = () => {
     return (
         <div className="mission-container" id="mission">
             <div className="mission-details">
                 <div className="mission-image">
-                    <img
-                        src={"./images/mission-image.png"}
+                    <Image
+                        src={"/images/mission-image.png"}
                         alt="Mission Illustration"
+                        width={100}
+                        height={100}
                     />
                 </div>
                 <div className="mission-text">
@@ -19,15 +22,30 @@ const Mission = () => {
                         loop.
                     </p>
                     <div className="highlight-missions">
-                        <img src={"./images/Check icon.png"} alt="Check Icon" />
+                        <Image
+                            src={"/images/Check icon.png"}
+                            alt="Check Icon"
+                            width={100}
+                            height={100}
+                        />
                         <p>Leverage automation to move fast</p>
                     </div>
                     <div className="highlight-missions">
-                        <img src={"./images/Check icon.png"} alt="Check Icon" />
+                        <Image
+                            src={"/images/Check icon.png"}
+                            alt="Check Icon"
+                            width={100}
+                            height={100}
+                        />
                         <p>Always give customers a human to chat to</p>
                     </div>
                     <div className="highlight-missions">
-                        <img src={"./images/Check icon.png"} alt="Check Icon" />
+                        <Image
+                            src={"/images/Check icon.png"}
+                            alt="Check Icon"
+                            width={100}
+                            height={100}
+                        />
                         <p>Always give customers a human to chat to</p>
                     </div>
                 </div>

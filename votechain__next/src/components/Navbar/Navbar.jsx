@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import "./Navbar.css"
 import { SignIn } from "../ConnectButton/ConnectButton"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useAccount } from "wagmi"
 
@@ -16,7 +17,12 @@ const Navbar = () => {
         <header>
             <div className="navbar-container">
                 <Link href={"/"}>
-                    <img src={"./VoteChainLogo.png"} alt="Vote Logo" />
+                    <Image
+                        src={"/VoteChainLogo.png"}
+                        width={100}
+                        height={100}
+                        alt="Vote Logo"
+                    />
                 </Link>
                 <ul className="nav-list">
                     <li>

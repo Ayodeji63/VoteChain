@@ -1,5 +1,6 @@
 import React from "react"
 import "./Newsletter.css"
+import Image from "next/image"
 
 const Newsletter = () => {
     return (
@@ -12,9 +13,11 @@ const Newsletter = () => {
             </div>
             <div className="newsletter-cards">
                 <div className="newsletter-card">
-                    <img
-                        src={"./images/newletter-image-1.png"}
+                    <Image
+                        src={"/images/newletter-image-1.png"}
                         alt="News Letter Illustration"
+                        width={100}
+                        height={100}
                     />
                     <p className="newsletter-date">
                         Natali Craig • 14 Jan 2022
@@ -30,9 +33,11 @@ const Newsletter = () => {
                     </p>
                 </div>
                 <div className="newsletter-card">
-                    <img
-                        src={"./images/newletter-image-2.png"}
+                    <Image
+                        src={"/images/newletter-image-2.png"}
                         alt="News Letter Illustration"
+                        width={100}
+                        height={100}
                     />
                     <p className="newsletter-date">Drew Cano • 13 Jan 2022</p>
                     <a href="##">
@@ -45,9 +50,11 @@ const Newsletter = () => {
                     </p>
                 </div>
                 <div className="newsletter-card">
-                    <img
-                        src={"./images/newletter-image-3.png"}
+                    <Image
+                        src={"/images/newletter-image-3.png"}
                         alt="News Letter Illustration"
+                        width={100}
+                        height={100}
                     />
                     <p className="newsletter-date">
                         Orlando Diggs • 12 Jan 2022
