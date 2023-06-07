@@ -1,0 +1,89 @@
+.live-result-container {
+  padding: 50px;
+}
+
+.live-result-details > h5 {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.live-results-card {
+  width: 400px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
+    0px 1px 2px rgba(16, 24, 40, 0.06);
+  border-radius: 8px;
+}
+
+.live-results-card .live-result-type {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.live-results-card > h5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.live-result-icon {
+  color: #12b76a;
+  font-weight: 400;
+}
+
+.live-results-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+}
+
+.live-results-text-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.live-results-card {
+  position: relative;
+}
+
+.category-status {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.live-results-card .category-status.live {
+  background: #002c14;
+  width: 70px;
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+}
+
+.live-results-card .category-status.not-live {
+  background: red;
+  width: 70px;
+  font-size: 13px;
+  border-radius: 8px;
+  text-align: center;
+  color: #fff;
+}
+
+.live-results-text-type > p {
+  font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+  .live-results-cards {
+    flex-wrap: wrap;
+  }
+}

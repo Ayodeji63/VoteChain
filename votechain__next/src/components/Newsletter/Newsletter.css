@@ -1,0 +1,47 @@
+.newsletter-container {
+  padding: 50px;
+}
+
+.newsletter-text > h4 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.newsletter-text > p {
+  font-weight: 400;
+}
+
+.newsletter-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: center;
+}
+
+.newsletter-card {
+  margin-top: 30px;
+}
+
+.newsletter-card > img {
+  object-fit: cover;
+  width: 350px;
+}
+
+.newsletter-card .newsletter-date {
+  color: #6941c6;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.newsletter-card > a {
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.newsletter-brief {
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 300;
+}
