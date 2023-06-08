@@ -22,9 +22,9 @@ const Newsletter = () => {
                     <p className="newsletter-date">
                         Natali Craig • 14 Jan 2022
                     </p>
-                    <a href="##">
-                        Nigeria election results: Peter Obi lands
-                        <br /> surprise win in Lagos State
+                    <a href="https://www.theafricareport.com/294834/was-the-nigerian-election-rigged/" target="_blank">
+                        Was Nigerian Election
+                        <br /> Rigged?
                     </a>
                     <p className="newsletter-brief">
                         Collaboration can make our teams stronger, and our{" "}
