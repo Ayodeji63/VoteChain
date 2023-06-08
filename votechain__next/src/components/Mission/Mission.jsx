@@ -18,11 +18,11 @@ const Mission = () => {
           </p>
           <div className="highlight-missions">
             <img src={"/images/Check icon.png"} alt="Check Icon" />
-            <p>Automate Announcement of Winner base on Results</p>
+            <p>Automated Announcement of Winner base on Results</p>
           </div>
           <div className="highlight-missions">
             <img src={"/images/Check icon.png"} alt="Check Icon" />
-            <p>Count the Amount of Votes Voted for each Candidate</p>
+            <p>Automated counts of Vote for each Candidate</p>
           </div>
           <div className="highlight-missions">
             <img src={"/images/Check icon.png"} alt="Check Icon" />
