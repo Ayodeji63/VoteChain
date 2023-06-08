@@ -122,6 +122,21 @@ const FinalResults = () => {
         },
     })
 
+    const winCan = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "getWinningCandidateId",
+        onSuccess(data) {
+            for (let i = 0; i < dataSet.length; i++) {
+                const element = dataSet[i]
+                if (Number(data) == Number(element.result.id)) {
+                    console.log(element)
+                    setWinningCandidateData(element)
+                }
+            }
+        },
+    })
+
     const mlootContractConfig = {
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
