@@ -21,7 +21,6 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-<<<<<<< HEAD
 const { chains, publicClient } = configureChains(
   [sepolia],
   [
@@ -29,15 +28,6 @@ const { chains, publicClient } = configureChains(
     publicProvider(),
   ]
 );
-=======
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [sepolia],
-    [
-        alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
-        publicProvider(),
-    ]
-)
->>>>>>> 7ed0fc855dcf2d4a4bfac22396ca9b18f1feff28
 
 const { wallets } = getDefaultWallets({
   appName: "VoteChain",
@@ -74,7 +64,6 @@ const popularWallets = {
 }
 
 const connectors = connectorsForWallets([
-<<<<<<< HEAD
   {
     groupName: "Recommended",
     wallets: [
@@ -106,71 +95,4 @@ export default function RootLayout({ children }) {
       </body>{" "}
     </html>
   );
-=======
-    popularWallets,
-    {
-        groupName: "Other",
-        wallets: [
-            argentWallet({ chains }),
-            trustWallet({ chains }),
-            omniWallet({ chains }),
-            imTokenWallet({ chains }),
-            ledgerWallet({ chains }),
-        ],
-    },
-])
-const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-    webSocketPublicClient,
-})
-
-export default function RootLayout({ children }) {
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [mounted])
-
-    return (
-        <html lang="en">
-            <body className={poppins.className}>
-                {mounted ? (
-                    <WagmiConfig config={wagmiConfig}>
-                        <RainbowKitProvider chains={chains}>
-                            <Navbar />
-                            {children}
-                            <Toaster
-                                position="top-center"
-                                reverseOrder={false}
-                                gutter={8}
-                                containerClassName=""
-                                containerStyle={{}}
-                                toastOptions={{
-                                    // Define default options
-                                    className: "",
-                                    duration: 5000,
-                                    style: {
-                                        background: "#363636",
-                                        color: "#fff",
-                                    },
-
-                                    // Default options for specific types
-                                    success: {
-                                        duration: 3000,
-                                        theme: {
-                                            primary: "green",
-                                            secondary: "black",
-                                        },
-                                    },
-                                }}
-                            />
-                        </RainbowKitProvider>
-                    </WagmiConfig>
-                ) : null}
-            </body>
-        </html>
-    )
->>>>>>> 7ed0fc855dcf2d4a4bfac22396ca9b18f1feff28
 }
