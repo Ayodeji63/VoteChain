@@ -21,9 +21,9 @@ async function verify(contractAddress, args) {
     }
 }
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 3000
-    const votingStartTime = registrationDuration + 300
-    const votingEndTime = Math.floor(votingStartTime + 3600)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 30000
+    const votingStartTime = registrationDuration + 10000
+    const votingEndTime = Math.floor(votingStartTime + 60000)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
@@ -36,6 +36,7 @@ async function main() {
     const parties = ["Labour", "APC", "PDP"]
     const position = ["President", "President", "President"]
     const VoteChain = await hre.ethers.getContractFactory("VoteChain")
+    const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
     const voteChain = await VoteChain.deploy(registrationDuration)
 
     await voteChain.deployed()
@@ -58,7 +59,6 @@ async function main() {
     )
 
     await tx.wait(1)
-    console.log(await tx)
 }
 
 // labout party logo:: https://bafkreie2rpjvsqw37yxu2trwq2sbdyumcksbitmbjhfnsghdf32f3cic5q.ipfs.nftstorage.link/

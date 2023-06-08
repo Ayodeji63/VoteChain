@@ -11,21 +11,27 @@ import {
     connectorsForWallets,
 } from "@rainbow-me/rainbowkit"
 import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
-import {
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    bscTestnet,
-    goerli,
-    optimismGoerli,
-    polygonMumbai,
-} from "wagmi/chains"
+import { goerli, optimismGoerli } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-import { bloctoWallet } from "@blocto/rainbowkit-connector"
+import { particleWallet } from "@particle-network/rainbowkit-ext"
+import { ParticleNetwork } from "@particle-network/auth"
+import {
+    argentWallet,
+    coinbaseWallet,
+    imTokenWallet,
+    injectedWallet,
+    ledgerWallet,
+    metaMaskWallet,
+    omniWallet,
+    rabbyWallet,
+    rainbowWallet,
+    trustWallet,
+    walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets"
+
 export const { chains, publicClient } = configureChains(
-    [sepolia, optimismGoerli],
+    [sepolia],
     [
         alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
         publicProvider(),
@@ -38,11 +44,19 @@ const { wallets } = getDefaultWallets({
     chains,
 })
 
+const particle = new ParticleNetwork({
+    appId: process.env.REACT_APP_APP_ID,
+    clientKey: process.env.REACT_APP_CLIENT_KEY,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+})
+
 const connectors = connectorsForWallets([
     {
         groupName: "Recommended",
         wallets: [
-            bloctoWallet({ chains }), // add BloctoWallet
+            particleWallet({ chains, authType: "google" }),
+            particleWallet({ chains, authType: "facebook" }),
+            particleWallet({ chains, authType: "apple" }),
         ],
     },
     ...wallets,

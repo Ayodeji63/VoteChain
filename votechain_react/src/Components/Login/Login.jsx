@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
 import { Web3Button } from "@web3modal/react"
-import App from "../blocto_test/App"
 import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "../../.."
 

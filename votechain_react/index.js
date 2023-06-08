@@ -1,4 +1,4 @@
-export const VOTE_CHAIN_ADDRESS = "0x99f285a42aB5E51fCc7e2d698efBd8BFf833016A"
+export const VOTE_CHAIN_ADDRESS = "0xFA0Af98ce4bFa2C1e8568ae074cAc6498f7E6FA0"
 
 export const VOTE_CHAIN_ABI = [
     {

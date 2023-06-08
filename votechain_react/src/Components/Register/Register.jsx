@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./Register.css";
-import { Web3Button } from "@web3modal/react";
-import App from "../blocto_test/App";
+
 import {
   usePrepareContractWrite,
   useContractWrite,
@@ -82,6 +81,7 @@ const Login = () => {
       getTime();
     }
   }, 1000);
+
   return (
     <div className="login-container">
       <div className="login-form">
@@ -102,9 +102,13 @@ const Login = () => {
           value={ninNumber}
           onChange={(e) => setNinNumber(e.target.value)}
           placeholder="Enter your VIN/NIN"
+          // className={!timeLeft ? "" : "disabled"}
         />
         {/* <input type="email" placeholder="Enter your Email Address" /> */}
-        <button disabled={!write} onClick={write}>
+        <button
+          onClick={write}
+          // className={!timeLeft ? "" : "disabled"}
+        >
           {isLoading ? "Loading..." : isSuccess ? "Registered" : "Register"}
         </button>
         <span>
