@@ -17,7 +17,7 @@ const HeroPage = () => {
             <div className="heropage-texts">
                 <div className="main-text">
                     <h3>
-                        Vote For <span>Change,</span>
+                        Vote For <span>Transparency,</span>
                         <br />
                         Vote <span>Decentralization</span>
                     </h3>
@@ -26,10 +26,7 @@ const HeroPage = () => {
                 </div>
                 <div className="sub-text">
                     <p>
-                        Powerful, self-serve product and growth
-                        <br /> analytics to help you convert, engage, and <br />
-                        retain more users. Trusted by over 4,000 <br />
-                        startups.
+                     Say goodbye to centralized system of voting, unsecured and stressful voting system that leads to a lot of controversies and illegal appointments. Votechain is a decentralized voting system, secured and transparent on the blockchain.
                     </p>
                 </div>
             </div>
