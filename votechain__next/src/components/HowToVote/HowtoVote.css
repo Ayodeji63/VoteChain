@@ -53,6 +53,10 @@
     flex-direction: column;
   }
   .how-to-vote-container {
-    padding: 25px;
+    padding: 20px;
+  }
+  .how-to-vote-details {
+    width: 98%;
+    padding: 15px;
   }
 }
