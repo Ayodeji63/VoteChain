@@ -33,6 +33,8 @@
 
 .how-to-vote-card > img {
   width: 50px;
+  display: block;
+  margin: auto;
   margin-bottom: 20px;
 }
 
