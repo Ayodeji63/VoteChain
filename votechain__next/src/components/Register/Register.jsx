@@ -18,6 +18,7 @@ const Login = () => {
     const { address } = useAccount()
     const [ninNumber, setNinNumber] = useState("")
     const [timeLeft, setTimeLeft] = useState("")
+    const [voters_count, setVoters_count] = useState(null)
 
     const { config, error } = usePrepareContractWrite({
         address: VOTE_CHAIN_ADDRESS,
@@ -39,7 +40,17 @@ const Login = () => {
         abi: VOTE_CHAIN_ABI,
         functionName: "getRegistrationDuration",
     })
-
+    const votersCount = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        address: "s_votersCount",
+        onSuccess(data) {
+            setVoters_count(data)
+        },
+        onError(er) {
+            console.log(er)
+        },
+    })
     const getTime = () => {
         const endTime = Number(contractRead.data)
         const unixTimestamp = contractRead.data
@@ -75,8 +86,8 @@ const Login = () => {
 
     useEffect(() => {
         isSuccess &&
-            toast("Successfully Registered", {
-                duration: 4000,
+            toast("Registration Successful", {
+                duration: 5000,
                 position: "top-center",
 
                 // Styling
@@ -88,7 +99,7 @@ const Login = () => {
 
                 // Change colors of success/error/loading icon
                 iconTheme: {
-                    primary: "#000",
+                    primary: "#009444",
                     secondary: "#fff",
                 },
 
@@ -106,6 +117,11 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="login-form">
+                <div>
+                    <h1>
+                        Total Number Of Voters: <span>{voters_count}</span>
+                    </h1>
+                </div>
                 <Link href={"/welcome"}>
                     <AiOutlineArrowLeft
                         className="arrow-left"

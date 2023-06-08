@@ -1,4 +1,4 @@
-export const VOTE_CHAIN_ADDRESS = "0x1a134D262fDf33553C67070AFE77cFD6682c3d2B"
+export const VOTE_CHAIN_ADDRESS = "0x67cD4bC7424bfae605E9be5a76930d6b9a41C835"
 
 export const VOTE_CHAIN_ABI = [
     {
@@ -360,6 +360,19 @@ export const VOTE_CHAIN_ABI = [
     {
         inputs: [],
         name: "getRegistrationDuration",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "getTotalVoteCount",
         outputs: [
             {
                 internalType: "uint256",
