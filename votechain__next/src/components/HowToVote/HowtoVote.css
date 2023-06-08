@@ -7,7 +7,12 @@
   padding: 30px;
   background: #79ca9e;
   margin: auto;
+  text-align: center;
   border-radius: 30px;
+}
+
+.how-to-vote-details > p {
+  margin-bottom: 30px;
 }
 
 .how-to-vote-details > h4 {
