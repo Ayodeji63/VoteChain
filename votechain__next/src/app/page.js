@@ -18,7 +18,6 @@ export default function Home() {
       <Features />
       <Mission />
       <HowToVote />
-      <Faq />
       <Newsletter />
     </main>
   );

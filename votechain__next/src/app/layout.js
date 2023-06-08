@@ -1,39 +1,55 @@
-"use client";
-import "./globals.css";
-import { Inter } from "next/font/google";
-import { Poppins } from "next/font/google";
-import "@rainbow-me/rainbowkit/styles.css";
-
+"use client"
+import "./globals.css"
+import { Inter } from "next/font/google"
+import { Poppins } from "next/font/google"
+import "@rainbow-me/rainbowkit/styles.css"
 import {
-  getDefaultWallets,
-  RainbowKitProvider,
-  connectorsForWallets,
-} from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi";
-import { goerli, optimismGoerli } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
-import Navbar from "@/components/Navbar/Navbar";
-import { ToastContainer } from "react-toastify";
-const inter = Inter({ subsets: ["latin"] });
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
+    getDefaultWallets,
+    RainbowKitProvider,
+    connectorsForWallets,
+} from "@rainbow-me/rainbowkit"
+import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
+import { goerli, optimismGoerli } from "wagmi/chains"
+import { alchemyProvider } from "wagmi/providers/alchemy"
+import { publicProvider } from "wagmi/providers/public"
+import Navbar from "@/components/Navbar/Navbar"
+import { ToastContainer } from "react-toastify"
+import { Toaster } from "react-hot-toast"
+const inter = Inter({ subsets: ["latin"] })
+import { particleWallet } from "@particle-network/rainbowkit-ext"
+import { ParticleNetwork } from "@particle-network/auth"
+import { useEffect, useState } from "react"
+import {
+    argentWallet,
+    coinbaseWallet,
+    imTokenWallet,
+    injectedWallet,
+    ledgerWallet,
+    metaMaskWallet,
+    omniWallet,
+    rainbowWallet,
+    trustWallet,
+    walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets"
 
-const { chains, publicClient } = configureChains(
-  [sepolia],
-  [
-    alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
-    publicProvider(),
-  ]
-);
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800", "900"],
+})
+
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+    [sepolia],
+    [
+        alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
+        publicProvider(),
+    ]
+)
 
 const { wallets } = getDefaultWallets({
-  appName: "VoteChain",
-  projectId: "1694a591eac2ab285be5adbbfff34913",
-  chains,
-});
+    appName: "VoteChain",
+    projectId: "1694a591eac2ab285be5adbbfff34913",
+    chains,
+})
 
 const particle = new ParticleNetwork({
     appId: "20ab8757-9a69-4b14-bd7c-9d06dd20d20e",
@@ -64,35 +80,69 @@ const popularWallets = {
 }
 
 const connectors = connectorsForWallets([
-  {
-    groupName: "Recommended",
-    wallets: [
-      // particleWallet({ chains, authType: "google" }),
-      // particleWallet({ chains, authType: "linkedin" }),
-      // particleWallet({ chains, authType: "facebook" }),
-      // particleWallet({ chains, authType: "apple" }),
-      // particleWallet({ chains, authType: "twitter" }),
-    ],
-  },
-  ...wallets,
-]);
+    popularWallets,
+    {
+        groupName: "Other",
+        wallets: [
+            argentWallet({ chains }),
+            trustWallet({ chains }),
+            omniWallet({ chains }),
+            imTokenWallet({ chains }),
+            ledgerWallet({ chains }),
+        ],
+    },
+])
 const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-});
+    autoConnect: true,
+    connectors,
+    publicClient,
+    webSocketPublicClient,
+})
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={poppins.className}>
-        {" "}
-        <WagmiConfig config={wagmiConfig}>
-          <RainbowKitProvider chains={chains}>
-            <Navbar /> {children}{" "}
-          </RainbowKitProvider>{" "}
-        </WagmiConfig>{" "}
-      </body>{" "}
-    </html>
-  );
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [mounted])
+
+    return (
+        <html lang="en">
+            <body className={poppins.className}>
+                {mounted ? (
+                    <WagmiConfig config={wagmiConfig}>
+                        <RainbowKitProvider chains={chains}>
+                            <Navbar />
+                            {children}
+                            <Toaster
+                                position="top-center"
+                                reverseOrder={false}
+                                gutter={8}
+                                containerClassName=""
+                                containerStyle={{}}
+                                toastOptions={{
+                                    // Define default options
+                                    className: "",
+                                    duration: 5000,
+                                    style: {
+                                        background: "#363636",
+                                        color: "#fff",
+                                    },
+
+                                    // Default options for specific types
+                                    success: {
+                                        duration: 3000,
+                                        theme: {
+                                            primary: "green",
+                                            secondary: "black",
+                                        },
+                                    },
+                                }}
+                            />
+                        </RainbowKitProvider>
+                    </WagmiConfig>
+                ) : null}
+            </body>
+        </html>
+    )
 }
