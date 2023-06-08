@@ -1,74 +1,75 @@
-import React from "react"
-import "./Newsletter.css"
-import Image from "next/image"
+import React from "react";
+import "./Newsletter.css";
+import Image from "next/image";
 
 const Newsletter = () => {
-    return (
-        <div className="newsletter-container">
-            <div className="newsletter-text">
-                <h4>Newsletter</h4>
-                <p>
-                    Everything you need to know about the product and billing.
-                </p>
-            </div>
-            <div className="newsletter-cards">
-                <div className="newsletter-card">
-                    <Image
-                        src={"/images/newletter-image-1.png"}
-                        alt="News Letter Illustration"
-                        width={100}
-                        height={100}
-                    />
-                    <p className="newsletter-date">
-                        Natali Craig • 14 Jan 2022
-                    </p>
-                    <a href="https://www.theafricareport.com/294834/was-the-nigerian-election-rigged/" target="_blank">
-                        Was Nigerian Election
-                        <br /> Rigged?
-                    </a>
-                    <p className="newsletter-brief">
-                        Collaboration can make our teams stronger, and our{" "}
-                        <br />
-                        individual designs better.
-                    </p>
-                </div>
-                <div className="newsletter-card">
-                    <Image
-                        src={"/images/newletter-image-2.png"}
-                        alt="News Letter Illustration"
-                        width={100}
-                        height={100}
-                    />
-                    <p className="newsletter-date">Drew Cano • 13 Jan 2022</p>
-                    <a href="##">
-                        Nigeria's Elections Risk Sowing <br />
-                        Cynicism, Mistrust | Council on Foreign Relations
-                    </a>
-                    <p className="newsletter-brief">
-                        JavaScript frameworks make development easy with <br />
-                        extensive features and functionalities.
-                    </p>
-                </div>
-                <div className="newsletter-card">
-                    <img
-                        src={"/images/newletter-image-3.png"}
-                        alt="News Letter Illustration"
-                    />
-                    <p className="newsletter-date">
-                        Orlando Diggs • 12 Jan 2022
-                    </p>
-                    <a href="##">
-                        Nigeria presidential election 2023 |<br /> Financial
-                        Times
-                    </a>
-                    <p className="newsletter-brief">
-                        Starting a community doesn’t need to be
-                        <br /> complicated, but how do you get started?
-                    </p>
-                </div>
-            </div>
+  return (
+    <div className="newsletter-container">
+      <div className="newsletter-text">
+        <h4>Newsletter</h4>
+        <p>Everything you need to know about the product and billing.</p>
+      </div>
+      <div className="newsletter-cards">
+        <div className="newsletter-card">
+          <Image
+            src={"/images/newletter-image-1.png"}
+            alt="News Letter Illustration"
+            width={100}
+            height={100}
+          />
+          <p className="newsletter-date">Nic Cheeseman • March 24, 2023</p>
+          <a
+            href="https://www.theafricareport.com/294834/was-the-nigerian-election-rigged/"
+            target="_blank"
+          >
+            Was Nigerian Election
+            <br /> Rigged?
+          </a>
+          <p className="newsletter-brief">
+            Even before the Nigerian presidential election results were
+            released,the process had been denounced as flawed by some political
+            leaders.
+          </p>
         </div>
-    )
-}
+        <div className="newsletter-card">
+          <Image
+            src={"/images/indian-rig-election.avif"}
+            alt="News Letter Illustration"
+            width={100}
+            height={100}
+          />
+          <p className="newsletter-date">SANYA DHINGRA • 21 Jan 2019</p>
+          <a
+            href="https://theprint.in/india/governance/every-indian-election-since-2014-has-been-rigged-claims-masked-us-based-cyber-expert/181089/"
+            target="_blank"
+          >
+            Every Indian election since 2014 has been rigged,
+            <br /> claims masked ‘US-based cyber expert
+          </a>
+          <p className="newsletter-brief">
+            Months before the Lok Sabha elections, a masked man who claimed to
+            be a US-based cyber expert alleged that every Indian election since
+            2014, irrespective of its outcome,
+          </p>
+        </div>
+        <div className="newsletter-card">
+          <img
+            src={"/images/united-states-image.webp"}
+            alt="News Letter Illustration"
+          />
+          <p className="newsletter-date">BBC Reality Check • 17 October 2020</p>
+          <a href="https://www.bbc.com/news/54562611" target="_blank">
+            US election 2020: 'Rigged' votes, body
+            <br /> doubles and other false claims
+          </a>
+          <p className="newsletter-brief">
+            In the final weeks of the US election campaign all manner of false
+            and misleading things are being shared on social media.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Newsletter
+export default Newsletter;

@@ -44,4 +44,8 @@
   margin-top: 20px;
   font-size: 15px;
   font-weight: 300;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 340px;
 }
