@@ -17,6 +17,7 @@ import {
 import { watchContractEvent } from "@wagmi/core"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 const FinalResults = () => {
     const [modal, contextHolder] = Modal.useModal()
@@ -155,8 +156,11 @@ const FinalResults = () => {
             key: "name",
             render: (text, record) => (
                 <div className="candidate-image">
-                    <img src={record.result.image} alt="First Candidate" />
-                    <a href="##">{record.result.name}</a>
+                    <img
+                        src={record?.result.image || ""}
+                        alt="First Candidate"
+                    />
+                    <a href="##">{record?.result.name || ""}</a>
                 </div>
             ),
         },
@@ -164,13 +168,15 @@ const FinalResults = () => {
             title: "PARTY",
             dataIndex: "party",
             key: "party",
-            render: (text, record) => <p>{record.result.party} Party</p>,
+            render: (text, record) => <p>{record?.result.party || ""} Party</p>,
         },
         {
             title: "TOTAL VOTES",
             dataIndex: "voteCount",
             key: "voteCount",
-            render: (text, record) => <p>{Number(record.result.voteCount)}</p>,
+            render: (text, record) => (
+                <p>{Number(record?.result.voteCount) || 0}</p>
+            ),
         },
         {
             title: "ACTION",
@@ -181,7 +187,7 @@ const FinalResults = () => {
                         className="vote-btn"
                         onClick={() => {
                             showModal(record)
-                            setCandidateId(record.result.id)
+                            setCandidateId(record?.result.id || "")
                         }}
                     >
                         {isVoted ? "Voted" : "Vote"}
@@ -194,28 +200,26 @@ const FinalResults = () => {
                         {modalContent.map((newModal) => (
                             <div
                                 className="modal-container"
-                                key={newModal.result.image}
+                                key={newModal?.result?.image}
                             >
-                                <Image
+                                <img
                                     src={"/images/modal-icon.png"}
                                     alt="Modal Icon"
                                     className="modal-icon"
-                                    width={100}
-                                    height={100}
                                 />
                                 <h4 className="modal-election-name">
                                     {isSuccess
                                         ? "Your Vote was Successful"
                                         : isError
                                         ? "Something Went Wrong, you are unable to Vote"
-                                        : `You are about to Vote for ${newModal.result.name}`}
+                                        : `You are about to Vote for ${
+                                              newModal?.result.name || ""
+                                          }`}
                                 </h4>
-                                <Image
+                                <img
                                     src={newModal.result.image}
                                     alt="First Candidate"
                                     className="newmodal-image"
-                                    width={100}
-                                    height={100}
                                 />
                                 <button
                                     className={
@@ -226,6 +230,7 @@ const FinalResults = () => {
                                     onClick={write}
                                     disabled={!endTime || startTime}
                                 >
+                                    {isLoading && toast("Loading....")}
                                     {isSuccess
                                         ? "Okay, Got it"
                                         : !endTime
@@ -258,7 +263,7 @@ const FinalResults = () => {
                     />
                 </div>
             </div>
-            <p className="aspirants">{numCandidates} Aspirants</p>
+            <p className="aspirants">{numCandidates || ""} Aspirants</p>
 
             <Table
                 columns={columns}

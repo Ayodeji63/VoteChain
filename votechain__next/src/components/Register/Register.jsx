@@ -11,6 +11,7 @@ import {
 } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 const Login = () => {
     // const navigate = useNavigate()
@@ -102,7 +103,7 @@ const Login = () => {
                 {/* Days Hours Minutes and Seconds */}
                 <h4>
                     Time Remaining for Registration <br />{" "}
-                    <span className="span">{timeLeft}</span>{" "}
+                    <span className="span">{timeLeft || ""}</span>{" "}
                 </h4>
                 {timeLeft === "00d : 00h : 00m : 00s" && (
                     <p>Registration Over</p>
@@ -124,6 +125,7 @@ const Login = () => {
                         : isSuccess
                         ? "Registered"
                         : "Register"}
+                    {isLoading && toast("Loading ...")}
                 </button>
                 <span>
                     {error === "VoteChain_voterRegistered()" &&

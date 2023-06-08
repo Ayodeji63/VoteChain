@@ -10,15 +10,14 @@ const Welcome = () => {
     // const handleNavigate = () => {
     //   navigate("/register");
     // };
-    const [startTime, setStartTime] = useState(null)
-    const [endTime, setEndTime] = useState(null)
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
 
     const v_StartTime = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
         functionName: "s_votingStartTime",
     })
-
     const v_endTime = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -87,7 +86,7 @@ const Welcome = () => {
     return (
         <div className="welcome-container">
             <div className="welcome-user-details">
-                <h4 className="welcome-address">Welcome, {address}</h4>
+                <h4 className="welcome-address">Welcome, {address || ""}</h4>
                 <div className="user-pooling-details">
                     {/* <p>
                         <strong>Polling Unit:</strong>{" "}
@@ -123,12 +122,12 @@ const Welcome = () => {
                         {startTime !== "00d : 00h : 00m : 00s" ? (
                             <div>
                                 <p>Voting Starts In:</p>
-                                <h5>{startTime}</h5>
+                                <h5>{startTime || ""}</h5>
                             </div>
                         ) : endTime !== "00d : 00h : 00m : 00s" ? (
                             <div>
                                 <p>Voting Ends In:</p>
-                                <h5>{endTime}</h5>
+                                <h5>{endTime || ""}</h5>
                             </div>
                         ) : (
                             <p>Voting Ended</p>

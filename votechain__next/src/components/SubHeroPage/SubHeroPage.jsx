@@ -7,20 +7,10 @@ const SubHeroPage = () => {
         <div className="super-hero-container">
             <div className="super-hero-images">
                 <div>
-                    <Image
-                        src={"/images/sub-hero-image1.png"}
-                        width={100}
-                        height={100}
-                        alt=""
-                    />
+                    <img src={"./images/sub-hero-image1.png"} alt="" />
                 </div>
                 <div>
-                    <Image
-                        src={"/images/sub-hero-image2.png"}
-                        width={100}
-                        height={100}
-                        alt=""
-                    />
+                    <img src={"/images/sub-hero-image2.png"} alt="" />
                 </div>
             </div>
         </div>

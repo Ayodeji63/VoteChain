@@ -1,8 +1,5 @@
 import React, { useEffect } from "react"
 import "./HeroPage.css"
-// import { useNavigate } from "react-router-dom"
-import { useContext } from "react"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { SignIn } from "../ConnectButton/ConnectButton"
 import { useAccount } from "wagmi"
 import { useRouter } from "next/navigation"
