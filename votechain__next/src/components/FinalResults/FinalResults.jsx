@@ -55,29 +55,6 @@ const FinalResults = () => {
         (logs) => {
             const { args } = logs[0]
             console.log(args.node, args.label, args.owner)
-            toast("Successfully Voted", {
-                duration: 4000,
-                position: "top-center",
-
-                // Styling
-                style: {},
-                className: "",
-
-                // Custom Icon
-                icon: "👏",
-
-                // Change colors of success/error/loading icon
-                iconTheme: {
-                    primary: "#000",
-                    secondary: "#fff",
-                },
-
-                // Aria
-                ariaProps: {
-                    role: "status",
-                    "aria-live": "polite",
-                },
-            })
         }
     )
 
@@ -89,8 +66,9 @@ const FinalResults = () => {
         },
         (logs) => {
             const { args } = logs[0]
-            console.log(logs)
-            setWinningCandidate(logs)
+            // console.log(logs)
+            setWinningCandidate(logs.args)
+            console.log(args)
         }
     )
     const getTime = () => {
@@ -178,15 +156,44 @@ const FinalResults = () => {
         functionName: "castVote",
         args: [candidateId, address],
         onError(error) {
-            // alert(error.message.Error)
-            // navigate("/welcome")
-            toast("Ballot Not Open")
+            startTime ? toast("Ballo Not Open") : toast("An Error Occured")
         },
     })
 
     const { write, isLoading, isSuccess, isError } = useContractWrite(
         vote.config
     )
+
+    useEffect(() => {
+        isLoading && toast("Loading....")
+    }, [isLoading])
+
+    useEffect(() => {
+        isSuccess &&
+            toast("Voted Casted", {
+                duration: 4000,
+                position: "top-center",
+
+                // Styling
+                style: {},
+                className: "",
+
+                // Custom Icon
+                icon: "👏",
+
+                // Change colors of success/error/loading icon
+                iconTheme: {
+                    primary: "#000",
+                    secondary: "#fff",
+                },
+
+                // Aria
+                ariaProps: {
+                    role: "status",
+                    "aria-live": "polite",
+                },
+            })
+    }, [isSuccess])
 
     const showModal = (record) => {
         setIsModalOpen(true)
@@ -278,7 +285,6 @@ const FinalResults = () => {
                                     onClick={write}
                                     disabled={!endTime || startTime}
                                 >
-                                    {isLoading && toast("Loading....")}
                                     {isSuccess
                                         ? "Okay, Got it"
                                         : !endTime
