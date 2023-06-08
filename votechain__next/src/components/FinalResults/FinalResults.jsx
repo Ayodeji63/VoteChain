@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Table, Modal } from "antd"
 import { AiOutlineArrowLeft, AiOutlineSearch } from "react-icons/ai"
 import { useRef, useState } from "react"
@@ -17,7 +17,7 @@ import {
 import { watchContractEvent } from "@wagmi/core"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
-import { toast } from "react-toastify"
+import { toast } from "react-hot-toast"
 
 const FinalResults = () => {
     const [modal, contextHolder] = Modal.useModal()
@@ -28,13 +28,12 @@ const FinalResults = () => {
     const [numCandidates, setNumCandidates] = useState(0)
     const [candidateId, setCandidateId] = useState(0)
     const { address } = useAccount()
+    const [winningCandidate, setWinningCandidate] = useState(null)
     // const navigate = useNavigate()
 
     const [startTime, setStartTime] = useState(null)
     const [endTime, setEndTime] = useState(null)
-    const handleNavigate = () => {
-        // navigate("/welcome")
-    }
+
     const v_StartTime = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -46,6 +45,54 @@ const FinalResults = () => {
         abi: VOTE_CHAIN_ABI,
         functionName: "s_votingEndTime",
     })
+
+    const unwatch = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "VoteCasted",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            console.log(args.node, args.label, args.owner)
+            toast("Successfully Voted", {
+                duration: 4000,
+                position: "top-center",
+
+                // Styling
+                style: {},
+                className: "",
+
+                // Custom Icon
+                icon: "👏",
+
+                // Change colors of success/error/loading icon
+                iconTheme: {
+                    primary: "#000",
+                    secondary: "#fff",
+                },
+
+                // Aria
+                ariaProps: {
+                    role: "status",
+                    "aria-live": "polite",
+                },
+            })
+        }
+    )
+
+    const winning = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "WinningCandidate",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            console.log(logs)
+            setWinningCandidate(logs)
+        }
+    )
     const getTime = () => {
         const startTime = Number(v_StartTime.data)
         const unixTimestamp = v_StartTime.data
@@ -133,6 +180,7 @@ const FinalResults = () => {
         onError(error) {
             // alert(error.message.Error)
             // navigate("/welcome")
+            toast("Ballot Not Open")
         },
     })
 
@@ -246,6 +294,7 @@ const FinalResults = () => {
             ),
         },
     ]
+    useEffect(() => {}, [winningCandidate])
 
     return (
         <div className="final-results-container">

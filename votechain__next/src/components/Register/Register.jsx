@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import "./Register.css"
@@ -11,7 +11,7 @@ import {
 } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
-import { toast } from "react-toastify"
+import { toast } from "react-hot-toast"
 
 const Login = () => {
     // const navigate = useNavigate()
@@ -25,20 +25,11 @@ const Login = () => {
         functionName: "registerVoter",
         args: [ninNumber],
         onError(error) {
-            if (error.message.includes("revert")) {
-                // console.log();
-                const errorMessage = error.message.replace("revert ", "")
-                // console.error("Contract reverted with error:", errorMessage)
-                const errorObj = JSON.stringify(
-                    error.cause["metaMessages"][0],
-                    null,
-                    2
-                )
-                if (errorObj == "Error: VoteChain_voterRegistered()") {
-                    console.log("Already Registered")
-                    console.log(errorObj)
-                }
-            }
+            toast(
+                timeLeft == "00d : 00h : 00m : 00s"
+                    ? "Registration Closed"
+                    : "You are registered."
+            )
         },
     })
     const { write, isLoading, isIdle, isSuccess } = useContractWrite(config)
@@ -75,9 +66,6 @@ const Login = () => {
             )
         }
     }
-    // const handleNavigate = () => {
-    //     navigate("/welcome")
-    // }
 
     setInterval(() => {
         if (address) {
@@ -85,6 +73,36 @@ const Login = () => {
         }
     }, 1000)
 
+    useEffect(() => {
+        isSuccess &&
+            toast("Successfully Registered", {
+                duration: 4000,
+                position: "top-center",
+
+                // Styling
+                style: {},
+                className: "",
+
+                // Custom Icon
+                icon: "👏",
+
+                // Change colors of success/error/loading icon
+                iconTheme: {
+                    primary: "#000",
+                    secondary: "#fff",
+                },
+
+                // Aria
+                ariaProps: {
+                    role: "status",
+                    "aria-live": "polite",
+                },
+            })
+    }, [isSuccess])
+
+    useEffect(() => {
+        isLoading && toast("Loading...")
+    }, [isLoading])
     return (
         <div className="login-container">
             <div className="login-form">
@@ -113,19 +131,22 @@ const Login = () => {
                     value={ninNumber}
                     onChange={(e) => setNinNumber(e.target.value)}
                     placeholder="Enter your VIN/NIN"
-                    // className={!timeLeft ? "" : "disabled"}
+                    className={
+                        !timeLeft === "00d : 00h : 00m : 00s" ? "disabled" : ""
+                    }
                 />
                 {/* <input type="email" placeholder="Enter your Email Address" /> */}
                 <button
                     onClick={write}
-                    // className={!timeLeft ? "" : "disabled"}
+                    className={
+                        timeLeft === "00d : 00h : 00m : 00s" ? "disabled" : ""
+                    }
                 >
                     {isLoading
                         ? "Loading..."
                         : isSuccess
                         ? "Registered"
                         : "Register"}
-                    {isLoading && toast("Loading ...")}
                 </button>
                 <span>
                     {error === "VoteChain_voterRegistered()" &&
