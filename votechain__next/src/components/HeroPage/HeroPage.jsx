@@ -19,7 +19,7 @@ const HeroPage = () => {
                     <h3>
                         Vote For <span>Change,</span>
                         <br />
-                        Vote <span>Wisely</span>
+                        Vote <span>Decentralization</span>
                     </h3>
 
                     <SignIn showBalance={false} className="hero-page-btn" />
