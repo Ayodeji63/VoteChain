@@ -12,9 +12,8 @@ import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
 import { goerli, optimismGoerli } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-// import { particleWallet } from "@particle-network/rainbowkit-ext"
-// import { ParticleNetwork } from "@particle-network/auth"
 import Navbar from "@/components/Navbar/Navbar"
+import { ToastContainer } from "react-toastify"
 const inter = Inter({ subsets: ["latin"] })
 const poppins = Poppins({
     subsets: ["latin"],

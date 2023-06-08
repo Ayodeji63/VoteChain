@@ -7,11 +7,9 @@ const Mission = () => {
         <div className="mission-container" id="mission">
             <div className="mission-details">
                 <div className="mission-image">
-                    <Image
+                    <img
                         src={"/images/mission-image.png"}
                         alt="Mission Illustration"
-                        width={100}
-                        height={100}
                     />
                 </div>
                 <div className="mission-text">
@@ -22,30 +20,15 @@ const Mission = () => {
                         loop.
                     </p>
                     <div className="highlight-missions">
-                        <Image
-                            src={"/images/Check icon.png"}
-                            alt="Check Icon"
-                            width={100}
-                            height={100}
-                        />
+                        <img src={"/images/Check icon.png"} alt="Check Icon" />
                         <p>Leverage automation to move fast</p>
                     </div>
                     <div className="highlight-missions">
-                        <Image
-                            src={"/images/Check icon.png"}
-                            alt="Check Icon"
-                            width={100}
-                            height={100}
-                        />
+                        <img src={"/images/Check icon.png"} alt="Check Icon" />
                         <p>Always give customers a human to chat to</p>
                     </div>
                     <div className="highlight-missions">
-                        <Image
-                            src={"/images/Check icon.png"}
-                            alt="Check Icon"
-                            width={100}
-                            height={100}
-                        />
+                        <img src={"/images/Check icon.png"} alt="Check Icon" />
                         <p>Always give customers a human to chat to</p>
                     </div>
                 </div>

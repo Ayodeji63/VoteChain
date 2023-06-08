@@ -50,11 +50,9 @@ const Newsletter = () => {
                     </p>
                 </div>
                 <div className="newsletter-card">
-                    <Image
+                    <img
                         src={"/images/newletter-image-3.png"}
                         alt="News Letter Illustration"
-                        width={100}
-                        height={100}
                     />
                     <p className="newsletter-date">
                         Orlando Diggs • 12 Jan 2022
