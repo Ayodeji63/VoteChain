@@ -6,13 +6,11 @@ const Features = () => {
     <div className="features-container">
       <div className="features-text">
         <h3>
-          We are promising to uphold a democratic
-          <br /> nation{" "}
+          We are promising <br/>Free, Fair & Transparent<br/>
+           Voting Process
         </h3>
         <p>
-          Powerful, self-serve product and growth analytics to help you convert,
-          engage, <br />
-          and retain more users. Trusted by over 4,000 startups.
+          Votechain is developed to solve, illegal voting, illegal appointments in nations and with one the most amazing innovation of mankind (Blockchain) we have been able to achieve that.
         </p>
       </div>
     </div>
