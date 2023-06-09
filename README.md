@@ -26,8 +26,21 @@ Votechain has been developed by the team to solving several problems in the voti
 
 ## Challenges we Encountered
 
+- We encountered quite a lot of Challenges in the development phase of Votechain, starting from the development of the User Interface as well as the Experience, we are determined to make sure the interface is has simple for every user as possible as well as we made sure we run away from any bad experience from any of the users.
+
+- Furthermore, we experienced some set back in the process of implementing the **ChainLink Automation** system, which is one of the strong bone of VoteChain because we decided we want the announcement of the Winners to be automated and as decentralized as possible from the contract.
+
+- Also we experienced some difficulty in our third party technologies and this is because we don't want not having a decentralized wallet be the reason why citizens won't be able to vote which is the reason we provided as many options as possible for wallet connection with RainbowKit.
+
 ## Accomplishments we are Proud of
+
+- One of our Accomplishments so far is the successful development of Votechain, this all started from an idea from a team, before we started the development, we are so proud of ourselves that we can showcase Votechain and preach the power of Blockchain and what decentralization can actually bring to our daily world today.
+
+- We are so proud that, even though we encountered a lot of challenges in the development phase, some even leading to almost giving up on Votechain because we really faced some new challenges in the development phase even when the team is an experienced team, we are so happy that Votechain is live and deployed online.
+
+- We are proud to be part of the team developing on this space and are happy has well to show case the power of decentralization through Votechain.
 
 ## What we learnt
 
 ## What's Next for Votechain
+
