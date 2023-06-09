@@ -56,6 +56,8 @@ The team has a lot in store for Votechain moving forward from the hackathon and 
 
 3. **Votechain goes Crosschain:** We are currently on the ETH chain and the **Sepolia Network** We are planning to go crosschain i.e be able to support other chains and networks.
 
+## Final Remarks
+
 The democratic process in Nigeria and several West African countries heavily relies on traditional paper-based voting systems. While these systems have served as the backbone of elections for many years, they come with significant limitations and challenges that undermine the credibility and transparency of the voting process.
 
 In the current voting system, citizens cast their votes on paper ballots, which are manually counted by election officials. However, this manual process is susceptible to errors, manipulation, and tampering, leading to controversies and disputes over election results. Instances of ballot stuffing, vote buying, and ballot box snatching have marred the integrity of elections, creating doubts and eroding trust in the electoral process.
