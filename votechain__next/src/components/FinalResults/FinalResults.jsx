@@ -29,6 +29,7 @@ const FinalResults = () => {
     const [candidateId, setCandidateId] = useState(0)
     const { address } = useAccount()
     const [winningCandidate, setWinningCandidate] = useState(null)
+    const [winningCandidateData, setWinningCandidateData] = useState(null)
     // const navigate = useNavigate()
 
     const [startTime, setStartTime] = useState(null)
@@ -54,7 +55,7 @@ const FinalResults = () => {
         },
         (logs) => {
             const { args } = logs[0]
-            console.log(args.node, args.label, args.owner)
+            console.log(args)
         }
     )
 
@@ -67,8 +68,8 @@ const FinalResults = () => {
         (logs) => {
             const { args } = logs[0]
             // console.log(logs)
-            setWinningCandidate(logs.args)
-            console.log(args)
+            console.log(Number(args.candidateId))
+            setWinningCandidate(Number(args.candidateId))
         }
     )
     const getTime = () => {
@@ -121,6 +122,21 @@ const FinalResults = () => {
         },
     })
 
+    const winCan = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "getWinningCandidateId",
+        onSuccess(data) {
+            for (let i = 0; i < dataSet.length; i++) {
+                const element = dataSet[i]
+                if (Number(data) == Number(element.result.id)) {
+                    console.log(element)
+                    setWinningCandidateData(element)
+                }
+            }
+        },
+    })
+
     const mlootContractConfig = {
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -150,13 +166,18 @@ const FinalResults = () => {
         cacheTime: 2_000,
     })
 
+    console.log(dataSet)
     const vote = usePrepareContractWrite({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
         functionName: "castVote",
         args: [candidateId, address],
         onError(error) {
-            startTime ? toast("Ballo Not Open") : toast("An Error Occured")
+            startTime && endTime
+                ? toast("Ballot Not Open")
+                : !startTime && !endTime
+                ? toast("Ballot Closed")
+                : toast("Your Are Not Allowed To Vote")
         },
     })
 
@@ -300,7 +321,15 @@ const FinalResults = () => {
             ),
         },
     ]
-    useEffect(() => {}, [winningCandidate])
+    useEffect(() => {
+        for (let i = 0; i < dataSet.length; i++) {
+            const element = dataSet[i]
+            if (Number(winningCandidate) == Number(element.result.id)) {
+                console.log(element)
+                setWinningCandidateData(element)
+            }
+        }
+    }, [winningCandidate])
 
     return (
         <div className="final-results-container">
@@ -317,6 +346,21 @@ const FinalResults = () => {
                         className="search-input-tag"
                     />
                 </div>
+
+                {winningCandidateData && (
+                    <div>
+                        <h1>Winning Candidate</h1>
+                        <div className="candidate-image">
+                            <img
+                                src={winningCandidateData?.result.image || ""}
+                                alt="First Candidate"
+                            />
+                            <a href="##">
+                                {winningCandidateData?.result.name || ""}
+                            </a>
+                        </div>
+                    </div>
+                )}
             </div>
             <p className="aspirants">{numCandidates || ""} Aspirants</p>
 
