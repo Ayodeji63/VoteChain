@@ -29,7 +29,7 @@ async function main() {
     const vice = ["Shettima", "igboman", "Prof"]
     const voteCount = [0, 0, 0]
     const images = [
-        "https://bafkreie2rpjvsqw37yxu2trwq2sbdyumcksbitmbjhfnsghdf32f3cic5q.ipfs.nftstorage.link/",
+        "https://bafkreidqadt5ve2ukjgrgdjnpktoafkv5gspq7m37yelj3r2mrhgcdrivq.ipfs.nftstorage.link/",
         "https://bafkreia3z6qwfnsetmsnbb4ighggwio3fyzmpeozgykm6yahaf2mwxk7se.ipfs.nftstorage.link/",
         "https://bafkreib22x2uicqktdt2pzdqx2teahfs6oz5w37ncel7kazzcpk7jkdvda.ipfs.nftstorage.link/",
     ]
