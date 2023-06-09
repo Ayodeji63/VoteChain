@@ -21,7 +21,7 @@ async function verify(contractAddress, args) {
     }
 }
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 1000
+    const registrationDuration = Math.floor(Date.now() / 1000) + 600
     const votingStartTime = registrationDuration + 300
     const votingEndTime = Math.floor(votingStartTime + 300)
     const id = [1, 2, 3]
