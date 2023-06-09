@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
+
 import "./Register.css"
 
 import {
@@ -87,7 +88,10 @@ const Login = () => {
                 position: "top-center",
 
                 // Styling
-                style: {},
+                style: {
+                    background: "#009444",
+                    WebkitAppearance: "none !important",
+                },
                 className: "",
 
                 // Custom Icon
@@ -151,7 +155,7 @@ const Login = () => {
                         placeholder="Enter your second Name"
                     />
                     <input
-                        type="number"
+                        type="text"
                         value={ninNumber}
                         onChange={(e) => setNinNumber(e.target.value)}
                         placeholder="Enter your VIN/NIN"
