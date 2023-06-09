@@ -15,6 +15,8 @@ error VoteChain_BallotNotOpen();
 error VoteChain_BallotClosed();
 error VoteChain_AlreadyVoted();
 error VoteChain_UpkeepNotNeeded(uint voterCount, uint candidatesCount);
+error VoteChain_NameNotDefined();
+error VoteChain_NINNumberNotDefined();
 
 contract VoteChain is
     VotingStorage,
@@ -28,7 +30,12 @@ contract VoteChain is
     uint public s_votingEndTime;
     uint public s_winningCandidate;
 
-    event VoterRegistered(uint indexed id, address indexed votersAddress);
+    event VoterRegistered(
+        uint indexed id,
+        address indexed votersAddress,
+        string _firstName,
+        string _secondName
+    );
     event CandidatesRegistered(uint indexed count);
     event VoteCasted(address voterAddress, uint candidateId);
     event WinningCandidate(uint candidateId);
@@ -38,7 +45,11 @@ contract VoteChain is
         i_registrationDuration = registrationDuration;
     }
 
-    function registerVoter(uint voterId) public {
+    function registerVoter(
+        uint voterId,
+        string memory _firstName,
+        string memory _secondName
+    ) public {
         if (!containsVoter()) {
             revert VoteChain_voterRegistered();
         }
@@ -46,8 +57,17 @@ contract VoteChain is
             revert VoteChain_registrationElapsed();
         }
 
-        _registerVoter(voterId);
-        emit VoterRegistered(s_votersCount, msg.sender);
+        if (voterId == 0) revert VoteChain_NINNumberNotDefined();
+        if (bytes(_firstName).length < 0 && bytes(_secondName).length < 0)
+            revert VoteChain_NameNotDefined();
+
+        _registerVoter(voterId, _firstName, _secondName);
+        emit VoterRegistered(
+            s_votersCount,
+            msg.sender,
+            _firstName,
+            _secondName
+        );
         s_votersCount++;
     }
 

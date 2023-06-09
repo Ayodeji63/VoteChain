@@ -12,10 +12,9 @@
   cursor: pointer;
 }
 
-.login-form {
-  margin-top: 100px;
+.login-form, .form-container {
   width: 600px;
-  margin: 100px auto auto auto;
+  margin: 40px auto auto auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +40,7 @@
   margin-bottom: 20px;
 }
 
-.login-form > input {
+.login-form > input, .form-container > input {
   width: 380px;
   padding-left: 15px;
   margin-top: 20px;
@@ -55,11 +54,11 @@
   display: none;
 }
 
-.login-form > input:focus {
+.login-form > input:focus, .form-container > input:focus{
   outline: none;
 }
 
-.login-form > button {
+.login-form > button, .form-container > button {
   margin-top: 30px;
   width: 400px;
   background: #009444;
@@ -70,12 +69,22 @@
   margin-bottom: 30px;
 }
 
-.login-form > button:hover {
+.login-form > button:hover, .form-container > button:hover {
   cursor: pointer;
+  background-color: #3fe08a;
+  transition: all 1s;
+}
+
+.div {
+  display: flex;
 }
 
 @media (max-width: 1200px) {
   .login-form {
     width: 100%;
+  }
+  .div {
+    display: block;
+    justify-content: space-around;
   }
 }

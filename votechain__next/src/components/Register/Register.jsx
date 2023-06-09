@@ -17,6 +17,8 @@ const Login = () => {
     // const navigate = useNavigate()
     const { address } = useAccount()
     const [ninNumber, setNinNumber] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [secondName, setsecondName] = useState("")
     const [timeLeft, setTimeLeft] = useState("")
     const [voters_count, setVoters_count] = useState(null)
 
@@ -24,14 +26,7 @@ const Login = () => {
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
         functionName: "registerVoter",
-        args: [ninNumber],
-        onError(error) {
-            toast(
-                timeLeft == "00d : 00h : 00m : 00s"
-                    ? "Registration Closed"
-                    : "You are registered."
-            )
-        },
+        args: [ninNumber, firstName, secondName],
     })
     const { write, isLoading, isIdle, isSuccess } = useContractWrite(config)
 
@@ -40,6 +35,7 @@ const Login = () => {
         abi: VOTE_CHAIN_ABI,
         functionName: "getRegistrationDuration",
     })
+
     const votersCount = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -116,58 +112,72 @@ const Login = () => {
     }, [isLoading])
     return (
         <div className="login-container">
-            <div className="login-form">
-                <div>
-                    <h1>
-                        Total Number Of Voters: <span>{voters_count}</span>
-                    </h1>
+            <div className="div">
+                <div className="login-form">
+                    <Link href={"/welcome"}>
+                        <AiOutlineArrowLeft
+                            className="arrow-left"
+                            // onClick={handleNavigate}
+                        />
+                    </Link>
+                    <h3>Register To Vote </h3>
+                    <p>
+                        Enter your Voters Identification Number (VIN) or
+                        National <br />
+                        Identification Number(NIN)
+                    </p>
+                    {/* Days Hours Minutes and Seconds */}
+                    <h4>
+                        Time Remaining for Registration <br />{" "}
+                        <span className="span">{timeLeft || ""}</span>{" "}
+                    </h4>
+                    {timeLeft === "00d : 00h : 00m : 00s" && (
+                        <p>Registration Over</p>
+                    )}
                 </div>
-                <Link href={"/welcome"}>
-                    <AiOutlineArrowLeft
-                        className="arrow-left"
-                        // onClick={handleNavigate}
+
+                <div className="form-container">
+                    <h1>Enter Your Details As Stated In Your Card</h1>
+                    <input
+                        type="name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Enter your first Name"
                     />
-                </Link>
-                <h3>Register To Vote </h3>
-                <p>
-                    Enter your Voters Identification Number (VIN) or National{" "}
-                    <br />
-                    Identification Number(NIN)
-                </p>
-                {/* Days Hours Minutes and Seconds */}
-                <h4>
-                    Time Remaining for Registration <br />{" "}
-                    <span className="span">{timeLeft || ""}</span>{" "}
-                </h4>
-                {timeLeft === "00d : 00h : 00m : 00s" && (
-                    <p>Registration Over</p>
-                )}
-                <input
-                    type="number"
-                    value={ninNumber}
-                    onChange={(e) => setNinNumber(e.target.value)}
-                    placeholder="Enter your VIN/NIN"
-                    className={
-                        !timeLeft === "00d : 00h : 00m : 00s" ? "disabled" : ""
-                    }
-                />
-                {/* <input type="email" placeholder="Enter your Email Address" /> */}
-                <button
-                    onClick={write}
-                    className={
-                        timeLeft === "00d : 00h : 00m : 00s" ? "disabled" : ""
-                    }
-                >
-                    {isLoading
-                        ? "Loading..."
-                        : isSuccess
-                        ? "Registered"
-                        : "Register"}
-                </button>
-                <span>
-                    {error === "VoteChain_voterRegistered()" &&
-                        "Already Registered"}
-                </span>
+                    <input
+                        type="name"
+                        value={secondName}
+                        onChange={(e) => setsecondName(e.target.value)}
+                        placeholder="Enter your second Name"
+                    />
+                    <input
+                        type="number"
+                        value={ninNumber}
+                        onChange={(e) => setNinNumber(e.target.value)}
+                        placeholder="Enter your VIN/NIN"
+                        className={
+                            !timeLeft === "00d : 00h : 00m : 00s"
+                                ? "disabled"
+                                : ""
+                        }
+                    />
+
+                    <button
+                        onClick={write}
+                        disabled={!firstName || !secondName || !ninNumber}
+                        className={
+                            timeLeft === "00d : 00h : 00m : 00s"
+                                ? "disabled"
+                                : ""
+                        }
+                    >
+                        {isLoading
+                            ? "Loading..."
+                            : isSuccess
+                            ? "Registered"
+                            : "Register"}
+                    </button>
+                </div>
             </div>
         </div>
     )

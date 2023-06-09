@@ -46,18 +46,20 @@ describe("voteChain", function () {
 
     describe("Register Voters", () => {
         it("should register a voter", async () => {
-            registerVoter = await voteChain.connect(addr1).registerVoter(1)
+            registerVoter = await voteChain
+                .connect(addr1)
+                .registerVoter(1, "Sammy", "Wise")
 
             expect(await registerVoter)
                 .to.emit(voteChain, "VoteChain_voterRegistered")
-                .withArgs(0, addr1.address)
+                .withArgs(0, addr1.address, "Sammy", "Wise")
 
             let votersCount = await voteChain.s_votersCount()
             assert.equal(votersCount.toString(), 1)
 
             let voter = await voteChain.connect(addr2).getVoter(addr1.address)
             let voterInfo =
-                "1,false,0x70997970C51812dc3A010C7d01b50e0d17dc79C8,0"
+                "1,false,0x70997970C51812dc3A010C7d01b50e0d17dc79C8,0,Sammy,Wise"
             assert.equal(voter.toString(), voterInfo)
         })
         it("should revert when registering a voter again", async function () {

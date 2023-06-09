@@ -1,4 +1,4 @@
-export const VOTE_CHAIN_ADDRESS = "0x67cD4bC7424bfae605E9be5a76930d6b9a41C835"
+export const VOTE_CHAIN_ADDRESS = "0x86faB090f24c8B96928A7A672cAb4fe8A5A7dd1C"
 
 export const VOTE_CHAIN_ABI = [
     {
@@ -25,6 +25,16 @@ export const VOTE_CHAIN_ABI = [
     {
         inputs: [],
         name: "VoteChain_BallotNotOpen",
+        type: "error",
+    },
+    {
+        inputs: [],
+        name: "VoteChain_NINNumberNotDefined",
+        type: "error",
+    },
+    {
+        inputs: [],
+        name: "VoteChain_NameNotDefined",
         type: "error",
     },
     {
@@ -109,6 +119,18 @@ export const VOTE_CHAIN_ABI = [
                 internalType: "address",
                 name: "votersAddress",
                 type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "string",
+                name: "_firstName",
+                type: "string",
+            },
+            {
+                indexed: false,
+                internalType: "string",
+                name: "_secondName",
+                type: "string",
             },
         ],
         name: "VoterRegistered",
@@ -415,6 +437,16 @@ export const VOTE_CHAIN_ABI = [
                         name: "votedCandidate",
                         type: "uint256",
                     },
+                    {
+                        internalType: "string",
+                        name: "firstName",
+                        type: "string",
+                    },
+                    {
+                        internalType: "string",
+                        name: "SecondName",
+                        type: "string",
+                    },
                 ],
                 internalType: "struct IVotingStorage.Voter",
                 name: "",
@@ -581,6 +613,16 @@ export const VOTE_CHAIN_ABI = [
                 name: "voterId",
                 type: "uint256",
             },
+            {
+                internalType: "string",
+                name: "_firstName",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "_secondName",
+                type: "string",
+            },
         ],
         name: "registerVoter",
         outputs: [],
@@ -668,6 +710,16 @@ export const VOTE_CHAIN_ABI = [
                 internalType: "uint256",
                 name: "votedCandidate",
                 type: "uint256",
+            },
+            {
+                internalType: "string",
+                name: "firstName",
+                type: "string",
+            },
+            {
+                internalType: "string",
+                name: "SecondName",
+                type: "string",
             },
         ],
         stateMutability: "view",

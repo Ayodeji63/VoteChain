@@ -3,6 +3,7 @@ import "./Welcome.css"
 import { useAccount, useContractRead } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
+import { data } from "autoprefixer"
 
 const Welcome = () => {
     const { address } = useAccount()
@@ -12,6 +13,7 @@ const Welcome = () => {
     // };
     const [startTime, setStartTime] = useState("")
     const [endTime, setEndTime] = useState("")
+    const [voterData, setVoterData] = useState(null)
 
     const v_StartTime = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
@@ -23,7 +25,16 @@ const Welcome = () => {
         abi: VOTE_CHAIN_ABI,
         functionName: "s_votingEndTime",
     })
-
+    const nameRead = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "getVoter",
+        args: [address],
+        onSuccess(data) {
+            console.log(data)
+            setVoterData(data)
+        },
+    })
     const getTime = () => {
         const startTime = Number(v_StartTime.data)
         const unixTimestamp = v_StartTime.data
@@ -77,16 +88,25 @@ const Welcome = () => {
             // navigate("/")
         }
     }, [address])
-    setInterval(() => {
-        if (address) {
-            getTime()
-        }
-    }, 1000)
+
+    useEffect(() => {
+        setInterval(() => {
+            if (address) {
+                getTime()
+            }
+        }, 1000)
+    }, [])
 
     return (
         <div className="welcome-container">
             <div className="welcome-user-details">
-                <h4 className="welcome-address">Welcome, {address || ""}</h4>
+                <h4 className="welcome-address">
+                    Welcome{" "}
+                    {voterData
+                        ? `${voterData.firstName} ` + `${voterData.SecondName}`
+                        : address || ""}
+                    ,
+                </h4>
                 <div className="user-pooling-details">
                     {/* <p>
                         <strong>Polling Unit:</strong>{" "}
