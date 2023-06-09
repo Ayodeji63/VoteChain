@@ -31,7 +31,7 @@ const HowToVote = () => {
             <h5>Register to Vote</h5>
             <p>
               The next step is to register
-              <br /> to be able to vote and you are required to provide <br />
+              <br /> to be able to vote and you <br/>are required to provide <br />
               your National Identity Number.
             </p>
           </div>

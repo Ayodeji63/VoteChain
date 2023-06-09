@@ -10,7 +10,7 @@ const Features = () => {
            Voting Process
         </h3>
         <p>
-          Votechain is developed to solve, illegal voting, illegal appointments in nations and with one the most amazing innovation of mankind (Blockchain) we have been able to achieve that.
+          Votechain is developed to solve, illegal voting, illegal<br/> appointments in nations and with one the most amazing <br/> innovation of mankind (Blockchain) we have been able to achieve that.
         </p>
       </div>
     </div>

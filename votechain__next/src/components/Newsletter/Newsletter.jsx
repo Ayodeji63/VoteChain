@@ -7,7 +7,7 @@ const Newsletter = () => {
     <div className="newsletter-container">
       <div className="newsletter-text">
         <h4>Newsletter</h4>
-        <p>Everything you need to know about the product and billing.</p>
+        <p>Important news about Election Riggings across the world</p>
       </div>
       <div className="newsletter-cards">
         <div className="newsletter-card">
