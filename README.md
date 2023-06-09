@@ -47,3 +47,23 @@ Throughout the Hackathon period and the development phase we have been able to d
 - Furthermore, we learnt and also implement the ChainLink Automation and was able to activate it to its potential use in the system was was really an amazing experience.
 
 ## What's Next for Votechain
+
+The team has a lot in store for Votechain moving forward from the hackathon and after below are some of them
+
+1. **Implementation of Meta Transaction:** Moving forward we are planning to implement Meta Transaction into Votechain which simply means, voters won't have to pay for Gas Fees for voting again, which will further help with the user experience.
+
+2. **Votechain goes Public:** It is part of the team's plan to make Votechain open source for the community of developers which will further widen the scope of Votechain and further enlarge our coast.
+
+3. **Votechain goes Crosschain:** We are currently on the ETH chain and the **Sepolia Network** We are planning to go crosschain i.e be able to support other chains and networks.
+
+The democratic process in Nigeria and several West African countries heavily relies on traditional paper-based voting systems. While these systems have served as the backbone of elections for many years, they come with significant limitations and challenges that undermine the credibility and transparency of the voting process.
+
+In the current voting system, citizens cast their votes on paper ballots, which are manually counted by election officials. However, this manual process is susceptible to errors, manipulation, and tampering, leading to controversies and disputes over election results. Instances of ballot stuffing, vote buying, and ballot box snatching have marred the integrity of elections, creating doubts and eroding trust in the electoral process.
+
+This centralized voting system also presents barriers to access and participation. Citizens living in remote or rural areas often struggle to reach polling stations, limiting their ability to exercise their voting rights. Additionally, physically challenged individuals and those living abroad face obstacles in participating fully in the voting process, leading to exclusion and diminished representation.
+
+Moreover, Votechain's transparent nature ensures that every step of the voting process can be audited and verified by anyone with access to the blockchain. This level of transparency restores faith in the electoral process and holds accountable those responsible for upholding democratic principles.
+
+In conclusion, a decentralized voting system like Votechain holds the potential to transform the way elections are conducted. By providing a secure, transparent, and citizen-centric approach to voting, it addresses the limitations of centralized systems. With Votechain, citizens can regain confidence in the democratic process, knowing that their voices are heard and their votes truly count. It's time to embrace this innovative solution and pave the way for a new era of trusted and inclusive elections.
+
+**The Future of Votechain is so bright and we are happy to say it is in safe hands.**
