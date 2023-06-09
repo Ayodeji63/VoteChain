@@ -42,5 +42,8 @@ Votechain has been developed by the team to solving several problems in the voti
 
 ## What we learnt
 
-## What's Next for Votechain
+Throughout the Hackathon period and the development phase we have been able to dive in deeper to the power of blockchain and decentralization. We have been able to learn some new technologies like the **Particle Network** for wallet connection.
 
+- Furthermore, we learnt and also implement the ChainLink Automation and was able to activate it to its potential use in the system was was really an amazing experience.
+
+## What's Next for Votechain
