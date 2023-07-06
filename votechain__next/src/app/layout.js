@@ -9,7 +9,7 @@ import {
     connectorsForWallets,
 } from "@rainbow-me/rainbowkit"
 import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
-import { goerli, optimismGoerli } from "wagmi/chains"
+import { fantomTestnet, goerli, optimismGoerli } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import Navbar from "@/components/Navbar/Navbar"
@@ -32,13 +32,16 @@ import {
     walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets"
 
+import { EthereumContext } from "../eth/context"
+import { createProvider } from "../eth/provider"
+import { createInstance } from "../eth/registry"
 const poppins = Poppins({
     subsets: ["latin"],
     weight: ["400", "500", "600", "700", "800", "900"],
 })
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [sepolia],
+    [fantomTestnet],
     [
         alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
         publicProvider(),
@@ -106,41 +109,46 @@ export default function RootLayout({ children }) {
         setMounted(true)
     }, [mounted])
 
+    const provider = createProvider()
+    const registry = createInstance(provider)
+    const ethereumContext = { provider, registry }
     return (
         <html lang="en">
             <body className={poppins.className}>
                 {mounted ? (
-                    <WagmiConfig config={wagmiConfig}>
-                        <RainbowKitProvider chains={chains}>
-                            <Navbar />
-                            {children}
-                            <Toaster
-                                position="top-center"
-                                reverseOrder={false}
-                                gutter={8}
-                                containerClassName=""
-                                containerStyle={{}}
-                                toastOptions={{
-                                    // Define default options
-                                    className: "",
-                                    duration: 5000,
-                                    style: {
-                                        background: "#363636",
-                                        color: "#fff",
-                                    },
-
-                                    // Default options for specific types
-                                    success: {
-                                        duration: 3000,
-                                        theme: {
-                                            primary: "green",
-                                            secondary: "black",
+                    <EthereumContext.Provider value={ethereumContext}>
+                        <WagmiConfig config={wagmiConfig}>
+                            <RainbowKitProvider chains={chains}>
+                                <Navbar />
+                                {children}
+                                <Toaster
+                                    position="top-center"
+                                    reverseOrder={false}
+                                    gutter={8}
+                                    containerClassName=""
+                                    containerStyle={{}}
+                                    toastOptions={{
+                                        // Define default options
+                                        className: "",
+                                        duration: 5000,
+                                        style: {
+                                            background: "#363636",
+                                            color: "#fff",
                                         },
-                                    },
-                                }}
-                            />
-                        </RainbowKitProvider>
-                    </WagmiConfig>
+
+                                        // Default options for specific types
+                                        success: {
+                                            duration: 3000,
+                                            theme: {
+                                                primary: "green",
+                                                secondary: "black",
+                                            },
+                                        },
+                                    }}
+                                />
+                            </RainbowKitProvider>
+                        </WagmiConfig>
+                    </EthereumContext.Provider>
                 ) : null}
             </body>
         </html>

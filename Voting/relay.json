@@ -1,0 +1,13 @@
+{
+  "relayer": {
+    "relayerId": "d1e6f53a-e57d-41e0-b2c2-961a6ed34294",
+    "name": "VoteChain Relayer",
+    "address": "0x236848e724adf089ca204f6058e8fe5789c008a7",
+    "network": "fantomtest",
+    "createdAt": "2023-07-06T14:35:25.579Z",
+    "paused": false,
+    "policies": {},
+    "minBalance": "100000000000000000",
+    "pendingTxCost": "0"
+  }
+}

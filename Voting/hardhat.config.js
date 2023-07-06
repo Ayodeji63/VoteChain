@@ -9,6 +9,8 @@ const S_RPC_URL = process.env.S_RPC_URL
 const S_API_KEY = process.env.S_API_KEY
 const B_RPC_URL = process.env.B_RPC_URL
 const G_RPC_URL = process.env.G_RPC_URL
+const F_RPC_URL = process.env.F_RPC_URL
+const F_API_KEY = process.env.F_API_KEY
 module.exports = {
     solidity: "0.8.18",
 
@@ -45,8 +47,18 @@ module.exports = {
             gas: 2100000,
             gasPrice: 8000000000,
         },
+        fantomTestnet: {
+            url: F_RPC_URL,
+            accounts: [PRIVATE_KEY],
+            gas: 21000000,
+            gasPrice: 8000000000,
+        },
     },
     etherscan: {
-        apiKey: S_API_KEY,
+        apiKey: {
+            ftmTestnet: `${F_API_KEY}`,
+            sepolia: `${S_API_KEY}`,
+            // opera: `${F_API_KEY}`,
+        },
     },
 }

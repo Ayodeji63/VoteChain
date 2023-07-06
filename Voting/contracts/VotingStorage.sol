@@ -15,12 +15,13 @@ contract VotingStorage is IVotingStorage {
     function _registerVoter(
         uint _voterId,
         string memory _firstName,
-        string memory _secondName
+        string memory _secondName,
+        address sender
     ) internal {
-        voters[msg.sender] = Voter(
+        voters[sender] = Voter(
             _voterId,
             false,
-            msg.sender,
+            sender,
             0,
             _firstName,
             _secondName

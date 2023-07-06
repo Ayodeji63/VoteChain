@@ -6,6 +6,8 @@ import "./Interfaces/IVotingElect.sol";
 import "./VotingStorage.sol";
 import "hardhat/console.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
+import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
+import "@openzeppelin/contracts/metatx/MinimalForwarder.sol";
 
 error VoteChain_voterNotRegistered();
 error VoteChain_voterRegistered();
@@ -21,7 +23,8 @@ error VoteChain_NINNumberNotDefined();
 contract VoteChain is
     VotingStorage,
     IVotingElect,
-    AutomationCompatibleInterface
+    AutomationCompatibleInterface,
+    ERC2771Context
 {
     address public immutable i_chairperson;
     uint public immutable i_registrationDuration;
@@ -40,8 +43,11 @@ contract VoteChain is
     event VoteCasted(address voterAddress, uint candidateId);
     event WinningCandidate(uint candidateId);
 
-    constructor(uint registrationDuration) {
-        i_chairperson = msg.sender;
+    constructor(
+        uint registrationDuration,
+        MinimalForwarder forwarder
+    ) ERC2771Context(address(forwarder)) {
+        i_chairperson = _msgSender();
         i_registrationDuration = registrationDuration;
     }
 
@@ -50,7 +56,7 @@ contract VoteChain is
         string memory _firstName,
         string memory _secondName
     ) public {
-        if (!containsVoter()) {
+        if (!containsVoter(_msgSender())) {
             revert VoteChain_voterRegistered();
         }
         if (block.timestamp > i_registrationDuration) {
@@ -61,10 +67,10 @@ contract VoteChain is
         if (bytes(_firstName).length < 0 && bytes(_secondName).length < 0)
             revert VoteChain_NameNotDefined();
 
-        _registerVoter(voterId, _firstName, _secondName);
+        _registerVoter(voterId, _firstName, _secondName, _msgSender());
         emit VoterRegistered(
             s_votersCount,
-            msg.sender,
+            _msgSender(),
             _firstName,
             _secondName
         );
@@ -110,8 +116,8 @@ contract VoteChain is
             revert VoteChain_BallotClosed();
         }
 
-        Voter storage sender = voters[msg.sender];
-        if (containsVoter()) {
+        Voter storage sender = voters[_msgSender()];
+        if (containsVoter(_msgSender())) {
             revert VoteChain_voterNotRegistered();
         }
         if (sender.hasVoted) {
@@ -156,12 +162,12 @@ contract VoteChain is
         return candidates[id].id != 0;
     }
 
-    function containsVoter() public view returns (bool) {
-        return voters[msg.sender].delegate == address(0);
+    function containsVoter(address sender) public view returns (bool) {
+        return voters[sender].delegate == address(0);
     }
 
     function onlyOwner() internal view {
-        if (msg.sender != i_chairperson) {
+        if (_msgSender() != i_chairperson) {
             revert VoteChain_onlyChairperson();
         }
     }

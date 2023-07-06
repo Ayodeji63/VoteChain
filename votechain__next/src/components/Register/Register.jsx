@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 
@@ -9,10 +9,13 @@ import {
     useContractWrite,
     useContractRead,
     useAccount,
+    useContractEvent,
 } from "wagmi"
 import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
 import Link from "next/link"
 import { toast } from "react-hot-toast"
+import { EthereumContext } from "@/eth/context"
+import { registerVoter } from "@/eth/register"
 
 const Login = () => {
     // const navigate = useNavigate()
@@ -22,6 +25,34 @@ const Login = () => {
     const [secondName, setsecondName] = useState("")
     const [timeLeft, setTimeLeft] = useState("")
     const [voters_count, setVoters_count] = useState(null)
+
+    const unwatch = useContractEvent({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        eventName: "VoterRegistered",
+        listener(log) {
+            console.log(log)
+            toast("Name Registered", { type: "info" })
+        },
+    })
+    const { registry, provider } = useContext(EthereumContext)
+
+    const sendTx = async () => {
+        try {
+            const response = await registerVoter(
+                registry,
+                provider,
+                ninNumber,
+                firstName,
+                secondName
+            )
+            const hash = response.hash
+            // const onClick = hash ? () => window.open
+            toast("Transaction sent!", { type: "info" })
+        } catch (err) {
+            toast(err.message || err, { type: "error" })
+        }
+    }
 
     const { config, error } = usePrepareContractWrite({
         address: VOTE_CHAIN_ADDRESS,
@@ -167,7 +198,7 @@ const Login = () => {
                     />
 
                     <button
-                        onClick={write}
+                        onClick={sendTx}
                         disabled={!firstName || !secondName || !ninNumber}
                         className={
                             timeLeft === "00d : 00h : 00m : 00s"

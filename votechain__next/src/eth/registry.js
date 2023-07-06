@@ -1,6 +1,7 @@
-export const VOTE_CHAIN_ADDRESS = "0xf1BFa617D138c3acDE28828DFb64F884fb4e7631"
+import { ethers } from "ethers"
+import { VoteChain as address } from "../deploy.json"
 
-export const VOTE_CHAIN_ABI = [
+const abi = [
     {
         inputs: [
             {
@@ -756,3 +757,7 @@ export const VOTE_CHAIN_ABI = [
         type: "function",
     },
 ]
+
+export function createInstance(provider) {
+    return new ethers.Contract(address, abi, provider)
+}
