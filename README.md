@@ -69,3 +69,4 @@ Moreover, Votechain's transparent nature ensures that every step of the voting p
 In conclusion, a decentralized voting system like Votechain holds the potential to transform the way elections are conducted. By providing a secure, transparent, and citizen-centric approach to voting, it addresses the limitations of centralized systems. With Votechain, citizens can regain confidence in the democratic process, knowing that their voices are heard and their votes truly count. It's time to embrace this innovative solution and pave the way for a new era of trusted and inclusive elections.
 
 **The Future of Votechain is so bright and we are happy to say it is in safe hands.**
+# AyaversityHack
