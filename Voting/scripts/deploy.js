@@ -57,7 +57,19 @@ async function main() {
     const VoteChain = await hre.ethers.getContractFactory("VoteChain")
 
     const voteChain = await VoteChain.connect(relaySigner)
-        .deploy(registrationDuration, forwarder.address)
+        .deploy(
+            registrationDuration,
+            forwarder.address,
+            id,
+            names,
+            vice,
+            voteCount,
+            images,
+            parties,
+            position,
+            votingStartTime,
+            votingEndTime
+        )
         .then((f) => f.deployed())
 
     await voteChain.deployed()
@@ -90,24 +102,6 @@ async function main() {
             whitelistReceivers: [voteChain.address, forwarder.address],
         },
     })
-
-    console.log(`Listing Candidates`)
-    const tx = await voteChain
-        .connect(relaySigner)
-        .initializeCandidates(
-            id,
-            names,
-            vice,
-            voteCount,
-            images,
-            parties,
-            position,
-            votingStartTime,
-            votingEndTime
-        )
-
-    await tx.wait()
-    console.log(`Listing Candidates done`)
 
     await verify(voteChain.address, [registrationDuration])
 }

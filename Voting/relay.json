@@ -1,10 +1,10 @@
 {
   "relayer": {
-    "relayerId": "d1e6f53a-e57d-41e0-b2c2-961a6ed34294",
-    "name": "VoteChain Relayer",
-    "address": "0x236848e724adf089ca204f6058e8fe5789c008a7",
+    "relayerId": "64c18c03-f2f1-40e3-901f-596716d2abbd",
+    "name": "VoteChain Relayer2",
+    "address": "0x5ab21ff0bc3d41e50afbd7877a535d31102045f6",
     "network": "fantomtest",
-    "createdAt": "2023-07-06T14:35:25.579Z",
+    "createdAt": "2023-07-06T19:44:50.295Z",
     "paused": false,
     "policies": {},
     "minBalance": "100000000000000000",

@@ -45,10 +45,30 @@ contract VoteChain is
 
     constructor(
         uint registrationDuration,
-        MinimalForwarder forwarder
+        MinimalForwarder forwarder,
+        uint[] memory id,
+        string[] memory name,
+        string[] memory vice,
+        uint[] memory voteCount,
+        string[] memory image,
+        string[] memory party,
+        string[] memory position,
+        uint votingStartTime,
+        uint votingEndTime
     ) ERC2771Context(address(forwarder)) {
         i_chairperson = _msgSender();
         i_registrationDuration = registrationDuration;
+        initializeCandidates(
+            id,
+            name,
+            vice,
+            voteCount,
+            image,
+            party,
+            position,
+            votingStartTime,
+            votingEndTime
+        );
     }
 
     function registerVoter(
