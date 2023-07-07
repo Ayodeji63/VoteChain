@@ -1,4 +1,4 @@
-export const VOTE_CHAIN_ADDRESS = "0xf1BFa617D138c3acDE28828DFb64F884fb4e7631"
+export const VOTE_CHAIN_ADDRESS = "0xa3F5FE420b028445835F3832B66084adfB0E111b"
 
 export const VOTE_CHAIN_ABI = [
     {
@@ -12,6 +12,51 @@ export const VOTE_CHAIN_ABI = [
                 internalType: "contract MinimalForwarder",
                 name: "forwarder",
                 type: "address",
+            },
+            {
+                internalType: "uint256[]",
+                name: "id",
+                type: "uint256[]",
+            },
+            {
+                internalType: "string[]",
+                name: "name",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "vice",
+                type: "string[]",
+            },
+            {
+                internalType: "uint256[]",
+                name: "voteCount",
+                type: "uint256[]",
+            },
+            {
+                internalType: "string[]",
+                name: "image",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "party",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "position",
+                type: "string[]",
+            },
+            {
+                internalType: "uint256",
+                name: "votingStartTime",
+                type: "uint256",
+            },
+            {
+                internalType: "uint256",
+                name: "votingEndTime",
+                type: "uint256",
             },
         ],
         stateMutability: "nonpayable",

@@ -14,6 +14,51 @@ const abi = [
                 name: "forwarder",
                 type: "address",
             },
+            {
+                internalType: "uint256[]",
+                name: "id",
+                type: "uint256[]",
+            },
+            {
+                internalType: "string[]",
+                name: "name",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "vice",
+                type: "string[]",
+            },
+            {
+                internalType: "uint256[]",
+                name: "voteCount",
+                type: "uint256[]",
+            },
+            {
+                internalType: "string[]",
+                name: "image",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "party",
+                type: "string[]",
+            },
+            {
+                internalType: "string[]",
+                name: "position",
+                type: "string[]",
+            },
+            {
+                internalType: "uint256",
+                name: "votingStartTime",
+                type: "uint256",
+            },
+            {
+                internalType: "uint256",
+                name: "votingEndTime",
+                type: "uint256",
+            },
         ],
         stateMutability: "nonpayable",
         type: "constructor",

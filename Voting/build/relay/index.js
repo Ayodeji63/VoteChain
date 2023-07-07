@@ -17,7 +17,7 @@ var forwarder = {
   ForwarderAbi: ForwarderAbi$1
 };
 
-var MinimalForwarder="0xf63fC60A6fD7fdad6fFc4a6d13A5423aFcB4A723";var VoteChain="0xAF04560A81f8E1D0bAf5DD15f59a4a4975c90e7C";var require$$3 = {MinimalForwarder:MinimalForwarder,VoteChain:VoteChain};
+var MinimalForwarder="0xA8a19C27DE01Ca43e9D727571721c2B04E5f26bA";var VoteChain="0xa3F5FE420b028445835F3832B66084adfB0E111b";var require$$3 = {MinimalForwarder:MinimalForwarder,VoteChain:VoteChain};
 
 const ethers = require$$0;
 const {

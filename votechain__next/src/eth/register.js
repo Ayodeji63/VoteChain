@@ -123,9 +123,8 @@ export async function registerVoter(
 }
 
 export async function castVote(voteChain, provider, candidateId, sender) {
-    if (!id) throw new Error(`Id cannot be empty`)
-    if (!candidateId) throw new Error(`FirstName cannot be empty`)
-    if (!sender) throw new Error(`FirstName cannot be empty`)
+    if (!candidateId) throw new Error(`candidateId cannot be empty`)
+    if (!sender) throw new Error(`sender cannot be empty`)
     if (!window.ethereum) throw new Error(`User wallet not found`)
 
     await window.ethereum.enable()

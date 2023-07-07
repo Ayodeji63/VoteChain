@@ -16,9 +16,11 @@ import Link from "next/link"
 import { toast } from "react-hot-toast"
 import { EthereumContext } from "@/eth/context"
 import { registerVoter } from "@/eth/register"
+import { useRouter } from "next/navigation"
 
 const Login = () => {
     // const navigate = useNavigate()
+    const router = useRouter()
     const { address } = useAccount()
     const [ninNumber, setNinNumber] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -32,7 +34,8 @@ const Login = () => {
         eventName: "VoterRegistered",
         listener(log) {
             console.log(log)
-            toast("Name Registered", { type: "info" })
+            toast("Voter Registered", { type: "info" })
+            router.back()
         },
     })
     const { registry, provider } = useContext(EthereumContext)
@@ -111,36 +114,6 @@ const Login = () => {
             getTime()
         }
     }, 1000)
-
-    useEffect(() => {
-        isSuccess &&
-            toast("Registration Successful", {
-                duration: 5000,
-                position: "top-center",
-
-                // Styling
-                style: {
-                    background: "#009444",
-                    WebkitAppearance: "none !important",
-                },
-                className: "",
-
-                // Custom Icon
-                icon: "👏",
-
-                // Change colors of success/error/loading icon
-                iconTheme: {
-                    primary: "#009444",
-                    secondary: "#fff",
-                },
-
-                // Aria
-                ariaProps: {
-                    role: "status",
-                    "aria-live": "polite",
-                },
-            })
-    }, [isSuccess])
 
     useEffect(() => {
         isLoading && toast("Loading...")
