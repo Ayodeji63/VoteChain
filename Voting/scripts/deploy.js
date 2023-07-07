@@ -23,7 +23,7 @@ async function verify(contractAddress, args) {
     }
 }
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 7000
+    const registrationDuration = Math.floor(Date.now() / 1000) + 700
     const votingStartTime = registrationDuration + 300
     const votingEndTime = Math.floor(votingStartTime + 3000)
     const id = [1, 2, 3]
@@ -75,7 +75,6 @@ async function main() {
     await voteChain.deployed()
 
     console.log(`VoteChain Deployed at`, voteChain.address)
-    console.log(`Waiting for block txes`)
 
     writeFileSync(
         "deploy.json",
@@ -102,8 +101,21 @@ async function main() {
             whitelistReceivers: [voteChain.address, forwarder.address],
         },
     })
-
-    await verify(voteChain.address, [registrationDuration])
+    console.log("verifying...")
+    await verify(voteChain.address, [
+        registrationDuration,
+        registrationDuration,
+        forwarder.address,
+        id,
+        names,
+        vice,
+        voteCount,
+        images,
+        parties,
+        position,
+        votingStartTime,
+        votingEndTime,
+    ])
 }
 
 main().catch((error) => {
