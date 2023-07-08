@@ -15,11 +15,19 @@ import {
 } from "wagmi"
 
 import { watchContractEvent } from "@wagmi/core"
-import { VOTE_CHAIN_ABI, VOTE_CHAIN_ADDRESS } from "@/index"
+import {
+    ASBT_ADDRESS,
+    LSBT_ADDRESS,
+    PSBT_ADDRESS,
+    VOTE_CHAIN_ABI,
+    VOTE_CHAIN_ADDRESS,
+} from "@/index"
 import Link from "next/link"
 import { toast } from "react-hot-toast"
 import { EthereumContext } from "@/eth/context"
 import { castVote } from "@/eth/register"
+import { _mintToken } from "@/eth/mintSBT"
+import { ClipLoader } from "react-spinners"
 
 const FinalResults = () => {
     const [modal, contextHolder] = Modal.useModal()
@@ -32,6 +40,10 @@ const FinalResults = () => {
     const { address } = useAccount()
     const [winningCandidate, setWinningCandidate] = useState(null)
     const [winningCandidateData, setWinningCandidateData] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [txText, setTxText] = useState("")
+    const [txAnimation, setTxAnimation] = useState(false)
+    const [errorAnimation, seterrorAnimation] = useState(false)
     // const navigate = useNavigate()
 
     const [startTime, setStartTime] = useState(null)
@@ -168,6 +180,8 @@ const FinalResults = () => {
         cacheTime: 2_000,
     })
 
+    console.log(dataSet)
+
     const vote = usePrepareContractWrite({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -182,22 +196,39 @@ const FinalResults = () => {
         },
     })
 
-    const { registry, provider } = useContext(EthereumContext)
+    const { registry, provider, asbt, lsbt, psbt } = useContext(EthereumContext)
 
-    const voteTx = async () => {
+    const voteTx = async (id) => {
         try {
+            setLoading(true)
+            const partyId = Number(id)
+            setTxText("Claim Your Vote")
+            const mintToken = await _mintToken(
+                partyId == 1 ? lsbt : partyId == 2 ? asbt : psbt,
+                partyId == 1
+                    ? LSBT_ADDRESS
+                    : partyId == 2
+                    ? ASBT_ADDRESS
+                    : PSBT_ADDRESS,
+                provider,
+                address
+            )
+            setTxText("Casting Your Vote")
             const response = await castVote(
                 registry,
                 provider,
                 candidateId,
                 address
             )
+
             const hash = response.hash
             // const onClick = hash ? () => window.open
+
             toast("Transaction sent!", { type: "info" })
-            setIsModalOpen(false)
+            setLoading(false)
         } catch (err) {
             toast(err.message || err, { type: "error" })
+            setLoading(false)
         }
     }
 
@@ -272,27 +303,44 @@ const FinalResults = () => {
                                     alt="Modal Icon"
                                     className="modal-icon"
                                 />
-                                <h4 className="modal-election-name">
-                                    {isSuccess
-                                        ? "Your Vote was Successful"
-                                        : isError
-                                        ? "Something Went Wrong, you are unable to Vote"
-                                        : `You are about to Vote for ${
-                                              newModal?.result.name || ""
-                                          }`}
-                                </h4>
-                                <img
+                                {/* <h4 className="modal-election-name">
+                                    You are about to Vote for
+                                    {newModal?.result.name || ""}
+                                </h4> */}
+                                {/* <img
                                     src={newModal.result.image}
                                     alt="First Candidate"
                                     className="newmodal-image"
-                                />
+                                /> */}
+                                <div className="modal-wrapper">
+                                    <ClipLoader
+                                        color={"green"}
+                                        loading={loading}
+                                        size={100}
+                                        aria-label="Loading Spinner"
+                                        data-testid="loader"
+                                    />
+                                    {errorAnimation && (
+                                        <img
+                                            src={"/error.gif"}
+                                            alt="First Candidate"
+                                            className="newmodal-image"
+                                        />
+                                    )}
+                                    {txAnimation && (
+                                        <img
+                                            src={"/success.gif"}
+                                            alt="First Candidate"
+                                            className="newmodal-image"
+                                        />
+                                    )}
+                                    <h1 className="text-2xl font-bold mt-5">
+                                        {txText}
+                                    </h1>
+                                </div>
                                 <button
-                                    className={
-                                        !endTime || startTime
-                                            ? "modal-election-btn disabled"
-                                            : "modal-election-btn"
-                                    }
-                                    onClick={voteTx}
+                                    className={"modal-election-btn "}
+                                    onClick={() => voteTx(newModal.result.id)}
                                     disabled={!endTime || startTime}
                                 >
                                     {isSuccess

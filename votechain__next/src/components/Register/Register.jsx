@@ -29,6 +29,10 @@ const Login = () => {
     const [timeLeft, setTimeLeft] = useState("")
     const [voters_count, setVoters_count] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [txText, setTxText] = useState("")
+    const [txAnimation, setTxAnimation] = useState(false)
+    const [errorAnimation, seterrorAnimation] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const unwatch = useContractEvent({
         address: VOTE_CHAIN_ADDRESS,
@@ -36,14 +40,18 @@ const Login = () => {
         eventName: "VoterRegistered",
         listener(log) {
             console.log(log)
-            toast("Voter Registered", { type: "info" })
-            router.back()
+            setLoading(false)
+            // toast("Voter Registered", { type: "info" })
+            setTxAnimation(true)
+            setTxText("Your Are Registerd!")
         },
     })
     const { registry, provider } = useContext(EthereumContext)
 
     const sendTx = async () => {
         try {
+            setLoading(true)
+            setTxText("Sign Transaction In Your Wallet")
             const response = await registerVoter(
                 registry,
                 provider,
@@ -53,9 +61,13 @@ const Login = () => {
             )
             const hash = response.hash
             // const onClick = hash ? () => window.open
-            toast("Transaction sent!", { type: "info" })
+            // toast("Transaction sent!", { type: "info" })
+            setTxText("Registering Your Name...")
         } catch (err) {
-            toast(err.message || err, { type: "error" })
+            // toast(err.message || err, { type: "error" })
+            setLoading(false)
+            seterrorAnimation(true)
+            setTxText("An error Occured")
             console.log(err)
         }
     }
@@ -118,21 +130,17 @@ const Login = () => {
         }
     }, 1000)
 
-    useEffect(() => {
-        isLoading && toast("Loading...")
-    }, [isLoading])
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
-
     const showModal = async () => {
         setIsModalOpen(true)
-        setLoading(true)
         await sendTx()
         setLoading(false)
     }
 
     const handleCancel = () => {
         setIsModalOpen(false)
+        seterrorAnimation(false)
+        setTimeLeft("")
+        setTxAnimation(false)
     }
     return (
         <div className="login-container">
@@ -212,15 +220,32 @@ const Login = () => {
                             alt="Modal Icon"
                             className="modal-icon"
                         />
-                        <h4 className="modal-election-name">
+                        <div className="modal-wrapper">
                             <ClipLoader
                                 color={"green"}
                                 loading={loading}
-                                size={150}
+                                size={100}
                                 aria-label="Loading Spinner"
                                 data-testid="loader"
                             />
-                        </h4>
+                            {errorAnimation && (
+                                <img
+                                    src={"/error.gif"}
+                                    alt="First Candidate"
+                                    className="newmodal-image"
+                                />
+                            )}
+                            {txAnimation && (
+                                <img
+                                    src={"/success.gif"}
+                                    alt="First Candidate"
+                                    className="newmodal-image"
+                                />
+                            )}
+                            <h1 className="text-2xl font-bold mt-5">
+                                {txText}
+                            </h1>
+                        </div>
                     </div>
                 </Modal>
             </div>

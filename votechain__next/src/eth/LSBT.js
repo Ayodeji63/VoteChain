@@ -320,6 +320,6 @@ const abi = [
     },
 ]
 
-export function createInstance(provider) {
+export function createLSBTInstance(provider) {
     return new ethers.Contract(address, abi, provider)
 }

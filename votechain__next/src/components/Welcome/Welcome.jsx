@@ -31,7 +31,6 @@ const Welcome = () => {
         functionName: "getVoter",
         args: [address],
         onSuccess(data) {
-            console.log(data)
             setVoterData(data)
         },
     })
@@ -83,18 +82,11 @@ const Welcome = () => {
         }
     }
 
-    useEffect(() => {
-        if (!address) {
-            // navigate("/")
-        }
-    }, [address])
     setInterval(() => {
         if (address) {
             getTime()
-            console.log(startTime)
         }
     }, 1000)
-    useEffect(() => {}, [])
 
     return (
         <div className="welcome-container">
@@ -107,13 +99,6 @@ const Welcome = () => {
                     ,
                 </h4>
                 <div className="user-pooling-details">
-                    {/* <p>
-                        <strong>Polling Unit:</strong>{" "}
-                        <span>Central School, Alor</span>
-                    </p>
-                    <p>
-                        <strong>Polling Unit No:</strong> <span>026</span>
-                    </p> */}
                     <p>
                         <strong>
                             Register To Vote:{" "}

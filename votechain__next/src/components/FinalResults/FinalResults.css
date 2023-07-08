@@ -80,6 +80,13 @@
 .arrow-left-final-results:hover {
   cursor: pointer;
 }
+.modal-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .modal-election-btn.disabled {
   background: #e8e8ef;

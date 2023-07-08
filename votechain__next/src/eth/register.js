@@ -113,9 +113,6 @@ export async function castVote(voteChain, provider, candidateId, sender) {
     if (userNetwork.chainId !== 420)
         throw new Error(`Please switch to Goerli for signing`)
     const signer = userProvider.getSigner()
-    const from = await signer.getAddress()
-    const balance = await provider.getBalance(from)
-    const canSendTx = balance.gt(1e15)
 
     return castVoteMetaTx(voteChain, provider, signer, candidateId, sender)
 }
