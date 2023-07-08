@@ -31,7 +31,19 @@ describe("voteChain", function () {
         ;[owner, addr1, addr2, addr3, addr4, addr5] = await ethers.getSigners()
         const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
         VoteChain = await ethers.getContractFactory("VoteChain")
-        voteChain = await VoteChain.deploy(registrationDuration)
+        voteChain = await VoteChain.deploy(
+            registrationDuration,
+            forwarder,
+            id,
+            names,
+            vice,
+            voteCount,
+            images,
+            parties,
+            position,
+            votingStartTime,
+            votingEndTime
+        )
     })
 
     describe("Deployment", function () {
@@ -78,54 +90,6 @@ describe("voteChain", function () {
             } catch (e) {
                 expect(registerVoter).to.be.revertedWith(
                     "VoteChain_registrationElapsed"
-                )
-            }
-        })
-    })
-
-    describe("Initialize Candidates", () => {
-        it("should initialize candidates properly", async () => {
-            const initialize = await voteChain
-                .connect(owner)
-                .initializeCandidates(
-                    id,
-                    names,
-                    vice,
-                    voteCount,
-                    images,
-                    parties,
-                    position,
-                    votingStartTime,
-                    votingEndTime
-                )
-
-            expect(await initialize)
-                .to.emit(voteChain, "CandidatesRegistered")
-                .withArgs(3)
-
-            const candidate = await voteChain.connect(addr2).getCandidate(1)
-            const thisCandidate = "1,Buhari,Shettima,,APC,President,0"
-            assert.equal(candidate.toString(), thisCandidate)
-        })
-        it("should revert if caller isn't chairperson", async () => {
-            let initialize
-            try {
-                initialize = await voteChain
-                    .connect(addr1)
-                    .initializeCandidates(
-                        id,
-                        names,
-                        vice,
-                        voteCount,
-                        images,
-                        parties,
-                        position,
-                        votingStartTime,
-                        votingEndTime
-                    )
-            } catch (e) {
-                expect(await initialize).to.be.revertedWith(
-                    "VoteChain_onlyChairperson"
                 )
             }
         })
