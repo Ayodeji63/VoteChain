@@ -88,14 +88,13 @@ const Welcome = () => {
             // navigate("/")
         }
     }, [address])
-
-    useEffect(() => {
-        setInterval(() => {
-            if (address) {
-                getTime()
-            }
-        }, 1000)
-    }, [])
+    setInterval(() => {
+        if (address) {
+            getTime()
+            console.log(startTime)
+        }
+    }, 1000)
+    useEffect(() => {}, [])
 
     return (
         <div className="welcome-container">

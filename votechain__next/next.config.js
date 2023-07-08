@@ -11,8 +11,9 @@ const nextConfig = {
     },
     env: {
         NEXT_APP_WEBHOOK_URL:
-            "https://api.defender.openzeppelin.com/autotasks/9d7de3b5-a9ff-4722-8dee-668acd66b18f/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/8MDaAngKMxh978oTCfezKL",
-        NEXT_APP_QUICKNODE_URL: "https://rpc.testnet.fantom.network",
+            "https://api.defender.openzeppelin.com/autotasks/47a71d44-421e-4189-9469-43ea995c3205/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/Ks2NPNKxBd3sMgzjYYmEjU",
+        NEXT_APP_QUICKNODE_URL:
+            "https://opt-goerli.g.alchemy.com/v2/3ORjCx6ybjwSU5YQ0fvTwugBPRmuz05_",
     },
 }
 

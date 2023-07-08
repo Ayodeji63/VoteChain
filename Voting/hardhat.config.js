@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox")
+require("@nomicfoundation/hardhat-verify")
 require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -11,6 +12,7 @@ const B_RPC_URL = process.env.B_RPC_URL
 const G_RPC_URL = process.env.G_RPC_URL
 const F_RPC_URL = process.env.F_RPC_URL
 const F_API_KEY = process.env.F_API_KEY
+const OP_URL = process.env.OP_URL
 module.exports = {
     solidity: "0.8.18",
 
@@ -52,6 +54,10 @@ module.exports = {
             accounts: [PRIVATE_KEY],
             gas: 21000000,
             gasPrice: 8000000000,
+        },
+        optimismGoerli: {
+            url: OP_URL,
+            accounts: [PRIVATE_KEY],
         },
     },
     etherscan: {

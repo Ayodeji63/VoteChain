@@ -9,7 +9,7 @@ async function main() {
     const { TEAM_API_KEY: apiKey, TEAM_API_SECRET: apiSecret } = process.env
     const client = new AutotaskClient({ apiKey, apiSecret })
     const { autotaskId } = await client.create({
-        name: "VoteChain Autotask",
+        name: "VoteChain Optimsm Autotask",
         encodedZippedCode: await client.getEncodedZippedCodeFromFolder(
             "./build/relay"
         ),

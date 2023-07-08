@@ -1,6 +1,13 @@
-// // SPDX-License-Identifier: MIT
-// pragma solidity ^0.8.8;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.8;
+import "../eip4671/ERC4671.sol";
 
-// contract PSBT is ERC46712 {
-//     constructor() ERC46712("PDP VOTERS", "PDPV") {}
-// }
+contract PSBT is ERC4671 {
+    constructor() ERC4671("PDP VOTERS", "PDP") {}
+
+    function setTokenUri() internal {
+        _setBaseURI(
+            "https://bafkreihgtu6uym7ukila7gh4u3n2smrf5wcvdvvzl5dhbdowy66grkggqu.ipfs.nftstorage.link/"
+        );
+    }
+}

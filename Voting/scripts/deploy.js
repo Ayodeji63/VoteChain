@@ -22,8 +22,10 @@ async function verify(contractAddress, args) {
         }
     }
 }
+
+async function deployASBT() {}
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 1300
+    const registrationDuration = Math.floor(Date.now() / 1000) + 13000
     const votingStartTime = registrationDuration + 300
     const votingEndTime = Math.floor(votingStartTime + 3000)
     const id = [1, 2, 3]
@@ -54,6 +56,31 @@ async function main() {
 
     console.log(`Forwarder deployed as`, forwarder.address)
 
+    const ASBT = await hre.ethers.getContractFactory("ASBT")
+    const asbt = await ASBT.connect(relaySigner)
+        .deploy()
+        .then((f) => f.deployed())
+
+    console.log(`ASBT deployed as`, asbt.address)
+    await verify(asbt.address, [])
+
+    const LSBT = await hre.ethers.getContractFactory("LSBT")
+    const lsbt = await LSBT.connect(relaySigner)
+        .deploy()
+        .then((f) => f.deployed())
+
+    console.log(`LSBT deployed as`, lsbt.address)
+
+    await verify(lsbt.address, [])
+
+    const PSBT = await hre.ethers.getContractFactory("PSBT")
+    const psbt = await PSBT.connect(relaySigner)
+        .deploy()
+        .then((f) => f.deployed())
+
+    console.log(`PSBT deployed as`, psbt.address)
+    await verify(psbt.address, [])
+
     const VoteChain = await hre.ethers.getContractFactory("VoteChain")
 
     const voteChain = await VoteChain.connect(relaySigner)
@@ -82,6 +109,9 @@ async function main() {
             {
                 MinimalForwarder: forwarder.address,
                 VoteChain: voteChain.address,
+                ASBT: asbt.address,
+                PSBT: psbt.address,
+                LSBT: lsbt.address,
             },
             null,
             2
@@ -98,7 +128,13 @@ async function main() {
 
     await relayClient.update(relayerId, {
         policies: {
-            whitelistReceivers: [voteChain.address, forwarder.address],
+            whitelistReceivers: [
+                voteChain.address,
+                forwarder.address,
+                asbt.address,
+                lsbt.address,
+                psbt.address,
+            ],
         },
     })
     console.log("verifying...")

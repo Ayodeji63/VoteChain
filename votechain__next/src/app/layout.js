@@ -41,7 +41,7 @@ const poppins = Poppins({
 })
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [fantomTestnet],
+    [optimismGoerli],
     [
         alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
         publicProvider(),
@@ -71,30 +71,18 @@ const particleWallets =
         : []
 
 const popularWallets = {
-    groupName: "Popular",
+    groupName: "Recommended",
     wallets: [
-        ...particleWallets,
+        metaMaskWallet({ chains }),
+        trustWallet({ chains }),
         injectedWallet({ chains }),
         rainbowWallet({ chains }),
         coinbaseWallet({ appName: "RainbowKit demo", chains }),
-        metaMaskWallet({ chains }),
         walletConnectWallet({ chains }),
     ],
 }
 
-const connectors = connectorsForWallets([
-    popularWallets,
-    {
-        groupName: "Other",
-        wallets: [
-            argentWallet({ chains }),
-            trustWallet({ chains }),
-            omniWallet({ chains }),
-            imTokenWallet({ chains }),
-            ledgerWallet({ chains }),
-        ],
-    },
-])
+const connectors = connectorsForWallets([popularWallets])
 const wagmiConfig = createConfig({
     autoConnect: true,
     connectors,
@@ -118,7 +106,10 @@ export default function RootLayout({ children }) {
                 {mounted ? (
                     <EthereumContext.Provider value={ethereumContext}>
                         <WagmiConfig config={wagmiConfig}>
-                            <RainbowKitProvider chains={chains}>
+                            <RainbowKitProvider
+                                chains={chains}
+                                modalSize="compact"
+                            >
                                 <Navbar />
                                 {children}
                                 <Toaster

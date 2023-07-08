@@ -9,7 +9,7 @@ const QUICKNODE_ENDPOINT = process.env.NEXT_APP_QUICKNODE_URL
 
 export function createProvider() {
     return new ethers.providers.JsonRpcProvider(
-        QUICKNODE_ENDPOINT || MAIN_ENDPOINT,
-        4002
+        QUICKNODE_ENDPOINT,
+        420
     )
 }

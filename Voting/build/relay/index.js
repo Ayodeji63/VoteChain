@@ -17,7 +17,7 @@ var forwarder = {
   ForwarderAbi: ForwarderAbi$1
 };
 
-var MinimalForwarder="0xA8a19C27DE01Ca43e9D727571721c2B04E5f26bA";var VoteChain="0xa3F5FE420b028445835F3832B66084adfB0E111b";var require$$3 = {MinimalForwarder:MinimalForwarder,VoteChain:VoteChain};
+var MinimalForwarder="0xF701015a8AD29CD394F17352615a5592B103bAd1";var VoteChain="0x817747c32Bc5b42789F7ea868e7BEd421760959A";var ASBT="0x04EBa9A703337d30356D78577367C20C582418c4";var PSBT="0x3cC882eFfdA79Fdb854FC0d845932842E1842D63";var LSBT="0x0C40143768a367622a780B59C3BeE45b4c40d196";var require$$3 = {MinimalForwarder:MinimalForwarder,VoteChain:VoteChain,ASBT:ASBT,PSBT:PSBT,LSBT:LSBT};
 
 const ethers = require$$0;
 const {

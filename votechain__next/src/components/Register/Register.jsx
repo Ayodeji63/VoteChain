@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import { AiOutlineArrowLeft } from "react-icons/ai"
-
+import { Modal } from "antd"
 import "./Register.css"
 
 import {
@@ -17,6 +17,7 @@ import { toast } from "react-hot-toast"
 import { EthereumContext } from "@/eth/context"
 import { registerVoter } from "@/eth/register"
 import { useRouter } from "next/navigation"
+import { ClipLoader } from "react-spinners"
 
 const Login = () => {
     // const navigate = useNavigate()
@@ -27,6 +28,7 @@ const Login = () => {
     const [secondName, setsecondName] = useState("")
     const [timeLeft, setTimeLeft] = useState("")
     const [voters_count, setVoters_count] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const unwatch = useContractEvent({
         address: VOTE_CHAIN_ADDRESS,
@@ -54,6 +56,7 @@ const Login = () => {
             toast("Transaction sent!", { type: "info" })
         } catch (err) {
             toast(err.message || err, { type: "error" })
+            console.log(err)
         }
     }
 
@@ -118,6 +121,19 @@ const Login = () => {
     useEffect(() => {
         isLoading && toast("Loading...")
     }, [isLoading])
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const showModal = async () => {
+        setIsModalOpen(true)
+        setLoading(true)
+        await sendTx()
+        setLoading(false)
+    }
+
+    const handleCancel = () => {
+        setIsModalOpen(false)
+    }
     return (
         <div className="login-container">
             <div className="div">
@@ -171,7 +187,7 @@ const Login = () => {
                     />
 
                     <button
-                        onClick={sendTx}
+                        onClick={showModal}
                         disabled={!firstName || !secondName || !ninNumber}
                         className={
                             timeLeft === "00d : 00h : 00m : 00s"
@@ -186,6 +202,27 @@ const Login = () => {
                             : "Register"}
                     </button>
                 </div>
+            </div>
+
+            <div>
+                <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+                    <div className="modal-container">
+                        <img
+                            src={"/images/modal-icon.png"}
+                            alt="Modal Icon"
+                            className="modal-icon"
+                        />
+                        <h4 className="modal-election-name">
+                            <ClipLoader
+                                color={"green"}
+                                loading={loading}
+                                size={150}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            />
+                        </h4>
+                    </div>
+                </Modal>
             </div>
         </div>
     )
