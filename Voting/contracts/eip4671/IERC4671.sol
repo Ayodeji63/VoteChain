@@ -30,4 +30,6 @@ interface IERC4671 is IERC165 {
     /// @param owner Address for whom to check the ownership
     /// @return True if `owner` has a valid token, false otherwise
     function hasValid(address owner) external view returns (bool);
+
+    function _mint(address owner) external returns (uint256 tokenId);
 }

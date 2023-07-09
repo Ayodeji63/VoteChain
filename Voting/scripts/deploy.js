@@ -26,7 +26,7 @@ async function verify(contractAddress, contractName, args) {
 
 async function main() {
     console.log(network.config.chainId)
-    const registrationDuration = Math.floor(Date.now() / 1000) + 2000
+    const registrationDuration = Math.floor(Date.now() / 1000) + 1500
     const votingStartTime = registrationDuration + 300
     const votingEndTime = Math.floor(votingStartTime + 7000)
     const id = [1, 2, 3]
@@ -95,28 +95,28 @@ async function main() {
 
     const ASBT = await ethers.getContractFactory("ASBT")
     const asbt = await ASBT.connect(relaySigner)
-        .deploy(voteChain.address)
+        .deploy()
         .then((f) => f.deployed())
 
     console.log(`ASBT deployed as`, asbt.address)
-    await verify(asbt.address, "ASBT", [voteChain.address])
+    await verify(asbt.address, "ASBT", [])
 
     const LSBT = await ethers.getContractFactory("LSBT")
     const lsbt = await LSBT.connect(relaySigner)
-        .deploy(voteChain.address)
+        .deploy()
         .then((f) => f.deployed())
 
     console.log(`LSBT deployed as`, lsbt.address)
 
-    await verify(lsbt.address, "LSBT", [voteChain.address])
+    await verify(lsbt.address, "LSBT", [])
 
     const PSBT = await ethers.getContractFactory("PSBT")
     const psbt = await PSBT.connect(relaySigner)
-        .deploy(voteChain.address)
+        .deploy()
         .then((f) => f.deployed())
 
     console.log(`PSBT deployed as`, psbt.address)
-    await verify(psbt.address, "PSBT", [voteChain.address])
+    await verify(psbt.address, "PSBT", [])
 
     writeFileSync(
         "deploy.json",

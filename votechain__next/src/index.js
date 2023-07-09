@@ -1,7 +1,7 @@
-export const VOTE_CHAIN_ADDRESS = "0x8b5aef3FbAf7a58db79Fde7Dd771d8Afd19E6bf9"
-export const ASBT_ADDRESS = "0x8E07CBa3117E2f5cC087b411Ab8E084f2883f0d9"
-export const LSBT_ADDRESS = "0x179C42aed161738B6F65648cBD385b14AaEF8d30"
-export const PSBT_ADDRESS = "0xa1D088A5507c0931B400c2644bd4c3d7576f5851"
+export const VOTE_CHAIN_ADDRESS = "0x1BFcc9c46D04C01bE36d8EBccDAF9eB7104aD9D2"
+export const ASBT_ADDRESS = "0x7baA0EDf1b16B018a4f08a22BcFfb9f3CB379C3e"
+export const LSBT_ADDRESS = "0x22206B28958057620a758c00274089a493571a3F"
+export const PSBT_ADDRESS = "0xd047882a1156B0A0654D84efb562A5BB73D989f8"
 export const VOTE_CHAIN_ABI = [
     {
         inputs: [
@@ -804,15 +804,9 @@ export const VOTE_CHAIN_ABI = [
     },
 ]
 
-export const SBT_ABI = [
+export const ASBT_ABI = [
     {
-        inputs: [
-            {
-                internalType: "address",
-                name: "voteChainAddress",
-                type: "address",
-            },
-        ],
+        inputs: [],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -852,25 +846,6 @@ export const SBT_ABI = [
             },
         ],
         name: "Revoked",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: false,
-                internalType: "address",
-                name: "owner",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
-        name: "TokenMinted",
         type: "event",
     },
     {
@@ -1002,19 +977,186 @@ export const SBT_ABI = [
         type: "function",
     },
     {
+        inputs: [],
+        name: "name",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
         inputs: [
             {
                 internalType: "uint256",
-                name: "candidateId",
+                name: "tokenId",
                 type: "uint256",
             },
+        ],
+        name: "ownerOf",
+        outputs: [
             {
                 internalType: "address",
-                name: "voterAddress",
+                name: "",
                 type: "address",
             },
         ],
-        name: "mintSBT",
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "bytes4",
+                name: "interfaceId",
+                type: "bytes4",
+            },
+        ],
+        name: "supportsInterface",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "symbol",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "index",
+                type: "uint256",
+            },
+        ],
+        name: "tokenByIndex",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                internalType: "uint256",
+                name: "index",
+                type: "uint256",
+            },
+        ],
+        name: "tokenOfOwnerByIndex",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "tokenURI",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+]
+
+export const LSBT_ABI = [
+    {
+        inputs: [],
+        stateMutability: "nonpayable",
+        type: "constructor",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: false,
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "Minted",
+        type: "event",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: false,
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "Revoked",
+        type: "event",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "_mint",
         outputs: [
             {
                 internalType: "uint256",
@@ -1023,6 +1165,415 @@ export const SBT_ABI = [
             },
         ],
         stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "string",
+                name: "uri",
+                type: "string",
+            },
+        ],
+        name: "_setBaseURI",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "_uri",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "balanceOf",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "emittedCount",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "hasValid",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "holdersCount",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "isValid",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "name",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "ownerOf",
+        outputs: [
+            {
+                internalType: "address",
+                name: "",
+                type: "address",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "bytes4",
+                name: "interfaceId",
+                type: "bytes4",
+            },
+        ],
+        name: "supportsInterface",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "symbol",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "index",
+                type: "uint256",
+            },
+        ],
+        name: "tokenByIndex",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                internalType: "uint256",
+                name: "index",
+                type: "uint256",
+            },
+        ],
+        name: "tokenOfOwnerByIndex",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "tokenURI",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+]
+
+export const PSBT_ABI = [
+    {
+        inputs: [],
+        stateMutability: "nonpayable",
+        type: "constructor",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: false,
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "Minted",
+        type: "event",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: false,
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "Revoked",
+        type: "event",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "_mint",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "string",
+                name: "uri",
+                type: "string",
+            },
+        ],
+        name: "_setBaseURI",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "_uri",
+        outputs: [
+            {
+                internalType: "string",
+                name: "",
+                type: "string",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "balanceOf",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "emittedCount",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "owner",
+                type: "address",
+            },
+        ],
+        name: "hasValid",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [],
+        name: "holdersCount",
+        outputs: [
+            {
+                internalType: "uint256",
+                name: "",
+                type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "tokenId",
+                type: "uint256",
+            },
+        ],
+        name: "isValid",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
         type: "function",
     },
     {

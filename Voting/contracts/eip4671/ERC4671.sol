@@ -67,6 +67,16 @@ abstract contract ERC4671 is
         return _indexedTokenIds[owner].length;
     }
 
+    /// @notice Mint a new token
+    /// @param owner Address for whom to assign the token
+    /// @return tokenId Identifier of the minted token
+    function _mint(address owner) public virtual returns (uint256 tokenId) {
+        _emittedCount += 1;
+        tokenId = _emittedCount;
+        _mintUnsafe(owner, tokenId, true);
+        emit Minted(owner, tokenId);
+    }
+
     /// @notice Get owner of a token
     /// @param tokenId Identifier of the token
     /// @return Address of the owner of `tokenId`
@@ -183,16 +193,6 @@ abstract contract ERC4671 is
         assert(_numberOfValidTokens[token.owner] > 0);
         _numberOfValidTokens[token.owner] -= 1;
         emit Revoked(token.owner, tokenId);
-    }
-
-    /// @notice Mint a new token
-    /// @param owner Address for whom to assign the token
-    /// @return tokenId Identifier of the minted token
-    function _mint(address owner) public virtual returns (uint256 tokenId) {
-        _emittedCount += 1;
-        tokenId = _emittedCount;
-        _mintUnsafe(owner, tokenId, true);
-        emit Minted(owner, tokenId);
     }
 
     /// @notice Mint a given tokenId

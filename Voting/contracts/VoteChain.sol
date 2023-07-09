@@ -230,7 +230,7 @@ contract VoteChain is
 
     function getTotalVoteCount() public view returns (uint) {
         uint totalVotes = 0;
-        for (uint i = 0; i < candidatesCount; i++) {
+        for (uint i = 0; i <= candidatesCount; i++) {
             totalVotes += candidates[i].voteCount;
         }
         return totalVotes;

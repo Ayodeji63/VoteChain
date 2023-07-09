@@ -41,39 +41,39 @@ async function sendMetaTx(
     })
 }
 
-// async function castVoteMetaTx(
-//     voteChain,
-//     provider,
-//     signer,
-//     candidateId,
-//     sender
-// ) {
-//     console.log(`Casting vote for ${candidateId}`)
+async function castVoteMetaTx(
+    voteChain,
+    provider,
+    signer,
+    candidateId,
+    sender
+) {
+    console.log(`Casting vote for ${candidateId}`)
 
-//     const url = process.env.NEXT_APP_WEBHOOK_URL
-//     if (!url) throw new Error(`Missing relayer url`)
+    const url = process.env.NEXT_APP_WEBHOOK_URL
+    if (!url) throw new Error(`Missing relayer url`)
 
-//     const forwarder = createInstance(provider)
-//     const from = await signer.getAddress()
+    const forwarder = createInstance(provider)
+    const from = await signer.getAddress()
 
-//     const data = voteChain.interface.encodeFunctionData("castVote", [
-//         candidateId,
-//         sender,
-//     ])
-//     const to = "0xb735573BfA9929237AdF2f6771206e30fb55aB98"
+    const data = voteChain.interface.encodeFunctionData("castVote", [
+        candidateId,
+        sender,
+    ])
+    const to = VOTE_CHAIN_ADDRESS
 
-//     const request = await signMetaTxRequest(signer.provider, forwarder, {
-//         to,
-//         from,
-//         data,
-//     })
+    const request = await signMetaTxRequest(signer.provider, forwarder, {
+        to,
+        from,
+        data,
+    })
 
-//     return fetch(url, {
-//         method: "POST",
-//         body: JSON.stringify(request),
-//         headers: { "Content-Type": "application/json" },
-//     })
-// }
+    return fetch(url, {
+        method: "POST",
+        body: JSON.stringify(request),
+        headers: { "Content-Type": "application/json" },
+    })
+}
 export async function registerVoter(
     voteChain,
     provider,

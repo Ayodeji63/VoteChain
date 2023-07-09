@@ -16,8 +16,11 @@ import {
 
 import { watchContractEvent } from "@wagmi/core"
 import {
+    ASBT_ABI,
     ASBT_ADDRESS,
+    LSBT_ABI,
     LSBT_ADDRESS,
+    PSBT_ABI,
     PSBT_ADDRESS,
     SBT_ABI,
     VOTE_CHAIN_ABI,
@@ -185,12 +188,13 @@ const FinalResults = () => {
         cacheTime: 2_000,
     })
 
-    async function getTokensUri(contractAddress) {
+    async function getTokensUri(contractAddress, abi) {
         try {
             const signer = userProvider.getSigner()
-            const contract = new Contract(contractAddress, SBT_ABI, signer)
+            const contract = new Contract(contractAddress, abi, signer)
 
             const tx = await contract._uri()
+            console.log(tx)
             setBadgeImage(tx)
             return tx
         } catch (e) {
@@ -203,7 +207,7 @@ const FinalResults = () => {
     const mintA = watchContractEvent(
         {
             address: ASBT_ADDRESS,
-            abi: SBT_ABI,
+            abi: ASBT_ABI,
             eventName: "TokenMinted",
         },
         (logs) => {
@@ -217,7 +221,7 @@ const FinalResults = () => {
     const mintL = watchContractEvent(
         {
             address: LSBT_ADDRESS,
-            abi: SBT_ABI,
+            abi: LSBT_ABI,
             eventName: "TokenMinted",
         },
         (logs) => {
@@ -231,7 +235,7 @@ const FinalResults = () => {
     const mintP = watchContractEvent(
         {
             address: PSBT_ADDRESS,
-            abi: SBT_ABI,
+            abi: PSBT_ABI,
             eventName: "TokenMinted",
         },
         (logs) => {
@@ -288,17 +292,20 @@ const FinalResults = () => {
                     : partyId == 2
                     ? ASBT_ADDRESS
                     : PSBT_ADDRESS
+            const abi =
+                partyId == 1 ? LSBT_ABI : partyId == 2 ? ASBT_ABI : PSBT_ABI
             console.log(sbtToken)
             console.log(sbtTokenAddress)
 
             setTxText("Casting Your Vote")
+            await castVote(registry, provider, id, address)
 
-            await getTokensUri(sbtTokenAddress)
+            await getTokensUri(sbtTokenAddress, abi)
+            setTxText("Claiming Your Vote")
             const mintToken = await _mintToken(
                 sbtToken,
                 sbtTokenAddress,
                 provider,
-                id,
                 address
             )
 
@@ -335,6 +342,7 @@ const FinalResults = () => {
                 <div
                     className="candidate-image"
                     onClick={() => router.push("/partyInfo")}
+                    key={record?.result.image}
                 >
                     <img
                         src={record?.result.image || ""}

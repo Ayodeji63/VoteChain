@@ -3,13 +3,7 @@ import { ASBT as address } from "../deploy.json"
 
 const abi = [
     {
-        inputs: [
-            {
-                internalType: "address",
-                name: "voteChainAddress",
-                type: "address",
-            },
-        ],
+        inputs: [],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -49,25 +43,6 @@ const abi = [
             },
         ],
         name: "Revoked",
-        type: "event",
-    },
-    {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: false,
-                internalType: "address",
-                name: "owner",
-                type: "address",
-            },
-            {
-                indexed: false,
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
-        name: "TokenMinted",
         type: "event",
     },
     {
@@ -196,30 +171,6 @@ const abi = [
             },
         ],
         stateMutability: "view",
-        type: "function",
-    },
-    {
-        inputs: [
-            {
-                internalType: "uint256",
-                name: "candidateId",
-                type: "uint256",
-            },
-            {
-                internalType: "address",
-                name: "voterAddress",
-                type: "address",
-            },
-        ],
-        name: "mintSBT",
-        outputs: [
-            {
-                internalType: "uint256",
-                name: "tokenId",
-                type: "uint256",
-            },
-        ],
-        stateMutability: "nonpayable",
         type: "function",
     },
     {
