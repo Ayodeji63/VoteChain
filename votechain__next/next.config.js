@@ -11,7 +11,7 @@ const nextConfig = {
     },
     env: {
         NEXT_APP_WEBHOOK_URL:
-            "https://api.defender.openzeppelin.com/autotasks/47a71d44-421e-4189-9469-43ea995c3205/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/Ks2NPNKxBd3sMgzjYYmEjU",
+            "https://api.defender.openzeppelin.com/autotasks/b0c72a3f-4829-40ef-a10f-0725ad92697a/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/TPjYc5XfxWcdU9Vmatvjwd",
         NEXT_APP_QUICKNODE_URL:
             "https://opt-goerli.g.alchemy.com/v2/3ORjCx6ybjwSU5YQ0fvTwugBPRmuz05_",
     },

@@ -12,10 +12,36 @@ describe("SBT", () => {
     const symbol = "APV"
     const uri =
         "https://bafkreihfbb3qqng3xnaecjlar34hgajwcj3rkrtdpi4rhvghqfl4kftzgy.ipfs.nftstorage.link/"
+    const registrationDuration = Math.floor(Date.now() / 1000) + 300
+    const votingStartTime = registrationDuration + 300
+    const votingEndTime = Math.floor(votingStartTime + 3600)
+    const id = [1, 2, 3]
+    const names = ["Buhari", "Atiku", "Peter"]
+    const vice = ["Shettima", "igboman", "Prof"]
+    const voteCount = [0, 0, 0]
+    const images = ["", "", ""]
+    const parties = ["APC", "PDP", "Labour"]
+    const position = ["President", "President", "President"]
     beforeEach(async () => {
         ;[owner, addr1, addr2, addr3] = await ethers.getSigners()
+
+        const forwarder = "0xb539068872230f20456CF38EC52EF2f91AF4AE49"
+        VoteChain = await ethers.getContractFactory("VoteChain")
+        voteChain = await VoteChain.deploy(
+            registrationDuration,
+            forwarder,
+            id,
+            names,
+            vice,
+            voteCount,
+            images,
+            parties,
+            position,
+            votingStartTime,
+            votingEndTime
+        )
         const SBT = await ethers.getContractFactory("ASBT")
-        sbt = await SBT.deploy()
+        sbt = await SBT.deploy(voteChain.address)
     })
 
     describe("Deployment", () => {
@@ -32,10 +58,15 @@ describe("SBT", () => {
     describe("minting", () => {
         it("Should mint", async () => {
             try {
-                let tx = await sbt._mint(addr1.address)
+                let registerVoter = await voteChain
+                    .connect(addr1)
+                    .registerVoter(1, "Sammy", "Wise")
+                await network.provider.send("evm_increaseTime", [1000])
+                let tx = await sbt.mintSBT(1, addr1.address)
                 expect(await tx)
                     .to.emit(sbt, "TokenMinted")
                     .withArgs(addr1.address, 1)
+                console.log(tx.value)
             } catch (e) {
                 console.log(e)
             }

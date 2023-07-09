@@ -58,8 +58,6 @@ abstract contract ERC4671 is
         _creator = msg.sender;
     }
 
-    event TokenMinted(address owner, uint tokenid);
-
     /// @notice Count all tokens assigned to an owner
     /// @param owner Address for whom to query the balance
     /// @return Number of tokens owned by `owner`
@@ -191,11 +189,10 @@ abstract contract ERC4671 is
     /// @param owner Address for whom to assign the token
     /// @return tokenId Identifier of the minted token
     function _mint(address owner) public virtual returns (uint256 tokenId) {
-        tokenId = _emittedCount + 1;
+        _emittedCount += 1;
+        tokenId = _emittedCount;
         _mintUnsafe(owner, tokenId, true);
         emit Minted(owner, tokenId);
-        _emittedCount += 1;
-        emit TokenMinted(owner, tokenId);
     }
 
     /// @notice Mint a given tokenId

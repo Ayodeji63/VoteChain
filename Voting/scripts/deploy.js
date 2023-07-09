@@ -2,15 +2,16 @@ const {
     DefenderRelayProvider,
     DefenderRelaySigner,
 } = require("defender-relay-client/lib/ethers")
-const hre = require("hardhat")
+const { run, ethers, network } = require("hardhat")
 const { writeFileSync } = require("fs")
 require("dotenv").config()
 const { RelayClient } = require("defender-relay-client")
 
-async function verify(contractAddress, args) {
+async function verify(contractAddress, contractName, args) {
     console.log("Verifying Contract....")
     try {
         await run("verify:verify", {
+            contract: `contracts/${contractName}.sol:${contractName}`,
             address: contractAddress,
             constructorArguments: args,
         })
@@ -23,11 +24,11 @@ async function verify(contractAddress, args) {
     }
 }
 
-async function deployASBT() {}
 async function main() {
-    const registrationDuration = Math.floor(Date.now() / 1000) + 13000
+    console.log(network.config.chainId)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 2000
     const votingStartTime = registrationDuration + 300
-    const votingEndTime = Math.floor(votingStartTime + 3000)
+    const votingEndTime = Math.floor(votingStartTime + 7000)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
@@ -49,39 +50,14 @@ async function main() {
         speed: "fast",
     })
 
-    const Forwarder = await hre.ethers.getContractFactory("MinimalForwarder")
+    const Forwarder = await ethers.getContractFactory("MinimalForwarder")
     const forwarder = await Forwarder.connect(relaySigner)
         .deploy()
         .then((f) => f.deployed())
 
     console.log(`Forwarder deployed as`, forwarder.address)
 
-    const ASBT = await hre.ethers.getContractFactory("ASBT")
-    const asbt = await ASBT.connect(relaySigner)
-        .deploy()
-        .then((f) => f.deployed())
-
-    console.log(`ASBT deployed as`, asbt.address)
-    await verify(asbt.address, [])
-
-    const LSBT = await hre.ethers.getContractFactory("LSBT")
-    const lsbt = await LSBT.connect(relaySigner)
-        .deploy()
-        .then((f) => f.deployed())
-
-    console.log(`LSBT deployed as`, lsbt.address)
-
-    await verify(lsbt.address, [])
-
-    const PSBT = await hre.ethers.getContractFactory("PSBT")
-    const psbt = await PSBT.connect(relaySigner)
-        .deploy()
-        .then((f) => f.deployed())
-
-    console.log(`PSBT deployed as`, psbt.address)
-    await verify(psbt.address, [])
-
-    const VoteChain = await hre.ethers.getContractFactory("VoteChain")
+    const VoteChain = await ethers.getContractFactory("VoteChain")
 
     const voteChain = await VoteChain.connect(relaySigner)
         .deploy(
@@ -102,6 +78,45 @@ async function main() {
     await voteChain.deployed()
 
     console.log(`VoteChain Deployed at`, voteChain.address)
+    console.log("verifying...")
+    await verify(voteChain.address, "VoteChain", [
+        registrationDuration,
+        forwarder.address,
+        id,
+        names,
+        vice,
+        voteCount,
+        images,
+        parties,
+        position,
+        votingStartTime,
+        votingEndTime,
+    ])
+
+    const ASBT = await ethers.getContractFactory("ASBT")
+    const asbt = await ASBT.connect(relaySigner)
+        .deploy(voteChain.address)
+        .then((f) => f.deployed())
+
+    console.log(`ASBT deployed as`, asbt.address)
+    await verify(asbt.address, "ASBT", [voteChain.address])
+
+    const LSBT = await ethers.getContractFactory("LSBT")
+    const lsbt = await LSBT.connect(relaySigner)
+        .deploy(voteChain.address)
+        .then((f) => f.deployed())
+
+    console.log(`LSBT deployed as`, lsbt.address)
+
+    await verify(lsbt.address, "LSBT", [voteChain.address])
+
+    const PSBT = await ethers.getContractFactory("PSBT")
+    const psbt = await PSBT.connect(relaySigner)
+        .deploy(voteChain.address)
+        .then((f) => f.deployed())
+
+    console.log(`PSBT deployed as`, psbt.address)
+    await verify(psbt.address, "PSBT", [voteChain.address])
 
     writeFileSync(
         "deploy.json",
@@ -137,21 +152,6 @@ async function main() {
             ],
         },
     })
-    console.log("verifying...")
-    await verify(voteChain.address, [
-        registrationDuration,
-        registrationDuration,
-        forwarder.address,
-        id,
-        names,
-        vice,
-        voteCount,
-        images,
-        parties,
-        position,
-        votingStartTime,
-        votingEndTime,
-    ])
 }
 
 main().catch((error) => {

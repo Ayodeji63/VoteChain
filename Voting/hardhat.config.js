@@ -1,5 +1,4 @@
 require("@nomicfoundation/hardhat-toolbox")
-require("@nomicfoundation/hardhat-verify")
 require("dotenv").config()
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -56,14 +55,18 @@ module.exports = {
             gasPrice: 8000000000,
         },
         optimismGoerli: {
+            chainId: 420,
             url: OP_URL,
             accounts: [PRIVATE_KEY],
+            gas: 21000000,
+            gasPrice: 8000000000,
         },
     },
     etherscan: {
         apiKey: {
             ftmTestnet: `${F_API_KEY}`,
             sepolia: `${S_API_KEY}`,
+            optimisticGoerli: `${process.env.OP_API}`,
             // opera: `${F_API_KEY}`,
         },
     },

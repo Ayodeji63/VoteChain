@@ -137,7 +137,7 @@ contract VoteChain is
         }
 
         Voter storage sender = voters[_msgSender()];
-        if (containsVoter(_msgSender())) {
+        if (containsVoter(_voterAddress)) {
             revert VoteChain_voterNotRegistered();
         }
         if (sender.hasVoted) {

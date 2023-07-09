@@ -19,6 +19,7 @@ import {
     ASBT_ADDRESS,
     LSBT_ADDRESS,
     PSBT_ADDRESS,
+    SBT_ABI,
     VOTE_CHAIN_ABI,
     VOTE_CHAIN_ADDRESS,
 } from "@/index"
@@ -28,8 +29,12 @@ import { EthereumContext } from "@/eth/context"
 import { castVote } from "@/eth/register"
 import { _mintToken } from "@/eth/mintSBT"
 import { ClipLoader } from "react-spinners"
+import { useRouter } from "next/navigation"
+import { Contract, providers } from "ethers"
 
 const FinalResults = () => {
+    let userProvider
+
     const [modal, contextHolder] = Modal.useModal()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalContent, setModalContent] = useState([])
@@ -44,48 +49,22 @@ const FinalResults = () => {
     const [txText, setTxText] = useState("")
     const [txAnimation, setTxAnimation] = useState(false)
     const [errorAnimation, seterrorAnimation] = useState(false)
+    const [favCandidate, setFavCandidate] = useState(false)
+    const [favId, setFavId] = useState(0)
+    const [badgeImage, setBadgeImage] = useState("")
+    const router = useRouter()
     // const navigate = useNavigate()
-
+    if (address) {
+        userProvider = new providers.Web3Provider(window.ethereum)
+    }
     const [startTime, setStartTime] = useState(null)
     const [endTime, setEndTime] = useState(null)
 
-    const v_StartTime = useContractRead({
+    const mlootContractConfig = {
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
-        functionName: "s_votingStartTime",
-    })
+    }
 
-    const v_endTime = useContractRead({
-        address: VOTE_CHAIN_ADDRESS,
-        abi: VOTE_CHAIN_ABI,
-        functionName: "s_votingEndTime",
-    })
-
-    const unwatch = watchContractEvent(
-        {
-            address: VOTE_CHAIN_ADDRESS,
-            abi: VOTE_CHAIN_ABI,
-            eventName: "VoteCasted",
-        },
-        (logs) => {
-            const { args } = logs[0]
-            toast("Vote Casted", { type: "info" })
-        }
-    )
-
-    const winning = watchContractEvent(
-        {
-            address: VOTE_CHAIN_ADDRESS,
-            abi: VOTE_CHAIN_ABI,
-            eventName: "WinningCandidate",
-        },
-        (logs) => {
-            const { args } = logs[0]
-            // console.log(logs)
-            console.log(Number(args.candidateId))
-            setWinningCandidate(Number(args.candidateId))
-        }
-    )
     const getTime = () => {
         const startTime = Number(v_StartTime.data)
         const unixTimestamp = v_StartTime.data
@@ -127,6 +106,37 @@ const FinalResults = () => {
         }
     }, 1000)
 
+    // ========= Read Contract ==========
+    const v_StartTime = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "s_votingStartTime",
+    })
+
+    const v_endTime = useContractRead({
+        address: VOTE_CHAIN_ADDRESS,
+        abi: VOTE_CHAIN_ABI,
+        functionName: "s_votingEndTime",
+    })
+
+    const supplyL = useContractRead({
+        address: LSBT_ADDRESS,
+        abi: SBT_ABI,
+        functionName: "holdersCount",
+    })
+
+    const supplyA = useContractRead({
+        address: ASBT_ADDRESS,
+        abi: SBT_ABI,
+        functionName: "holdersCount",
+    })
+
+    const supplyP = useContractRead({
+        address: PSBT_ADDRESS,
+        abi: SBT_ABI,
+        functionName: "holdersCount",
+    })
+
     const readCandidateCount = useContractRead({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -150,11 +160,6 @@ const FinalResults = () => {
             }
         },
     })
-
-    const mlootContractConfig = {
-        address: VOTE_CHAIN_ADDRESS,
-        abi: VOTE_CHAIN_ABI,
-    }
 
     const infinteRead = useContractInfiniteReads({
         cacheKey: "mlootAttributes",
@@ -180,8 +185,78 @@ const FinalResults = () => {
         cacheTime: 2_000,
     })
 
-    console.log(dataSet)
+    async function getTokensUri(contractAddress) {
+        try {
+            const signer = userProvider.getSigner()
+            const contract = new Contract(contractAddress, SBT_ABI, signer)
 
+            const tx = await contract._uri()
+            setBadgeImage(tx)
+            return tx
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    // ======== Watch Event ==========
+
+    const mintA = watchContractEvent(
+        {
+            address: ASBT_ADDRESS,
+            abi: SBT_ABI,
+            eventName: "TokenMinted",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            setLoading(false)
+            setTxText("Vote Casted.")
+            setTxAnimation(true)
+        }
+    )
+
+    const mintL = watchContractEvent(
+        {
+            address: LSBT_ADDRESS,
+            abi: SBT_ABI,
+            eventName: "TokenMinted",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            setLoading(false)
+            setTxText("Vote Casted.")
+            setTxAnimation(true)
+        }
+    )
+
+    const mintP = watchContractEvent(
+        {
+            address: PSBT_ADDRESS,
+            abi: SBT_ABI,
+            eventName: "TokenMinted",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            setLoading(false)
+            setTxText("Vote Casted.")
+            setTxAnimation(true)
+        }
+    )
+
+    const winning = watchContractEvent(
+        {
+            address: VOTE_CHAIN_ADDRESS,
+            abi: VOTE_CHAIN_ABI,
+            eventName: "WinningCandidate",
+        },
+        (logs) => {
+            const { args } = logs[0]
+            // console.log(logs)
+            console.log(Number(args.candidateId))
+            setWinningCandidate(Number(args.candidateId))
+        }
+    )
+
+    // ========= Write To Contract ======
     const vote = usePrepareContractWrite({
         address: VOTE_CHAIN_ADDRESS,
         abi: VOTE_CHAIN_ABI,
@@ -196,47 +271,50 @@ const FinalResults = () => {
         },
     })
 
+    const { write, isLoading, isSuccess, isError } = useContractWrite(
+        vote.config
+    )
     const { registry, provider, asbt, lsbt, psbt } = useContext(EthereumContext)
 
     const voteTx = async (id) => {
         try {
+            setFavCandidate(false)
             setLoading(true)
             const partyId = Number(id)
-            setTxText("Claim Your Vote")
-            const mintToken = await _mintToken(
-                partyId == 1 ? lsbt : partyId == 2 ? asbt : psbt,
+            const sbtToken = partyId == 1 ? lsbt : partyId == 2 ? asbt : psbt
+            const sbtTokenAddress =
                 partyId == 1
                     ? LSBT_ADDRESS
                     : partyId == 2
                     ? ASBT_ADDRESS
-                    : PSBT_ADDRESS,
-                provider,
-                address
-            )
+                    : PSBT_ADDRESS
+            console.log(sbtToken)
+            console.log(sbtTokenAddress)
+
             setTxText("Casting Your Vote")
-            const response = await castVote(
-                registry,
+
+            await getTokensUri(sbtTokenAddress)
+            const mintToken = await _mintToken(
+                sbtToken,
+                sbtTokenAddress,
                 provider,
-                candidateId,
+                id,
                 address
             )
 
-            const hash = response.hash
             // const onClick = hash ? () => window.open
 
             toast("Transaction sent!", { type: "info" })
-            setLoading(false)
         } catch (err) {
-            toast(err.message || err, { type: "error" })
+            seterrorAnimation(true)
+            console.log(err)
+            setTxText("An Error Occured")
             setLoading(false)
         }
     }
 
-    const { write, isLoading, isSuccess, isError } = useContractWrite(
-        vote.config
-    )
-
     const showModal = (record) => {
+        setFavCandidate(true)
         setIsModalOpen(true)
         setModalContent([record])
     }
@@ -244,6 +322,9 @@ const FinalResults = () => {
     const handleCancel = () => {
         setIsModalOpen(false)
         setIsVoted(false)
+        seterrorAnimation(false)
+        setTxText("")
+        setTxAnimation(false)
     }
     const columns = [
         {
@@ -251,7 +332,10 @@ const FinalResults = () => {
             dataIndex: ["name", "candidateImage"],
             key: "name",
             render: (text, record) => (
-                <div className="candidate-image">
+                <div
+                    className="candidate-image"
+                    onClick={() => router.push("/partyInfo")}
+                >
                     <img
                         src={record?.result.image || ""}
                         alt="First Candidate"
@@ -303,15 +387,19 @@ const FinalResults = () => {
                                     alt="Modal Icon"
                                     className="modal-icon"
                                 />
-                                {/* <h4 className="modal-election-name">
-                                    You are about to Vote for
-                                    {newModal?.result.name || ""}
-                                </h4> */}
-                                {/* <img
-                                    src={newModal.result.image}
-                                    alt="First Candidate"
-                                    className="newmodal-image"
-                                /> */}
+                                {favCandidate && (
+                                    <div>
+                                        <h4 className="modal-election-name">
+                                            You are about to Vote for{" "}
+                                            {newModal?.result.name || ""}
+                                        </h4>
+                                        <img
+                                            src={newModal.result.image}
+                                            alt="First Candidate"
+                                            className="newmodal-image"
+                                        />
+                                    </div>
+                                )}
                                 <div className="modal-wrapper">
                                     <ClipLoader
                                         color={"green"}
@@ -328,16 +416,19 @@ const FinalResults = () => {
                                         />
                                     )}
                                     {txAnimation && (
-                                        <img
-                                            src={"/success.gif"}
-                                            alt="First Candidate"
-                                            className="newmodal-image"
-                                        />
+                                        <div className="flex ">
+                                            <img
+                                                src={badgeImage}
+                                                alt="First Candidate"
+                                                className="newmodal-image"
+                                            />
+                                        </div>
                                     )}
                                     <h1 className="text-2xl font-bold mt-5">
                                         {txText}
                                     </h1>
                                 </div>
+
                                 <button
                                     className={"modal-election-btn "}
                                     onClick={() => voteTx(newModal.result.id)}

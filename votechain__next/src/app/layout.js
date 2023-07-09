@@ -58,22 +58,6 @@ const { wallets } = getDefaultWallets({
     chains,
 })
 
-const particle = new ParticleNetwork({
-    appId: "20ab8757-9a69-4b14-bd7c-9d06dd20d20e",
-    clientKey: "cQYVfEkOtm8ttmj9Rg3dCuD9kgi0M84BYo9eYqvc",
-    projectId: "b7d40265-7a93-4ff8-bc6e-bccb39228570",
-})
-
-const particleWallets =
-    typeof window !== "undefined"
-        ? [
-              particleWallet({ chains, authType: "google" }),
-              particleWallet({ chains, authType: "facebook" }),
-              particleWallet({ chains, authType: "apple" }),
-              particleWallet({ chains }),
-          ]
-        : []
-
 const popularWallets = {
     groupName: "Recommended",
     wallets: [
@@ -81,7 +65,6 @@ const popularWallets = {
         trustWallet({ chains }),
         injectedWallet({ chains }),
         rainbowWallet({ chains }),
-        coinbaseWallet({ appName: "RainbowKit demo", chains }),
         walletConnectWallet({ chains }),
     ],
 }
