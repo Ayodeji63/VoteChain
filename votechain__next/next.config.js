@@ -11,7 +11,7 @@ const nextConfig = {
     },
     env: {
         NEXT_APP_WEBHOOK_URL:
-            "https://api.defender.openzeppelin.com/autotasks/9c43ac65-69c0-45a2-8528-43e49bf475bc/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/9wyt4fgCjsEb4q9nub6KpQ",
+            "https://api.defender.openzeppelin.com/autotasks/6620e581-0e2a-4848-b8ea-5012f272418f/runs/webhook/91a62652-c9e3-42f6-b847-41d0c7006df9/Rssq8grkJiHbMe2diFXDVU",
         NEXT_APP_QUICKNODE_URL:
             "https://polygon-mumbai.g.alchemy.com/v2/R294dgwjxsihCLrErr51Xs8SNbQYB97Y",
     },
