@@ -155,13 +155,8 @@ const FinalResults = () => {
         abi: VOTE_CHAIN_ABI,
         functionName: "getWinningCandidateId",
         onSuccess(data) {
-            for (let i = 0; i < dataSet.length; i++) {
-                const element = dataSet[i]
-                if (Number(data) == Number(element.result.id)) {
-                    console.log(element)
-                    setWinningCandidateData(element)
-                }
-            }
+            console.log(data)
+            setWinningCandidateData(Number(data))
         },
     })
 
@@ -205,7 +200,6 @@ const FinalResults = () => {
     async function logJSONData(uri) {
         const response = await fetch(uri)
         const jsonData = await response.json()
-        console.log(jsonData)
         return jsonData
     }
     async function getTokensUri(contractAddress, abi) {
@@ -215,12 +209,15 @@ const FinalResults = () => {
 
             const tx = await contract._uri()
             console.log(tx)
-            setBadgeImage(tx)
+            const data = await logJSONData(tx)
+            setBadgeImage(data.image)
             return tx
         } catch (e) {
             console.log(e)
         }
     }
+
+    console.log(badgeImage)
 
     // ======== Watch Event ==========
 
@@ -228,7 +225,7 @@ const FinalResults = () => {
         {
             address: ASBT_ADDRESS,
             abi: ASBT_ABI,
-            eventName: "TokenMinted",
+            eventName: "Minted",
         },
         (logs) => {
             const { args } = logs[0]
@@ -242,7 +239,7 @@ const FinalResults = () => {
         {
             address: LSBT_ADDRESS,
             abi: LSBT_ABI,
-            eventName: "TokenMinted",
+            eventName: "Minted",
         },
         (logs) => {
             const { args } = logs[0]
@@ -256,7 +253,7 @@ const FinalResults = () => {
         {
             address: PSBT_ADDRESS,
             abi: PSBT_ABI,
-            eventName: "TokenMinted",
+            eventName: "Minted",
         },
         (logs) => {
             const { args } = logs[0]
@@ -305,15 +302,30 @@ const FinalResults = () => {
             setFavCandidate(false)
             setLoading(true)
             const partyId = Number(id)
-            const sbtToken = partyId == 1 ? lsbt : partyId == 2 ? asbt : psbt
+            const sbtToken =
+                partyId == 1
+                    ? lsbt
+                    : partyId == 2
+                    ? asbt
+                    : partyId == 3
+                    ? psbt
+                    : ""
             const sbtTokenAddress =
                 partyId == 1
                     ? LSBT_ADDRESS
                     : partyId == 2
                     ? ASBT_ADDRESS
-                    : PSBT_ADDRESS
+                    : partyId == 3
+                    ? PSBT_ADDRESS
+                    : ""
             const abi =
-                partyId == 1 ? LSBT_ABI : partyId == 2 ? ASBT_ABI : PSBT_ABI
+                partyId == 1
+                    ? LSBT_ABI
+                    : partyId == 2
+                    ? ASBT_ABI
+                    : partyId == 3
+                    ? PSBT_ABI
+                    : ""
             console.log(sbtToken)
             console.log(sbtTokenAddress)
 
@@ -322,12 +334,7 @@ const FinalResults = () => {
 
             await getTokensUri(sbtTokenAddress, abi)
             setTxText("Claiming Your Vote")
-            const mintToken = await _mintToken(
-                sbtToken,
-                sbtTokenAddress,
-                provider,
-                address
-            )
+            await _mintToken(sbtToken, sbtTokenAddress, provider, address)
 
             // const onClick = hash ? () => window.open
 
@@ -415,7 +422,7 @@ const FinalResults = () => {
                         {modalContent.map((newModal) => (
                             <div
                                 className="modal-container"
-                                key={newModal?.result?.image}
+                                key={newModal?.image}
                             >
                                 <img
                                     src={"/images/modal-icon.png"}
@@ -426,10 +433,10 @@ const FinalResults = () => {
                                     <div>
                                         <h4 className="modal-election-name">
                                             You are about to Vote for{" "}
-                                            {newModal?.result.name || ""}
+                                            {newModal?.name || ""}
                                         </h4>
                                         <img
-                                            src={newModal.result.image}
+                                            src={newModal?.jsonData.Pimage}
                                             alt="First Candidate"
                                             className="newmodal-image"
                                         />
@@ -451,10 +458,10 @@ const FinalResults = () => {
                                         />
                                     )}
                                     {txAnimation && (
-                                        <div className="flex ">
+                                        <div className="flex">
                                             <img
                                                 src={badgeImage}
-                                                alt="First Candidate"
+                                                alt="BadgeImage"
                                                 className="newmodal-image"
                                             />
                                         </div>
@@ -466,7 +473,7 @@ const FinalResults = () => {
 
                                 <button
                                     className={"modal-election-btn "}
-                                    onClick={() => voteTx(newModal.result.id)}
+                                    onClick={() => voteTx(newModal.id)}
                                     disabled={!endTime || startTime}
                                 >
                                     {isSuccess
@@ -489,7 +496,7 @@ const FinalResults = () => {
             const element = dataSet[i]
             if (Number(winningCandidate) == Number(element.id)) {
                 console.log(element)
-                setWinningCandidateData(element)
+                setWinningCandidateData(Number(element.id))
             }
         }
     }, [winningCandidate])
@@ -511,20 +518,12 @@ const FinalResults = () => {
                 </div>
             </div>
             {winningCandidateData && (
-                <div className="winning-candidate">
-                    <h1>Winning Candidate</h1>
-                    <div className="candidate-image">
+                <div className="winning-candidate w-full">
+                    <div className="w-[80%]">
                         <img
-                            src={winningCandidateData?.result.image || ""}
+                            src={`/winner${winningCandidateData}.png`}
+                            className="w-full h-full object-contain"
                             alt="First Candidate"
-                        />
-                        <a href="##">
-                            {winningCandidateData?.result.name || ""}
-                        </a>
-                        <img
-                            src={"/images/modal-icon.png"}
-                            alt="Modal Icon"
-                            className="winning modal-icon"
                         />
                     </div>
                 </div>

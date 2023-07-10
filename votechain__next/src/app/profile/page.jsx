@@ -77,6 +77,12 @@ const page = () => {
             console.log(e)
         }
     }
+    async function logJSONData(uri) {
+        const response = await fetch(uri)
+        const jsonData = await response.json()
+        console.log(jsonData)
+        return jsonData
+    }
     const arrL = async () => {
         const arr = []
         for (let i = 1; i <= Number(supplyL.data); i++) {
@@ -84,7 +90,8 @@ const page = () => {
             const owner = await contract.ownerOf(i)
             if (owner == address) {
                 const uri = await getTokensUri(LSBT_ADDRESS, ASBT_ABI)
-                const token = { tokenId: i, uri }
+                const data = await logJSONData(uri)
+                const token = { tokenId: i, data }
                 arr.push(token)
             }
         }
@@ -93,7 +100,8 @@ const page = () => {
             const owner = await contract.ownerOf(i)
             if (owner == address) {
                 const uri = await getTokensUri(PSBT_ADDRESS, PSBT_ABI)
-                const token = { tokenId: i, uri }
+                const data = await logJSONData(uri)
+                const token = { tokenId: i, data }
                 arr.push(token)
             }
         }
@@ -102,7 +110,8 @@ const page = () => {
             const owner = await contract.ownerOf(i)
             if (owner == address) {
                 const uri = await getTokensUri(ASBT_ADDRESS, ASBT_ABI)
-                const token = { tokenId: i, uri }
+                const data = await logJSONData(uri)
+                const token = { tokenId: i, data }
                 arr.push(token)
             }
         }
@@ -154,7 +163,7 @@ const page = () => {
                 {Badges.length > 0 && (
                     <div className="w-[30%] sm:w-[40%]   p-3 rounded-lg shadow-2xl h-[45vh] overflow-hidden">
                         <img
-                            src={Badges[0]?.uri}
+                            src={Badges[0]?.data?.image}
                             className="w-full h-[83%] object-cover"
                             alt="Badges"
                         />
