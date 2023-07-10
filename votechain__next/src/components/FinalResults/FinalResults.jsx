@@ -302,30 +302,23 @@ const FinalResults = () => {
             setFavCandidate(false)
             setLoading(true)
             const partyId = Number(id)
-            const sbtToken =
-                partyId == 1
-                    ? lsbt
-                    : partyId == 2
-                    ? asbt
-                    : partyId == 3
-                    ? psbt
-                    : ""
-            const sbtTokenAddress =
-                partyId == 1
-                    ? LSBT_ADDRESS
-                    : partyId == 2
-                    ? ASBT_ADDRESS
-                    : partyId == 3
-                    ? PSBT_ADDRESS
-                    : ""
-            const abi =
-                partyId == 1
-                    ? LSBT_ABI
-                    : partyId == 2
-                    ? ASBT_ABI
-                    : partyId == 3
-                    ? PSBT_ABI
-                    : ""
+            let sbtToken, sbtTokenAddress, abi
+            if (partyId == 1) {
+                sbtToken = lsbt
+                sbtTokenAddress = LSBT_ADDRESS
+                abi = LSBT_ABI
+            }
+            if (partyId == 2) {
+                sbtToken = asbt
+                sbtTokenAddress = ASBT_ADDRESS
+                abi = ASBT_ABI
+            }
+            if (partyId == 3) {
+                sbtToken = psbt
+                sbtTokenAddress = PSBT_ADDRESS
+                abi = PSBT_ABI
+            }
+
             console.log(sbtToken)
             console.log(sbtTokenAddress)
 

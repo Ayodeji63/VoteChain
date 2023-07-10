@@ -24,6 +24,32 @@ async function verify(contractAddress, contractName, args) {
     }
 }
 
+async function waitForConfirmations(txHash, confirmationCount) {
+    const provider = ethers.provider
+    const startBlockNumber = await provider.getBlockNumber()
+
+    let currentConfirmationCount = 0
+
+    while (currentConfirmationCount < confirmationCount) {
+        const currentBlockNumber = await provider.getBlockNumber()
+
+        if (currentBlockNumber > startBlockNumber) {
+            const transaction = await provider.getTransaction(txHash)
+
+            if (
+                transaction &&
+                transaction.confirmations > currentConfirmationCount
+            ) {
+                currentConfirmationCount = transaction.confirmations
+                console.log(
+                    `Confirmation count: ${currentConfirmationCount}/${confirmationCount}`
+                )
+            }
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1000)) // Wait for 1 second before checking again
+    }
+}
 async function main() {
     console.log(network.config.chainId)
     const registrationDuration = Math.floor(Date.now() / 1000) + 2000
@@ -73,48 +99,32 @@ async function main() {
             votingStartTime,
             votingEndTime
         )
-        .then((f) => f.deployed(3))
+        .then((f) => f.deployed())
+    // Wait for 5 confirmations before running verification
 
     console.log(`VoteChain Deployed at`, voteChain.address)
     console.log("verifying...")
-    await verify(voteChain.address, "VoteChain", [
-        registrationDuration,
-        forwarder.address,
-        id,
-        names,
-        vice,
-        voteCount,
-        images,
-        parties,
-        position,
-        votingStartTime,
-        votingEndTime,
-    ])
 
     const ASBT = await ethers.getContractFactory("ASBT")
     const asbt = await ASBT.connect(relaySigner)
         .deploy()
-        .then((f) => f.deployed(3))
-
+        .then((f) => f.deployed())
+    await asbt.deployed()
     console.log(`ASBT deployed as`, asbt.address)
-    await verify(asbt.address, "ASBT", [])
 
     const LSBT = await ethers.getContractFactory("LSBT")
     const lsbt = await LSBT.connect(relaySigner)
         .deploy()
-        .then((f) => f.deployed(3))
+        .then((f) => f.deployed())
 
     console.log(`LSBT deployed as`, lsbt.address)
-
-    await verify(lsbt.address, "LSBT", [])
 
     const PSBT = await ethers.getContractFactory("PSBT")
     const psbt = await PSBT.connect(relaySigner)
         .deploy()
-        .then((f) => f.deployed(3))
+        .then((f) => f.deployed())
 
     console.log(`PSBT deployed as`, psbt.address)
-    await verify(psbt.address, "PSBT", [])
 
     writeFileSync(
         "deploy.json",
@@ -150,6 +160,29 @@ async function main() {
             ],
         },
     })
+
+    const confirmationCount = 5
+    await waitForConfirmations(
+        voteChain.deployTransaction.hash,
+        confirmationCount
+    )
+
+    await verify(voteChain.address, "VoteChain", [
+        registrationDuration,
+        forwarder.address,
+        id,
+        names,
+        vice,
+        voteCount,
+        images,
+        parties,
+        position,
+        votingStartTime,
+        votingEndTime,
+    ])
+    await verify(psbt.address, "PSBT", [])
+    await verify(lsbt.address, "LSBT", [])
+    await verify(asbt.address, "ASBT", [])
 }
 
 main().catch((error) => {
