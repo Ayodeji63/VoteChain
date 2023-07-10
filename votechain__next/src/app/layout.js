@@ -70,7 +70,6 @@ const popularWallets = {
         trustWallet({ chains }),
         injectedWallet({ chains }),
         rainbowWallet({ chains }),
-        walletConnectWallet({ chains }),
     ],
 }
 
