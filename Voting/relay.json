@@ -1,10 +1,10 @@
 {
   "relayer": {
-    "relayerId": "84ece7e0-45b7-4fb1-a69a-e389f8a7a292",
-    "name": "VoteChain Mumbai",
-    "address": "0xcfb606d1dd8d28dcc52bdfbb73d1365da1fbb4a3",
-    "network": "mumbai",
-    "createdAt": "2023-07-10T16:16:25.064Z",
+    "relayerId": "8f0d7808-edc6-40fa-bdc4-bb5383a9e706",
+    "name": "VoteChain OPT",
+    "address": "0x00ecfcac231c42ef1ff5bae6e2238a1f357d533e",
+    "network": "optimism-goerli",
+    "createdAt": "2023-07-10T21:10:56.376Z",
     "paused": false,
     "policies": {},
     "minBalance": "100000000000000000",

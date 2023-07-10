@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@0xsequence/rainbowkit-plugin": "^1.1.0",
+    "@heroicons/react": "^2.0.18",
     "@particle-network/rainbowkit-ext": "^0.13.5",
     "@rainbow-me/rainbowkit": "^1.0.1",
     "antd": "^5.6.0",

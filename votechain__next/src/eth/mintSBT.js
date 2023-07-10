@@ -1,6 +1,7 @@
 import { ethers } from "ethers"
 import { createInstance } from "./forwarder"
 import { signMetaTxRequest } from "./signer"
+import { ASBT_ADDRESS } from ".."
 
 async function mintToken(token, tokenAddress, provider, signer, sender) {
     console.log(`Minting Nft ro ${sender}`)
@@ -38,7 +39,7 @@ export async function _mintToken(token, tokenAddress, provider, sender) {
     const userProvider = new ethers.providers.Web3Provider(window.ethereum)
 
     const userNetwork = await userProvider.getNetwork()
-    if (userNetwork.chainId !== 80001)
+    if (userNetwork.chainId !== 420)
         throw new Error(`Please switch to Goerli for signing`)
     const signer = userProvider.getSigner()
     const from = await signer.getAddress()

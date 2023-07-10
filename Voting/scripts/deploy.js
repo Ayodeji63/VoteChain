@@ -52,9 +52,9 @@ async function waitForConfirmations(txHash, confirmationCount) {
 }
 async function main() {
     console.log(network.config.chainId)
-    const registrationDuration = Math.floor(Date.now() / 1000) + 2000
-    const votingStartTime = registrationDuration + 100
-    const votingEndTime = Math.floor(votingStartTime + 1800)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 1500
+    const votingStartTime = registrationDuration + 60
+    const votingEndTime = Math.floor(votingStartTime + 1000)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
@@ -107,21 +107,21 @@ async function main() {
 
     const ASBT = await ethers.getContractFactory("ASBT")
     const asbt = await ASBT.connect(relaySigner)
-        .deploy()
+        .deploy(forwarder.address)
         .then((f) => f.deployed())
     await asbt.deployed()
     console.log(`ASBT deployed as`, asbt.address)
 
     const LSBT = await ethers.getContractFactory("LSBT")
     const lsbt = await LSBT.connect(relaySigner)
-        .deploy()
+        .deploy(forwarder.address)
         .then((f) => f.deployed())
 
     console.log(`LSBT deployed as`, lsbt.address)
 
     const PSBT = await ethers.getContractFactory("PSBT")
     const psbt = await PSBT.connect(relaySigner)
-        .deploy()
+        .deploy(forwarder.address)
         .then((f) => f.deployed())
 
     console.log(`PSBT deployed as`, psbt.address)
@@ -180,9 +180,9 @@ async function main() {
         votingStartTime,
         votingEndTime,
     ])
-    await verify(psbt.address, "PSBT", [])
-    await verify(lsbt.address, "LSBT", [])
-    await verify(asbt.address, "ASBT", [])
+    await verify(psbt.address, "PSBT", [forwarder.address])
+    await verify(lsbt.address, "LSBT", [forwarder.address])
+    await verify(asbt.address, "ASBT", [forwarder.address])
 }
 
 main().catch((error) => {

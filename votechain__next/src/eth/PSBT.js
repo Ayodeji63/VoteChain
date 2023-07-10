@@ -3,7 +3,13 @@ import { PSBT as address } from "../deploy.json"
 
 const abi = [
     {
-        inputs: [],
+        inputs: [
+            {
+                internalType: "contract MinimalForwarder",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -157,6 +163,25 @@ const abi = [
     {
         inputs: [
             {
+                internalType: "address",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
+        name: "isTrustedForwarder",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
                 internalType: "uint256",
                 name: "tokenId",
                 type: "uint256",
@@ -300,7 +325,6 @@ const abi = [
         type: "function",
     },
 ]
-
 export function createPSBTInstance(provider) {
     return new ethers.Contract(address, abi, provider)
 }

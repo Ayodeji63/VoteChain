@@ -50,7 +50,7 @@ const poppins = Poppins({
 })
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [polygonMumbai],
+    [optimismGoerli],
     [
         alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
         publicProvider(),

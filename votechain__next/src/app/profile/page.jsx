@@ -14,8 +14,13 @@ import { Contract, ethers, providers } from "ethers"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 import { AiOutlineArrowLeft } from "react-icons/ai"
-import { useAccount, useContractRead } from "wagmi"
+import {
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    BeakerIcon,
+} from "@heroicons/react/24/solid"
 
+import { useAccount, useContractRead } from "wagmi"
 const page = () => {
     const router = useRouter()
     const [voterData, setVoterData] = useState(null)
@@ -129,10 +134,7 @@ const page = () => {
                 onClick={() => router.back()}
                 className="flex bg-green-700 w-fit p-1 font-medium rounded-xl text-white items-center cursor-pointer"
             >
-                <AiOutlineArrowLeft
-                    className="arrow-left"
-                    // onClick={handleNavigate}
-                />
+                <ArrowLeftIcon className="h-6 w-6" />
                 <p>back</p>
             </div>
 

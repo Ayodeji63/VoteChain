@@ -8,8 +8,8 @@ async function run() {
 
     // create relay using defender client
     const requestParams = {
-        name: "VoteChain Mumbai",
-        network: "mumbai",
+        name: "VoteChain OPT",
+        network: "optimism-goerli",
         minBalance: BigInt(1e17).toString(),
     }
     const relayer = await relayClient.create(requestParams)

@@ -263,19 +263,19 @@ const FinalResults = () => {
         }
     )
 
-    const VoteCasted = watchContractEvent(
-        {
-            address: VOTE_CHAIN_ADDRESS,
-            abi: VOTE_CHAIN_ABI,
-            eventName: "VoteCasted",
-        },
-        (logs) => {
-            const { args } = logs[0]
-            setLoading(false)
-            setTxText("Vote Casted.")
-            setTxAnimation(true)
-        }
-    )
+    // const VoteCasted = watchContractEvent(
+    //     {
+    //         address: VOTE_CHAIN_ADDRESS,
+    //         abi: VOTE_CHAIN_ABI,
+    //         eventName: "VoteCasted",
+    //     },
+    //     (logs) => {
+    //         const { args } = logs[0]
+    //         setLoading(false)
+    //         setTxText("Vote Casted.")
+    //         setTxAnimation(true)
+    //     }
+    // )
 
     const winning = watchContractEvent(
         {
@@ -339,9 +339,9 @@ const FinalResults = () => {
             setTxText("Casting Your Vote")
             await castVote(registry, provider, id, address)
 
-            // await getTokensUri(sbtTokenAddress, abi)
-            // setTxText("Claiming Your Vote")
-            // await _mintToken(sbtToken, sbtTokenAddress, provider, address)
+            await getTokensUri(sbtTokenAddress, abi)
+            setTxText("Claiming Your Vote")
+            await _mintToken(sbtToken, sbtTokenAddress, provider, address)
 
             // const onClick = hash ? () => window.open
 

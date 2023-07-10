@@ -1,7 +1,7 @@
-export const VOTE_CHAIN_ADDRESS = "0xf7087e54Ef60015026c0bdbdD6FeA73bc6f65482"
-export const ASBT_ADDRESS = "0x5244E24d97330eBa0A4CB49eD314a1c0D9d0e332"
-export const LSBT_ADDRESS = "0x81DCb8F9C8D5197dc2F3718b5821017E953A195f"
-export const PSBT_ADDRESS = "0xAeBC2C7A7FE8bD8274c119cBd78906b4238C6475"
+export const VOTE_CHAIN_ADDRESS = "0xf8Cdbe68912e8559489Cc635A0B003e404366aAA"
+export const ASBT_ADDRESS = "0x503a29855E484F71fA58A64d1ADF0D181862c85B"
+export const LSBT_ADDRESS = "0x28a5a83C8D104be8f8FdAbdE9cB8cbAFD853d7f9"
+export const PSBT_ADDRESS = "0xDBFDEB8726E3B54ae41Ea209Fecc7d2d17170501"
 
 export const VOTE_CHAIN_ABI = [
     {
@@ -807,7 +807,13 @@ export const VOTE_CHAIN_ABI = [
 
 export const ASBT_ABI = [
     {
-        inputs: [],
+        inputs: [
+            {
+                internalType: "contract MinimalForwarder",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -953,6 +959,25 @@ export const ASBT_ABI = [
                 internalType: "uint256",
                 name: "",
                 type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
+        name: "isTrustedForwarder",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
             },
         ],
         stateMutability: "view",
@@ -1107,7 +1132,13 @@ export const ASBT_ABI = [
 
 export const LSBT_ABI = [
     {
-        inputs: [],
+        inputs: [
+            {
+                internalType: "contract MinimalForwarder",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -1253,6 +1284,25 @@ export const LSBT_ABI = [
                 internalType: "uint256",
                 name: "",
                 type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
+        name: "isTrustedForwarder",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
             },
         ],
         stateMutability: "view",
@@ -1407,7 +1457,13 @@ export const LSBT_ABI = [
 
 export const PSBT_ABI = [
     {
-        inputs: [],
+        inputs: [
+            {
+                internalType: "contract MinimalForwarder",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
         stateMutability: "nonpayable",
         type: "constructor",
     },
@@ -1553,6 +1609,25 @@ export const PSBT_ABI = [
                 internalType: "uint256",
                 name: "",
                 type: "uint256",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "address",
+                name: "forwarder",
+                type: "address",
+            },
+        ],
+        name: "isTrustedForwarder",
+        outputs: [
+            {
+                internalType: "bool",
+                name: "",
+                type: "bool",
             },
         ],
         stateMutability: "view",

@@ -17,6 +17,7 @@ import "swiper/css/scrollbar"
 import { Context } from "@/eth/candidate"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { useRouter } from "next/navigation"
+import { ArrowLeftIcon } from "@heroicons/react/24/solid"
 
 const PartyInfo = () => {
     const progressCircle = useRef(null)
@@ -35,10 +36,7 @@ const PartyInfo = () => {
                 onClick={() => router.back()}
                 className="flex bg-green-700 w-fit p-1 font-medium rounded-xl text-white items-center cursor-pointer"
             >
-                <AiOutlineArrowLeft
-                    className="arrow-left"
-                    // onClick={handleNavigate}
-                />
+                <ArrowLeftIcon className="h-6 w-6" />
                 <p>back</p>
             </div>
             <div className="flex items-center mt-9 overflow-hidden justify-center w-fit">
@@ -95,7 +93,7 @@ const PartyInfo = () => {
                 <div className="w-[30%] sm:w-[40%] p-3 rounded-lg shadow-2xl h-[45vh] overflow-hidden">
                     <img
                         src={candidateInfo.jsonData.Pimage}
-                        className="w-full h-[83%] object-cover"
+                        className="w-full h-[75%] object-cover"
                         alt="First Candidate"
                     />
                     <p className="font-semibold text-xl">
@@ -107,7 +105,7 @@ const PartyInfo = () => {
                 <div className="w-[30%] sm:w-[40%]  p-3 rounded-lg shadow-2xl h-[45vh] overflow-hidden">
                     <img
                         src={candidateInfo.jsonData.VpImage}
-                        className="w-full h-[83%] object-cover"
+                        className="w-full h-[75%] object-cover"
                         alt="First Candidate"
                     />
                     <p className="font-semibold text-xl">
