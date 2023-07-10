@@ -37,7 +37,7 @@
         "local:deploy": "hardhat run scripts/deploy.js --network local",
         "local:sign": "hardhat run scripts/sign.js --network local",
         "create-relay": "node scripts/createRelay.js",
-        "deploy": "hardhat run scripts/deploy.js --network optimismGoerli",
+        "deploy": "hardhat run scripts/deploy.js --network mumbai",
         "sign": "hardhat run scripts/sign.js --network goerli",
         "events": "hardhat run scripts/events.js --network goerli",
         "verify": "hardhat run scripts/verify.js --network goerli",

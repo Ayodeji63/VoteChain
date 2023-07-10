@@ -24,7 +24,7 @@ module.exports = {
         },
     },
     networks: {
-        polygon: {
+        mumbai: {
             url: P_RPC_URL,
             accounts: [PRIVATE_KEY],
             gas: 2100000,
@@ -67,6 +67,7 @@ module.exports = {
             ftmTestnet: `${F_API_KEY}`,
             sepolia: `${S_API_KEY}`,
             optimisticGoerli: `${process.env.OP_API}`,
+            polygonMumbai: `${P_API_KEY}`,
             // opera: `${F_API_KEY}`,
         },
     },

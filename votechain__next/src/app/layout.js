@@ -9,7 +9,12 @@ import {
     connectorsForWallets,
 } from "@rainbow-me/rainbowkit"
 import { configureChains, createConfig, sepolia, WagmiConfig } from "wagmi"
-import { fantomTestnet, goerli, optimismGoerli } from "wagmi/chains"
+import {
+    fantomTestnet,
+    goerli,
+    optimismGoerli,
+    polygonMumbai,
+} from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import Navbar from "@/components/Navbar/Navbar"
@@ -45,7 +50,7 @@ const poppins = Poppins({
 })
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [optimismGoerli],
+    [polygonMumbai],
     [
         alchemyProvider({ apiKey: "PrdHvDC9SU7_y9GyCH3tG734SOMbwAkj" }),
         publicProvider(),

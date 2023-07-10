@@ -91,7 +91,7 @@ export async function registerVoter(
     const userProvider = new ethers.providers.Web3Provider(window.ethereum)
 
     const userNetwork = await userProvider.getNetwork()
-    if (userNetwork.chainId !== 420)
+    if (userNetwork.chainId !== 80001)
         throw new Error(`Please switch to Goerli for signing`)
     const signer = userProvider.getSigner()
     const from = await signer.getAddress()
@@ -110,7 +110,7 @@ export async function castVote(voteChain, provider, candidateId, sender) {
     const userProvider = new ethers.providers.Web3Provider(window.ethereum)
 
     const userNetwork = await userProvider.getNetwork()
-    if (userNetwork.chainId !== 420)
+    if (userNetwork.chainId !== 80001)
         throw new Error(`Please switch to Goerli for signing`)
     const signer = userProvider.getSigner()
 
