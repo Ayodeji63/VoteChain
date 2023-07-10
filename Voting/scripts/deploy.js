@@ -52,9 +52,9 @@ async function waitForConfirmations(txHash, confirmationCount) {
 }
 async function main() {
     console.log(network.config.chainId)
-    const registrationDuration = Math.floor(Date.now() / 1000) + 1500
-    const votingStartTime = registrationDuration + 60
-    const votingEndTime = Math.floor(votingStartTime + 1000)
+    const registrationDuration = Math.floor(Date.now() / 1000) + 86400
+    const votingStartTime = registrationDuration + 500
+    const votingEndTime = Math.floor(votingStartTime + 86400)
     const id = [1, 2, 3]
     const names = ["Peter Gregory Obi", "Bola Ahmed Tinubu", "Atiku Abubakar"]
     const vice = ["Shettima", "igboman", "Prof"]
