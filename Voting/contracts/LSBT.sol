@@ -6,7 +6,7 @@ import "./Interfaces/IVotingElect.sol";
 contract LSBT is ERC4671 {
     constructor() ERC4671("LABOUR VOTERS", "LPV") {
         _setBaseURI(
-            "https://bafkreihvlsvq67lu3hadxubu5v2zv7nxflepujvr4sdgkhybykzddwz2fu.ipfs.nftstorage.link/"
+            "https://bafkreig3sacvsrsgdr7rsb6rnu5blhpztvci7ehv4vtvgm5mwemlatwbli.ipfs.nftstorage.link/"
         );
     }
 }

@@ -6,7 +6,7 @@ import "./Interfaces/IVotingElect.sol";
 contract ASBT is ERC4671 {
     constructor() ERC4671("APC VOTERS", "APV") {
         _setBaseURI(
-            "https://bafkreihfbb3qqng3xnaecjlar34hgajwcj3rkrtdpi4rhvghqfl4kftzgy.ipfs.nftstorage.link/"
+            "https://bafkreiga62jgpp4dlaz36fh75x6uwcp7u4dodqhr57nlx36fuy6azzk5fe.ipfs.nftstorage.link/"
         );
     }
 }

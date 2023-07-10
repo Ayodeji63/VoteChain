@@ -34,6 +34,7 @@ import { _mintToken } from "@/eth/mintSBT"
 import { ClipLoader } from "react-spinners"
 import { useRouter } from "next/navigation"
 import { Contract, providers } from "ethers"
+import { Context } from "@/eth/candidate"
 
 const FinalResults = () => {
     let userProvider
@@ -124,19 +125,19 @@ const FinalResults = () => {
 
     const supplyL = useContractRead({
         address: LSBT_ADDRESS,
-        abi: SBT_ABI,
+        abi: LSBT_ABI,
         functionName: "holdersCount",
     })
 
     const supplyA = useContractRead({
         address: ASBT_ADDRESS,
-        abi: SBT_ABI,
+        abi: ASBT_ABI,
         functionName: "holdersCount",
     })
 
     const supplyP = useContractRead({
         address: PSBT_ADDRESS,
-        abi: SBT_ABI,
+        abi: PSBT_ABI,
         functionName: "holdersCount",
     })
 
@@ -183,11 +184,30 @@ const FinalResults = () => {
             }
         ),
         onSuccess(data) {
-            setDataSet(data.pages[0])
+            console.log(data.pages[0].result)
+            getJsonData(data.pages[0])
         },
         cacheTime: 2_000,
     })
 
+    async function getJsonData(data) {
+        const arr = []
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i].result
+            const jsonData = await logJSONData(element.image)
+            const arrEl = { ...data[i].result, jsonData }
+            arr.push(arrEl)
+        }
+        console.log(arr)
+        setDataSet(arr)
+    }
+
+    async function logJSONData(uri) {
+        const response = await fetch(uri)
+        const jsonData = await response.json()
+        console.log(jsonData)
+        return jsonData
+    }
     async function getTokensUri(contractAddress, abi) {
         try {
             const signer = userProvider.getSigner()
@@ -279,7 +299,7 @@ const FinalResults = () => {
         vote.config
     )
     const { registry, provider, asbt, lsbt, psbt } = useContext(EthereumContext)
-
+    const { candidateInfo, setCandidateInfo } = useContext(Context)
     const voteTx = async (id) => {
         try {
             setFavCandidate(false)
@@ -333,22 +353,27 @@ const FinalResults = () => {
         setTxText("")
         setTxAnimation(false)
     }
+
+    const showParty = (info) => {
+        setCandidateInfo(info)
+        router.push("/partyInfo")
+    }
     const columns = [
         {
-            title: "Name",
+            title: "Logo",
             dataIndex: ["name", "candidateImage"],
-            key: "name",
+            key: "logo",
             render: (text, record) => (
                 <div
-                    className="candidate-image"
-                    onClick={() => router.push("/partyInfo")}
-                    key={record?.result.image}
+                    className="candidate-image cursor-pointer"
+                    onClick={() => showParty(record)}
+                    key={record?.id}
                 >
                     <img
-                        src={record?.result.image || ""}
+                        src={record?.jsonData.partyImage || ""}
                         alt="First Candidate"
+                        className="w-[10rem]"
                     />
-                    <a href="##">{record?.result.name || ""}</a>
                 </div>
             ),
         },
@@ -356,15 +381,17 @@ const FinalResults = () => {
             title: "PARTY",
             dataIndex: "party",
             key: "party",
-            render: (text, record) => <p>{record?.result.party || ""} Party</p>,
+            render: (text, record) => (
+                <p onClick={() => showParty(record)} className="cursor-pointer">
+                    {record?.party || ""} Party
+                </p>
+            ),
         },
         {
             title: "TOTAL VOTES",
             dataIndex: "voteCount",
             key: "voteCount",
-            render: (text, record) => (
-                <p>{Number(record?.result.voteCount) || 0}</p>
-            ),
+            render: (text, record) => <p>{Number(record?.voteCount) || 0}</p>,
         },
         {
             title: "ACTION",
@@ -375,7 +402,7 @@ const FinalResults = () => {
                         className="vote-btn"
                         onClick={() => {
                             showModal(record)
-                            setCandidateId(record?.result.id || "")
+                            setCandidateId(record?.id || "")
                         }}
                     >
                         {isVoted ? "Voted" : "Vote"}
@@ -460,7 +487,7 @@ const FinalResults = () => {
     useEffect(() => {
         for (let i = 0; i < dataSet.length; i++) {
             const element = dataSet[i]
-            if (Number(winningCandidate) == Number(element.result.id)) {
+            if (Number(winningCandidate) == Number(element.id)) {
                 console.log(element)
                 setWinningCandidateData(element)
             }
